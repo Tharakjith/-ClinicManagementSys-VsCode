@@ -1,21 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
+
+import { ReceptionistsComponent } from './receptionists/receptionists.component';
+
 import { AdminComponent } from './admin/admin.component';
 
 import { UsersComponent } from './users/users.component';
 
 
+
 const routes: Routes = [
-//Empty Routes
-{
-  path: '', redirectTo: 'auth/login', pathMatch: 'full'
-},
+
+  {path : '', redirectTo: '/patients/list', pathMatch: 'full'},
+
+
   //Lazy-loading
-  {path : 'auth', component: AuthComponent,
-    loadChildren: () => import ('./auth/auth.module')
-    .then(x => x.AuthModule)
+  {
+    path: 'patients', component: ReceptionistsComponent,
+    loadChildren: () => import('./receptionists/receptionists.module')
+      .then(x => x.ReceptionistsModule),
   },
+
+
+  // {path: 'auth', component: AuthComponent,
+  //   loadChildren: () => import('./auth/auth.module').then(x => x.AuthModule)
+  // } ,
+
+
   { 
     path: 'admin',  component: AdminComponent,
     loadChildren: () => import('./admin/admin.module').then(e => e.AdminModule) 
@@ -26,7 +38,7 @@ const routes: Routes = [
   },
   
   //Wildcard routes
-  {path: '**', redirectTo: 'auth/notfound', pathMatch:'full'}
+  { path: '**', redirectTo: 'auth/notfound', pathMatch: 'full' }
 ];
 
 @NgModule({

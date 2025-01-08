@@ -1,0 +1,77 @@
+<div class="container">
+  <!-- Header -->
+  <br>
+  <h3>Patient Management...</h3>
+  <br>
+  <div class="header">
+    <div class="row mb-3">
+      <!-- Search -->
+      <div class="col-sm-8">
+        <input 
+          type="search" 
+          class="form-control" 
+          placeholder="Search here ....." 
+          [(ngModel)]="searchTerm">
+      </div>
+
+      <!-- Add Patient -->
+      <div class="col-sm-4 text-end">
+        <a [routerLink]="['/patients/add']" role="button" class="btn btn-outline-info">
+          <i class="fa fa-user-plus fa-lg"></i> Register Patient
+        </a>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <!-- Display Records -->
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark text-center">
+      <tr>
+        <th scope="col">Patient Code</th>
+        <th scope="col">Patient Name</th>
+        <th scope="col">DOB</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Blood Group</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Address</th>
+        <th scope="col">Registration Date</th>
+        <th scope="col">Active</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of filteredPatients() | paginate:{ itemsPerPage: pageSize, currentPage: page }" class="text-center">
+        <td>{{'PC' + patient.PatientId}}</td>
+        <td>{{patient.PatientName}}</td>
+        <td>{{patient.Dob | date: 'dd-MM-yyyy'}}</td>
+        <td>{{patient.Gender}}</td>
+        <td>{{patient.BloodGroup}}</td>
+        <td>{{patient.PatientPhone}}</td>
+        <td>{{patient.PatientAddress}}</td>
+        <td>{{patient.RegistrationDate | date: 'dd-MM-yyyy'}}</td>
+        <td><input type="checkbox" [checked]="patient.IsActive" disabled></td>
+        <td>
+          <div aria-label="Actions">
+            <button class="btn btn-outline-info btn-sm" (click)="editPatient(patient)" title="Edit">
+              <i class="fa fa-edit"></i>
+            </button>
+            &nbsp;
+            <!-- <button class="btn btn-outline-danger btn-sm" (click)="deletePatient(patient)" title="Delete">
+              <i class="fa fa-trash"></i>
+            </button>
+            &nbsp; -->
+            <button class="btn btn-outline-info btn-sm" (click)="bookAppointment(patient)" title="Book Appointment">
+              Book Appointment 
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Footer with Pagination -->
+  <div class="footer mt-3">
+    <pagination-controls class="custom-page" (pageChange)="page = $event"></pagination-controls>
+  </div>
+</div>
