@@ -1,60 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DoctorComponent } from './doctor/doctor.component';
 import { AuthComponent } from './auth/auth.component';
-import { MedicineManagementsComponent } from './medicine-managements/medicine-managements.component';
-
-
-import { ReceptionistsComponent } from './receptionists/receptionists.component';
-
-import { AdminComponent } from './admin/admin.component';
-
-import { UsersComponent } from './users/users.component';
-
-
 
 const routes: Routes = [
 
-  {path : '', redirectTo: '/patients/list', pathMatch: 'full'},
-
-
-  //Lazy-loading
-  
-  {path : 'medicine-managements', component: MedicineManagementsComponent,
-    loadChildren: () => import ('./medicine-managements/medicine-managements.module')
-    .then(p => p.MedicineManagementsModule)
-  },
-  
-  {path : 'auth', component: AuthComponent,
-    loadChildren: () => import ('./auth/auth.module')
-    .then(x => x.AuthModule)
+  // Empty Route
+   {
+     path: '', redirectTo: 'auth/login', pathMatch: 'full'
+    
   },
 
-
-
-  {
-    path: 'patients', component: ReceptionistsComponent,
-    loadChildren: () => import('./receptionists/receptionists.module')
-      .then(x => x.ReceptionistsModule),
+  //Lazy Loading
+  {path:'doctor',component:DoctorComponent,
+    loadChildren: () => import('./doctor/doctor.module')
+    .then(e=>e.DoctorModule)
   },
 
+//   {path:'auth',component:AuthComponent,
+//   loadChildren:() =>import('./auth/auth.module')
+//   .then(x => x.AuthModule)
+// },
 
-  // {path: 'auth', component: AuthComponent,
-  //   loadChildren: () => import('./auth/auth.module').then(x => x.AuthModule)
-  // } ,
 
+  {path: '**',redirectTo: 'auth/notfound',pathMatch:'full'}
 
-  { 
-    path: 'admin',  component: AdminComponent,
-    loadChildren: () => import('./admin/admin.module').then(e => e.AdminModule) 
-  },
-  { 
-    path: 'users',  component: UsersComponent,
-    loadChildren: () => import('./users/users.module').then(e => e.UsersModule) 
-  },
-  
-
-  //Wildcard routes
-  { path: '**', redirectTo: 'auth/notfound', pathMatch: 'full' }
 ];
 
 @NgModule({
