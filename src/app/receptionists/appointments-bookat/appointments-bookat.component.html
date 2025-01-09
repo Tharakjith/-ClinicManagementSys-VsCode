@@ -1,9 +1,9 @@
 <div class="container">
     <h3>Book an Appointment</h3>
     <hr>
-    <!-- <form #patform="ngForm" (ngSubmit)="onSubmit(patform)"> -->
+    <form #patform="ngForm" (ngSubmit)="onSubmit(patform)">
       <!-- Patient ID -->
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label>Patient ID:</label>
         <input
           type="text"
@@ -12,10 +12,10 @@
           class="form-control"
           [(ngModel)]="appointment.PatientId"
         />
-      </div> -->
+      </div>
   
       <!-- Specialization Dropdown -->
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label>Specialization</label>
         <select
           class="form-control"
@@ -32,10 +32,10 @@
             {{ spec.SpecializationName }}
           </option>
         </select>
-      </div> -->
+      </div>
   
       <!-- Doctor Dropdown -->
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label>Doctor</label>
         <select
           class="form-control"
@@ -44,15 +44,15 @@
           (change)="onDoctorChange()"
           required
         >
-          <option value="" disabled selected>Select Doctor</option>
+          <!-- <option value="" disabled selected>Select Doctor</option>
           <option *ngFor="let doc of doctors" [value]="doc.DoctorId">
             {{ doc.StaffName }}
-          </option>
+          </option> -->
         </select>
-      </div> -->
+      </div>
   
       <!-- Availability Dropdown -->
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label>Availability</label>
         <select
           class="form-control"
@@ -66,9 +66,9 @@
           </option>
         </select>
       </div>
-   -->
+  
       <!-- Appointment Date -->
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label>Appointment Date</label>
         <input
           type="date"
@@ -77,10 +77,10 @@
           name="appointmentDate"
           required
         />
-      </div> -->
+      </div>
   
       <!-- Token Number -->
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label>Token Number</label>
         <input
           type="number"
@@ -96,10 +96,10 @@
         >
           Generate Token
         </button>
-      </div> -->
+      </div>
   
       <!-- Consultation Fee -->
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label>Consultation Fee</label>
         <input
           type="number"
@@ -108,9 +108,10 @@
           name="consultationFee"
           readonly
         />
-      </div> -->
+      </div>
   
       <!-- Submit Button -->
-      <!-- <button type="submit" class="btn btn-success">Book Appointment</button>
-    </form> -->
+      <button type="submit" class="btn btn-success">Book Appointment</button>
+    </form>
   </div>
+  

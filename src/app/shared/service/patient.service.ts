@@ -5,8 +5,8 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Specialization } from '../model/specialization';
 import { Doctors } from '../model/doctors';
-// import { Availability } from '../model/availability';
-// import { Appointment } from '../model/appointment';
+import { Availability } from '../model/availability';
+import { Appointment } from '../model/appointment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,8 @@ export class PatientService {
   patients: Patient[] = [];
   specializations: Specialization[] = [];
   doctors: Doctors[] = [];
-  // availabilities: Availability[] = [];
-  // frmAppointment: Appointment = new Appointment();
+  availabilities: Availability[] = [];
+  frmAppointment: Appointment = new Appointment();
   formPatientData: Patient = new Patient();
 
   //Dob: any;
@@ -52,28 +52,28 @@ export class PatientService {
     return this.httpClient.put(environment.apiUrl + 'receptions/' + patient.PatientId, patient);
   }
 
-  // getAllSpecializations(): Observable<Specialization[]> {
-  //   return this.httpClient.get<Specialization[]>
-  //   (${environment.apiUrl}Specializations);
-  // }
+  getAllSpecializations(): Observable<Specialization[]> {
+    return this.httpClient.get<Specialization[]>
+    (`${environment.apiUrl}Specializations`);
+  }
 
-  // getDoctorsBySpecialization(specializationId: number): Observable<Doctors[]> {
-  //   return this.httpClient.get<Doctors[]>
-  //   (${environment.apiUrl}Doctors/${specializationId});
-  // }
+  getDoctorsBySpecialization(specializationId: number): Observable<Doctors[]> {
+    return this.httpClient.get<Doctors[]>
+    (`${environment.apiUrl}Doctors/${specializationId}`);
+  }
 
-  // getDoctorAvailability(doctorId: number): Observable<Availability[]> {
-  //   return this.httpClient.get<Availability[]>
-  //   (${environment.apiUrl}DoctorAvailability/${doctorId});
-  // }
+  getDoctorAvailability(doctorId: number): Observable<Availability[]> {
+    return this.httpClient.get<Availability[]>
+    (`${environment.apiUrl}DoctorAvailability/${doctorId}`);
+  }
 
-  // generateToken(doctorId: number, appointmentDate: string, timeSlotId: number): Observable<number> {
-  //   return this.httpClient.get<number>
-  //   (${environment.apiUrl}generatetoken/${doctorId}/${appointmentDate}/${timeSlotId});
-  // }
+  generateToken(doctorId: number, appointmentDate: string, timeSlotId: number): Observable<number> {
+    return this.httpClient.get<number>
+    (`${environment.apiUrl}generatetoken/${doctorId}/${appointmentDate}/${timeSlotId}`);
+  }
 
-  // bookAppointment(appointment: Appointment): Observable<any> {
-  //   return this.httpClient.post(${environment.apiUrl}Bookappointment, appointment);
-  // }
+  bookAppointment(appointment: Appointment): Observable<any> {
+    return this.httpClient.post(`${environment.apiUrl}Bookappointment`, appointment);
+  }
 
 }

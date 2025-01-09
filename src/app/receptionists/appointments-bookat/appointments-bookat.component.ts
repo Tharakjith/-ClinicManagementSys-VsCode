@@ -1,6 +1,8 @@
 import { formatDate } from '@angular/common';
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 // import { Appointment } from 'src/app/shared/model/appointment';
@@ -29,6 +31,9 @@ export class AppointmentsBookatComponent implements OnInit {
   patientId: number = 0;
 
   constructor(public patientService: PatientService,
+    private router: Router,
+    private toastr: ToastrService,
+    private route: ActivatedRoute,) { }
     private router: Router,
     private toastr: ToastrService,
     private route: ActivatedRoute,) { }
