@@ -12,9 +12,7 @@ import { Doctor } from '../model/doctor';
   providedIn: 'root'
 })
 export class DoctorService {
-  getAllDiagnosys() {
-    throw new Error('Method not implemented.');
-  }
+  
   //declare some variables
   //List of Employees
   startDiagnosys: StartDiagnosy[] = [];
@@ -24,6 +22,8 @@ export class DoctorService {
   appoinmentpatientViewmodel: AppoinmentpatientViewmodel[] = [];
   formappoinment: AppoinmentpatientViewmodel = new AppoinmentpatientViewmodel();
   DateOfJoining: any;
+  DiagnosysDate:any;
+
 
   //DI:HTTP CLIENT
 
@@ -43,38 +43,53 @@ export class DoctorService {
         console.log(error);
       });
   }
-  //Insert Employee
-  insertDiagnosys(doctor:StartDiagnosy): Observable<any>{
-  console.log("Insert In service ");
-  return this.httpClient.post(environment.apiUrl + 'StartDiagnosys',
-      doctor);
-   }
-  //Get All Departmnets
-  getAllAppoinments(): void {
-    this.httpClient.get(environment.apiUrl + 'viewPatientAppoinment/todaysAppointments/{doctorId}')
-      .toPromise()
-      .then((response?: any) => {
-        if (response.Value) {
-          this.appoinmentpatientViewmodel = response.Value;
-          console.log(this.appoinmentpatientViewmodel);
-        }
-
-      })
-      .catch((error) => {
-        console.log('Error Occured:', error);
-      })
-  }
-  //4 - Update an Employee
-    /*editDiagnosys( StartDiagnosy: Appoinment): Observable<any> {
-       console.log("Update: In service");
-     return this.httpClient.put(environment.apiUrl + 'doctor/'+StartDiagnosy.DoctorId,this.appoinment);
- }*/
+   
+  
 
   getTodaysAppointments(doctorId: number): Observable<AppoinmentpatientViewmodel[]> {
     return this.httpClient.get<AppoinmentpatientViewmodel[]>(
       `${environment.apiUrl}viewPatientAppoinment/todaysAppointments/${doctorId}`
     );
   }
+
+//1-Get all Diagnosys
+  getAllDoctors(): void {
+    this.httpClient.get(environment.apiUrl + 'StartDiagnosys/Doctors')
+      .toPromise()
+      .then((response?: any) => {
+        if (response.Value) {
+          this.doctors = response.Value;
+          console.log(this.doctors);
+        }
+      })
+      .catch((error) => {
+        console.log('Error Occured : ',error);
+      });
+  }
+  getAllDiagnosys(): void {
+    this.httpClient.get(environment.apiUrl + 'StartDiagnosys')
+      .toPromise()
+      .then((response?: any) => {
+        if (response.Value) {
+          this.startDiagnosys = response.Value;
+          console.log(this.startDiagnosys);
+        }
+      })
+      .catch((error) => {
+        console.log('Error Occured : ',error);
+      });
+  }
+
+//Insert Employee
+insertDiagnosys(startDiagnosys:StartDiagnosy): Observable<any>{
+  console.log("Insert In service ");
+  return this.httpClient.post(environment.apiUrl + 'StartDiagnosys',startDiagnosys);
+   }
+ //4 - Update an Employee
+ editDiagnosys( startDiagnosy: StartDiagnosy): Observable<any> {
+  console.log("Update: In service");
+return this.httpClient.put(environment.apiUrl + 'startDiagnosy/HistoryId'+ startDiagnosy.HistoryId,this.startDiagnosys);
+}
   
 
 }

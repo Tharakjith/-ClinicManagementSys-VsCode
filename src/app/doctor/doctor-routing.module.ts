@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ViewAppointmentListComponent } from './view-appointment-list/view-appointment-list.component';
 import { StartDiagnosysAddComponent } from './start-diagnosys-add/start-diagnosys-add.component';
+import { StartDiagnosysEditComponent } from './start-diagnosys-edit/start-diagnosys-edit.component';
+import { StartDiagnosysListComponent } from './start-diagnosys-list/start-diagnosys-list.component';
 
 
 const routes: Routes = [
@@ -9,10 +11,11 @@ const routes: Routes = [
   { path: 'list/:doctorId', component: ViewAppointmentListComponent},
 
   //employee Add
-  {path:'add', component: StartDiagnosysAddComponent}
+  {path:'startdiagnosys/add', component: StartDiagnosysAddComponent},
 
   //employee Edit
-  //{path:'edit/:id',component:EmployeeEditComponent},
+  {path:'startdiagnosys/edit/:id',component:StartDiagnosysEditComponent},
+  {path:'startdiagnosys/list',component:StartDiagnosysListComponent},
 
 
 ];

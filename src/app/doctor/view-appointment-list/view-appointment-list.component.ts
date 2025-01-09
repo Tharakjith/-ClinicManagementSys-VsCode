@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DoctorService } from 'src/app/shared/service/doctor.service';
 import { AppoinmentpatientViewmodel } from 'src/app/shared/model/appoinmentpatient-viewmodel';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-view-appointment-list',
@@ -16,7 +18,7 @@ export class ViewAppointmentListComponent implements OnInit {
   pageSize: number = 6;
 
   constructor(
-    private doctorService: DoctorService,
+    public doctorService: DoctorService,
     private route: ActivatedRoute
   ) {}
 

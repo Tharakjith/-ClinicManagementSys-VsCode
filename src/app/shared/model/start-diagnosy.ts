@@ -12,8 +12,10 @@ export class StartDiagnosy {
     "DateTime": Date = new Date();
     "Reference": number = 0;
     "AppointmentId": number = 0;
+    "IsActive": boolean;
     
     appoinment:Appoinment=new Appoinment();
+  
 
 
    

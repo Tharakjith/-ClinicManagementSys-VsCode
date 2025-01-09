@@ -22,7 +22,7 @@ export class StartDiagnosysAddComponent implements OnInit {
 
   ngOnInit(): void {
    
-    this.doctorService.getAllDiagnosys();
+    this.doctorService.getAllDoctors();
   }
   //Submit form
   onSubmit(empform:NgForm){
@@ -33,7 +33,7 @@ export class StartDiagnosysAddComponent implements OnInit {
    empform.reset();
 
     //Redirect to Employee List
-    this.router.navigate(['/employees/list']);
+    this.router.navigate(['/doctor/startdiagnosys/add']);
 
   }
   //Insert Method
@@ -46,7 +46,7 @@ export class StartDiagnosysAddComponent implements OnInit {
         this.errorMessage=null;
         this.doctorService.getAllDiagnosys();
 
-        this.router.navigate(['/employees/list']);
+        this.router.navigate(['/doctor/startdiagnosys/list']);
 
         empform.reset()
 
