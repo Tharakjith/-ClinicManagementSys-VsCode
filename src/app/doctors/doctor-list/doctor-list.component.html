@@ -1,0 +1,92 @@
+<div class="container mt-4">
+    <!-- Header -->
+    <h3 class="text-center mb-4">List of doctors</h3>
+  
+    <!-- Search and Add Staff -->
+    <div class="row mb-3">
+      <!-- Search -->
+      <div class="col-md-8">
+        <input
+          type="search"
+          class="form-control"
+          placeholder="Search doctors here..."
+          [(ngModel)]="searchTerm"
+        />
+      </div>
+     
+
+      <!-- Add Staff -->
+      <div class="col-md-4 text-md-end text-center">
+        <a [routerLink]="['/doctors/add']" role="button" class="btn btn-outline-primary">
+
+          <i class="fa fa-user-plus fa-lg"></i>&nbsp;Add Doctors
+        </a>
+      </div>
+    </div>
+  
+    <!-- Doctor Records Table -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark text-center">
+          <tr>
+            <th scope="col">Doctor Code</th>
+           
+            <th scope="col">Specialization</th>
+            
+           
+            
+            <th scope="col">Consultation Fees</th>
+            
+            <th scope="col">Doctor Name</th>
+            <th scope="col">Is Active</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr
+            *ngFor="let doctor of filtereddoctors() 
+          | paginate: { itemsPerPage: pageSize, currentPage: page }"
+          >
+            <td>{{ 'DT' + doctor.DoctorId }}</td>
+            <td>{{ doctor.staff.StaffName }}</td>
+            <td>{{ doctor.specialization?.SpecializationName }}</td>
+            <td>{{ doctor. ConsultationFee}}</td>
+            <td>
+              <input
+                type="checkbox"
+                [checked]="doctor.DoctorIsActive"
+                class="form-check-input"
+                disabled
+              />
+            </td>
+            <td class="text-center">
+              <button
+                class="btn btn-sm btn-outline-info"
+                (click)="UpdateDoctors(doctor)"
+                title="Edit"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
+              &nbsp;
+              <button
+                class="btn btn-sm btn-outline-danger"
+                (click)="deleteDoctors(doctor)"
+                title="Delete"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Pagination -->
+    <div class="footer text-center mt-3">
+      <pagination-controls
+        class="custom-page"
+        (pageChange)="page = $event"
+      ></pagination-controls>
+    </div>
+  </div>
+  
