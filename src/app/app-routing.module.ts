@@ -14,7 +14,7 @@ import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
 
-  {path : '', redirectTo: '/patients/list', pathMatch: 'full'},
+  {path : '', redirectTo: '/admin/list', pathMatch: 'full'},
 
 
   //Lazy-loading

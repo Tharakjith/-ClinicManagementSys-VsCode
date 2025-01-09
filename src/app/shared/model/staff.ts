@@ -17,6 +17,7 @@ export class Staff {
 
   
   Gender: string = ''; 
+  Salary: number = 0.00;
   StaffIsActive: boolean = false; 
 
  
