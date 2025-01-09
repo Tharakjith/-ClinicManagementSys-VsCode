@@ -1,17 +1,24 @@
 import { Department } from "./department";
 
 export class Staff {
-    staffId: number = 0;
-    staffName: string = "";
-    dob: Date = new Date();
-    doj: Date = new Date();
-    createdDate: Date = new Date();
-    address: string = "";
-    phoneNumber: string = "";
-    email: string = "";
-    gender: string = "";
-    departmentId: number = 0;
-    staffIsActive: boolean = false;
+  
+  StaffId: number = 0;
+  StaffName: string = '';
+  DepartmentId: number = 0;
 
-    department: Department = new Department();
-}
+  
+  Dob: Date = new Date(); // Date of Birth
+  Doj: Date = new Date(); // Date of Joining
+  CreatedDate: Date = new Date(); 
+ 
+  Address: string = '';
+  PhoneNumber: string = '';
+  Email: string = '';
+
+  
+  Gender: string = ''; 
+  StaffIsActive: boolean = false; 
+
+ 
+  Department: Department = new Department(); }
+  

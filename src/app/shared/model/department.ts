@@ -1,4 +1,6 @@
 export class Department {
-    departmentId: number = 0;
-    departmentName: string = "";
+    
+        DepartmentId?: number =0;
+        DepartmentName?: string='';
+    
 }

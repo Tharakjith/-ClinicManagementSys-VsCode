@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DoctorService } from 'src/app/shared/service/doctor.service';
 
 @Component({
   selector: 'app-doctordash',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DoctordashComponent implements OnInit {
 
-  constructor() { }
+  doctorId: number = 0;
+
+  constructor(private route: ActivatedRoute, public doctorService: DoctorService) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.doctorId = +params['doctorId'];
+      this.fetchTodaysAppointments();
+    });
+  }
+
+  fetchTodaysAppointments() {
+    this.doctorService.getTodaysAppointments(this.doctorId);
   }
 
 }

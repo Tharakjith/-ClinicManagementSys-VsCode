@@ -1,26 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DoctorComponent } from './doctor/doctor.component';
 import { AuthComponent } from './auth/auth.component';
-import { ReceptionistsComponent } from './receptionists/receptionists.component';
 
 const routes: Routes = [
 
-  {path : '', redirectTo: '/patients/list', pathMatch: 'full'},
-
-
-  //Lazy-loading
-  {
-    path: 'patients', component: ReceptionistsComponent,
-    loadChildren: () => import('./receptionists/receptionists.module')
-      .then(x => x.ReceptionistsModule),
+  // Empty Route
+   {
+     path: '', redirectTo: 'auth/login', pathMatch: 'full'
+    
   },
 
-  // {path: 'auth', component: AuthComponent,
-  //   loadChildren: () => import('./auth/auth.module').then(x => x.AuthModule)
-  // } ,
+  //Lazy Loading
+  {path:'doctor',component:DoctorComponent,
+    loadChildren: () => import('./doctor/doctor.module')
+    .then(e=>e.DoctorModule)
+  },
 
-  //Wildcard routes
-  { path: '**', redirectTo: 'auth/notfound', pathMatch: 'full' }
+//   {path:'auth',component:AuthComponent,
+//   loadChildren:() =>import('./auth/auth.module')
+//   .then(x => x.AuthModule)
+// },
+
+
+  {path: '**',redirectTo: 'auth/notfound',pathMatch:'full'}
+
 ];
 
 @NgModule({
