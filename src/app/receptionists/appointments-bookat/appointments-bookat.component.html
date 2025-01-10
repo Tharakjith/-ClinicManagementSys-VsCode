@@ -1,117 +1,116 @@
 <div class="container">
-    <h3>Book an Appointment</h3>
-    <hr>
-    <form #patform="ngForm" (ngSubmit)="onSubmit(patform)">
-      <!-- Patient ID -->
-      <div class="form-group">
-        <label>Patient ID:</label>
-        <input
-          type="text"
-          readonly
-          name="PatientId"
-          class="form-control"
-          [(ngModel)]="appointment.PatientId"
-        />
-      </div>
-  
-      <!-- Specialization Dropdown -->
-      <div class="form-group">
-        <label>Specialization</label>
-        <select
-          class="form-control"
-          [(ngModel)]="selectedSpecializationId"
-          name="specialization"
-          (change)="onSpecializationChange()"
-          required
+  <h3>Book an Appointment</h3>
+  <hr>
+  <form #patform="ngForm" (ngSubmit)="onSubmit(patform)">
+    <!-- Patient ID -->
+    <div class="form-group">
+      <label>Patient ID:</label>
+      <input
+        type="text"
+        readonly
+        name="PatientId"
+        class="form-control"
+        [(ngModel)]="appointment.PatientId"
+      />
+    </div>
+
+    <!-- Specialization Dropdown -->
+    <div class="form-group">
+      <label>Specialization</label>
+      <select
+        class="form-control"
+        [(ngModel)]="selectedSpecializationId"
+        name="specialization"
+        (change)="onSpecializationChange()"
+        required
+      >
+        <option value="" disabled selected>Select Specialization</option>
+        <option
+          *ngFor="let spec of specializations"
+          [value]="spec.SpecializationId"
         >
-          <option value="" disabled selected>Select Specialization</option>
-          <option
-            *ngFor="let spec of specializations"
-            [value]="spec.SpecializationId"
-          >
-            {{ spec.SpecializationName }}
-          </option>
-        </select>
-      </div>
-  
-      <!-- Doctor Dropdown -->
-      <div class="form-group">
-        <label>Doctor</label>
-        <select
-          class="form-control"
-          [(ngModel)]="selectedDoctorId"
-          name="doctor"
-          (change)="onDoctorChange()"
-          required
-        >
-          <!-- <option value="" disabled selected>Select Doctor</option>
-          <option *ngFor="let doc of doctors" [value]="doc.DoctorId">
-            {{ doc.StaffName }}
-          </option> -->
-        </select>
-      </div>
-  
-      <!-- Availability Dropdown -->
-      <div class="form-group">
-        <label>Availability</label>
-        <select
-          class="form-control"
-          [(ngModel)]="selectedAvailabilityId"
-          name="availability"
-          required
-        >
-          <option value="" disabled selected>Select Availability</option>
-          <option *ngFor="let avail of availabilities" [value]="avail.availabilityId">
-            {{ avail.session }} ({{ avail.timeslot.startTime }} - {{ avail.timeslot.endTime }})
-          </option>
-        </select>
-      </div>
-  
-      <!-- Appointment Date -->
-      <div class="form-group">
-        <label>Appointment Date</label>
-        <input
-          type="date"
-          class="form-control"
-          [(ngModel)]="appointment.AppointmentDate"
-          name="appointmentDate"
-          required
-        />
-      </div>
-  
-      <!-- Token Number -->
-      <div class="form-group">
-        <label>Token Number</label>
-        <input
-          type="number"
-          class="form-control"
-          [(ngModel)]="appointment.TokenNumber"
-          name="tokenNumber"
-          readonly
-        />
-        <button
-          type="button"
-          class="btn btn-primary mt-2"
-          (click)="onGenerateToken()"
-        >
-          Generate Token
-        </button>
-      </div>
-  
-      <!-- Consultation Fee -->
-      <div class="form-group">
-        <label>Consultation Fee</label>
-        <input
-          type="number"
-          class="form-control"
-          [(ngModel)]="appointment.ConsultationFee"
-          name="consultationFee"
-          readonly
-        />
-      </div>
-  
-      <!-- Submit Button -->
-      <button type="submit" class="btn btn-success">Book Appointment</button>
-    </form>
-  </div>
-  
+          {{ spec.SpecializationName }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Doctor Dropdown -->
+    <div class="form-group">
+      <label>Doctor</label>
+      <select
+        class="form-control"
+        [(ngModel)]="selectedDoctorId"
+        name="doctor"
+        (change)="onDoctorChange()"
+        required
+      >
+        <!-- <option value="" disabled selected>Select Doctor</option>
+        <option *ngFor="let doc of doctors" [value]="doc.DoctorId">
+          {{ doc.StaffName }}
+        </option> -->
+      </select>
+    </div>
+
+    <!-- Availability Dropdown -->
+    <div class="form-group">
+      <label>Availability</label>
+      <select
+        class="form-control"
+        [(ngModel)]="selectedAvailabilityId"
+        name="availability"
+        required
+      >
+        <option value="" disabled selected>Select Availability</option>
+        <option *ngFor="let avail of availabilities" [value]="avail.availabilityId">
+          {{ avail.session }} ({{ avail.timeslot.startTime }} - {{ avail.timeslot.endTime }})
+        </option>
+      </select>
+    </div>
+
+    <!-- Appointment Date -->
+    <div class="form-group">
+      <label>Appointment Date</label>
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="appointment.AppointmentDate"
+        name="appointmentDate"
+        required
+      />
+    </div>
+
+    <!-- Token Number -->
+    <div class="form-group">
+      <label>Token Number</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="appointment.TokenNumber"
+        name="tokenNumber"
+        readonly
+      />
+      <button
+        type="button"
+        class="btn btn-primary mt-2"
+        (click)="onGenerateToken()"
+      >
+        Generate Token
+      </button>
+    </div>
+
+    <!-- Consultation Fee -->
+    <div class="form-group">
+      <label>Consultation Fee</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="appointment.ConsultationFee"
+        name="consultationFee"
+        readonly
+      />
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-success">Book Appointment</button>
+  </form>
+</div>

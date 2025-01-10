@@ -25,6 +25,14 @@ export class MedicineListComponent implements OnInit {
   ngOnInit(): void {
     console.log("hi I am medicine List Component");
     this.medicineDetailsService.getAllMedicineDetails();
+    
+      this.medicineDetailsService.getAllCategory(); // Fetch categories
+    
+  }
+
+  getCategoryName(categoryId: number): string {
+    const category = this.medicineDetailsService.category.find(c => c.CategoryId === categoryId);
+    return category ? category.CategoryName : 'Unknown';
   }
 
   //Search Method
@@ -53,7 +61,7 @@ editMedicineDetails(medicineDetail : Medicinedetails):void{
   //Call populate Medicine Method
   this.populateMedicineDetailsData(medicineDetail);
   //routw to edit componenet
-  this.router.navigate(['/medicinedetails/edit/' + medicineDetail.MedicineId]);
+  this.router.navigate(['/medicine-managements/edit/' + medicineDetail.MedicineId]);
 
 }
 // Getting Medicine for populating Medicine Data
@@ -64,8 +72,8 @@ populateMedicineDetailsData(medicineDetail : Medicinedetails){
   //Transform Date Format as yyyy-MM-dd
   var datePipe =  new DatePipe("en-UK");
 
-let formattedManufacturingDate: any = datePipe.transform(medicineDetail.ManufacturingDate, 'yyyy-MM-dd');
-let formattedExpiryDate: any = datePipe.transform(medicineDetail.ExpiryDate, 'yyyy-MM-dd');
+let formattedManufacturingDate: any = datePipe.transform(medicineDetail.ManufacturingDate, 'dd-MM-yyyy');
+let formattedExpiryDate: any = datePipe.transform(medicineDetail.ExpiryDate, 'dd-MM-yyyy');
 
   this.medicineDetailsService.ManufacturingDate= formattedManufacturingDate;
   this.medicineDetailsService.ExpiryDate= formattedExpiryDate;
@@ -73,21 +81,21 @@ let formattedExpiryDate: any = datePipe.transform(medicineDetail.ExpiryDate, 'yy
 
 }
 
-//Delete
+//Disable
 deleteMedicineDetails(medicineDetail: Medicinedetails){
   //confirmation
-  if(confirm('Are your sure to DELETE this Record')){
+  if(confirm('Are your sure to DISABLE this Record')){
     //As If deletion, set IsActive = false
     medicineDetail.IsActive=false;
     this.medicineDetailsService.updateMedicineDetails(medicineDetail).subscribe(
     (response)=>{
         console.log(response);
-        this.toastr.info('medicine details has been deleted successfully','EMS v2024');
+        this.toastr.info('medicine details has been DISABLED successfully','CMS v2024');
         this.medicineDetailsService.getAllMedicineDetails();
   },
 (error)=>{
   console.log(error);
-  this.toastr.error('Something wrong! try again...','EMS v2024');
+  this.toastr.error('Something wrong! try again...','CMS v2024');
 }
   );
 
