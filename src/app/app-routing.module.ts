@@ -1,42 +1,56 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DoctorComponent } from './doctor/doctor.component';
 import { AuthComponent } from './auth/auth.component';
 import { AdminComponent } from './admin/admin.component';
-import { LabComponent } from './lab/lab.component';
-import { RegisterComponent } from './register/register.component';
-import { DoctordashComponent } from './auth/doctordash/doctordash.component';
-import { DoctormanagementComponent } from './doctormanagement/doctormanagement.component';
-
-
+import { MedicineManagementsComponent } from './medicine-managements/medicine-managements.component';
+import { PatientsListComponent } from './receptionists/patients-list/patients-list.component';
+import { ReceptionistsComponent } from './receptionists/receptionists.component';
+import { PharmacistsComponent } from './pharmacists/pharmacists.component';
 
 const routes: Routes = [
-//Empty Routes
-{
-  path: '', redirectTo: 'auth/login', pathMatch: 'full'
-},
-  //Lazy-loading
-  {path : 'auth', component: AuthComponent,
-    loadChildren: () => import ('./auth/auth.module')
-    .then(x => x.AuthModule)
+
+  { path: '', redirectTo: '/admin/list', pathMatch: 'full' },
+
+
+  //Lazy Loading
+  {
+    path: 'doctor', component: DoctorComponent,
+    loadChildren: () => import('./doctor/doctor.module')
+      .then(e => e.DoctorModule)
   },
-  { 
-    path: 'admin',  component: AdminComponent,
-    loadChildren: () => import('./admin/admin.module').then(e => e.AdminModule) 
-  }, 
-  { 
-    path: 'lab',  component: LabComponent,
-    loadChildren: () => import('./lab/lab.module').then(e => e.LabModule) 
+
+  {
+    path: 'patients', component: ReceptionistsComponent,
+    loadChildren: () => import('./receptionists/receptionists.module')
+      .then(x => x.ReceptionistsModule),
   },
-  { 
-    path: 'register',  component: RegisterComponent,
-    loadChildren: () => import('./register/register.module').then(e => e.RegisterModule) 
+  {
+    path: 'admin', component: AdminComponent,
+    loadChildren: () => import('./admin/admin.module').then(e => e.AdminModule)
   },
-  { 
-    path: 'doctormanagement',  component: DoctormanagementComponent,
-    loadChildren: () => import('./doctormanagement/doctormanagement.module').then(e => e.DoctormanagementModule) 
+
+  {
+    path: 'medicine-managements', component: MedicineManagementsComponent,
+    loadChildren: () => import('./medicine-managements/medicine-managements.module')
+      .then(e => e.MedicineManagementsModule)
   },
-  //Wildcard routes
-  {path: '**', redirectTo: 'auth/notfound', pathMatch:'full'}
+
+  {
+    path: 'medicine-prescriptions', component: PharmacistsComponent,
+    loadChildren: () => import('./pharmacists/pharmacists.module')
+      .then(e => e.PharmacistsModule)
+  },
+
+
+  //   {path:'auth',component:AuthComponent,
+  //   loadChildren:() =>import('./auth/auth.module')
+  //   .then(x => x.AuthModule)
+  // },
+
+
+  { path: '**', redirectTo: 'auth/notfound', pathMatch: 'full' }
+
 ];
 
 @NgModule({
