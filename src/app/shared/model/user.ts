@@ -9,8 +9,6 @@ export class User {
     Username: string = '';
     RIsActive: boolean = false;
     RegisteredDate: Date = new Date();
-    StaffName: string = '';
-    RoleName: string = '';
 
     role: Role = new Role();
     staff: Staff = new Staff();

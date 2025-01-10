@@ -12,26 +12,32 @@ import { PatientService } from 'src/app/shared/service/patient.service';
 })
 export class PatientsListComponent implements OnInit {
 
-  //declare variables
+  // Declare variables
   page: number = 1;
   pageSize: number = 5;
   searchTerm: string = '';
+  searchPerformed: boolean = false; // Added this property
   isMessageShown: boolean = false;
 
-  constructor(public patientService: PatientService , 
-    private router: Router, 
-    private toastr : ToastrService) { }
+  constructor(public patientService: PatientService, 
+              private router: Router, 
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     console.log("Patient List Component");
     this.patientService.getAllPatients();
   }
 
-  // Search Method
+  // Trigger Search
+  onSearch(): void {
+    this.searchPerformed = this.searchTerm.trim().length > 0;
+    this.filteredPatients(); // Recalculate filtered patients
+  }
+
+  // Filter Patients Based on Search
   filteredPatients() {
-    if (!this.searchTerm) {
-      this.isMessageShown = false;
-      return this.patientService.patients;
+    if (!this.searchPerformed) {
+      return [];
     }
 
     const searchTermLower = this.searchTerm.toLowerCase();
@@ -47,43 +53,40 @@ export class PatientsListComponent implements OnInit {
     // Show toastr if no patients found
     if (filteredList.length === 0 && !this.isMessageShown) {
       this.toastr.info('No patients found for the search term.', 'CMS v2024');
-      this.isMessageShown = true; 
+      this.isMessageShown = true;
     } else if (filteredList.length > 0) {
-      this.isMessageShown = false; 
+      this.isMessageShown = false;
     }
 
     return filteredList;
   }
 
-  //Edit Patient
+  // Edit Patient
   editPatient(patient: Patient): void {
     console.log(patient);
-    this.populatePatientData(patient); 
+    this.populatePatientData(patient);
     this.router.navigate(['/patients/edit/' + patient.PatientId]);
   }
 
   // Book Appointment
   bookAppointment(patient: Patient): void {
     console.log(patient);
-    // Redirect to the booking appointment page
     this.router.navigate(['/patients/book/', patient.PatientId]);
   }
 
-  //Populate Patient Data
-  populatePatientData(patient:Patient){
+  // Populate Patient Data
+  populatePatientData(patient: Patient) {
     console.log("Inside populate method");
-      console.log(patient);
-  
-      var datePipe=new DatePipe("en-UK");
-  
-      let formattedDate :any=datePipe.transform(patient.Dob,'yyyy-MM-dd');
-      patient.Dob=formattedDate;
-  
-      this.patientService.formPatientData={...patient}
-  
+    console.log(patient);
+
+    const datePipe = new DatePipe("en-UK");
+    const formattedDate: any = datePipe.transform(patient.Dob, 'yyyy-MM-dd');
+    patient.Dob = formattedDate;
+
+    this.patientService.formPatientData = { ...patient };
   }
 
-  //Delete Patient
+  // Delete Patient
   deletePatient(patient: Patient) {
     if (confirm("Are you sure to DISABLE this record?")) {
       patient.IsActive = false;
@@ -91,12 +94,10 @@ export class PatientsListComponent implements OnInit {
         console.log(response);
         this.toastr.success('Patient data has been disabled successfully', 'CMS v2024');
         this.patientService.getAllPatients();
-      },
-      (error) => {
-        console.log(error)
+      }, (error) => {
+        console.log(error);
         this.toastr.error('Something wrong! try again...', 'CMS v2024');
       });
     }
   }
-
 }

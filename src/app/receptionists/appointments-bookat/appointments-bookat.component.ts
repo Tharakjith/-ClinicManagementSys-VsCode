@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Appointment } from 'src/app/shared/model/appointment';
 import { Availability } from 'src/app/shared/model/availability';
+import { Doctorbyspectn } from 'src/app/shared/model/doctorbyspectn';
 import { Doctors } from 'src/app/shared/model/doctors';
 import { Specialization } from 'src/app/shared/model/specialization';
 import { PatientService } from 'src/app/shared/service/patient.service';
@@ -20,6 +21,7 @@ export class AppointmentsBookatComponent implements OnInit {
   errorMessage: string | null = null;
   specializations: Specialization[] = [];
   doctors: Doctors[] = [];
+  doctorspec : Doctorbyspectn[] = [];
   availabilities: Availability[] = [];
   selectedSpecializationId: number = 0;
   selectedDoctorId: number = 0;
@@ -31,7 +33,7 @@ export class AppointmentsBookatComponent implements OnInit {
   constructor(public patientService: PatientService,
     private router: Router,
     private toastr: ToastrService,
-    private route: ActivatedRoute,) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // Retrieve Patient ID from route
@@ -50,94 +52,93 @@ export class AppointmentsBookatComponent implements OnInit {
   loadSpecializations(): void {
     this.patientService.getAllSpecializations().subscribe(
       (response: Specialization[]) => {
-        this.specializations = response;
+        this.specializations = response; // Bind response to dropdown
       },
       (error) => {
         this.errorMessage = 'Error fetching specializations: ' + error.message;
       }
     );
-  }
+  }  
 
-  // Load doctors based on selected specialization
+  // Handle specialization change
+  // onSpecializationChange(): void {
+  //   const specializationId = this.appointment.SpecializationId;
+  //   if (specializationId) {
+  //     this.patientService.getDoctorsBySpecialization(specializationId).subscribe(
+  //       response => {
+  //         this.doctors = response;
+  //         this.availabilities = [];
+  //         this.consultationFee = 0;
+  //       },
+  //       error => (this.errorMessage = 'Error fetching doctors')
+  //     );
+  //   }
+  // }
   onSpecializationChange(): void {
-    this.patientService.getDoctorsBySpecialization(this.selectedSpecializationId).subscribe(
-      (response: Doctors[]) => {
-        this.doctors = response;
-        this.selectedDoctorId = 0; // Reset selected doctor
-        this.consultationFee = 0; // Reset consultation fee
-        this.availabilities = []; // Reset availability list
-        this.appointment.TokenNumber = 0; // Reset token number
-      },
-      (error) => {
-        this.errorMessage = 'Error fetching doctors: ' + error.message;
-      }
-    );
+    const specializationId = this.appointment.SpecializationId;
+    if (specializationId) {
+      this.patientService.getDoctorsBySpecialization(specializationId).subscribe(
+        (response: Doctorbyspectn[]) => {
+          this.doctorspec = response; // Bind the response to the `doctors` array
+          this.availabilities = [];
+          this.consultationFee = 0;
+        },
+        (error) => {
+          this.errorMessage = 'Error fetching doctors: ' + error.message;
+        }
+      );
+    }
   }
+  
 
   // Load availability based on selected doctor
   onDoctorChange(): void {
-    this.patientService.getDoctorAvailability(this.selectedDoctorId).subscribe(
-      (response: Availability[]) => {
-        this.availabilities = response;
-
-        // Fetch consultation fee from the selected doctor
-        const selectedDoctor = this.doctors.find((doc) => doc.DoctorId === this.selectedDoctorId);
-        if (selectedDoctor) {
-          this.consultationFee = selectedDoctor.ConsultationFee;
-          this.appointment.ConsultationFee = this.consultationFee;
-        }
-
-        // Reset token number
-        this.appointment.TokenNumber = 0;
-      },
-      (error) => {
-        this.errorMessage = 'Error fetching doctor availability: ' + error.message;
-      }
+    this.patientService.getDoctorAvailability(this.appointment.DoctorId).subscribe(
+      response => (this.availabilities = response),
+      error => (this.errorMessage = 'Error fetching doctor availability')
+    );
+    this.patientService.getConsultationFeeByDoctorId(this.appointment.DoctorId).subscribe(
+      response => (this.consultationFee = response),
+      error => (this.errorMessage = 'Error fetching consultation fee')
     );
   }
 
 
   // Generate token number based on appointment details
   onGenerateToken(): void {
-    const { PatientId } = this.appointment;
-    const { AppointmentDate } = this.appointment;
+    const { DoctorId, AppointmentDate } = this.appointment;
     const timeSlotId = this.selectedAvailabilityId;
 
-    // Validate required fields
-    if (!PatientId || !AppointmentDate || !this.selectedDoctorId || !timeSlotId) {
-      this.errorMessage = 'Please fill in all the required fields before generating a token.';
+    if (!DoctorId || !AppointmentDate || !timeSlotId) {
+      this.errorMessage = 'Please select all fields before generating a token.';
       return;
     }
 
-    this.patientService.generateToken(this.selectedDoctorId, AppointmentDate, timeSlotId).subscribe(
-      (response: number) => {
+    this.patientService.generateToken(DoctorId, AppointmentDate, timeSlotId).subscribe(
+      response => {
         this.appointment.TokenNumber = response;
-        this.errorMessage = null; // Clear error message
+        this.errorMessage = null;
       },
-      (error) => {
-        this.errorMessage = 'Error generating token: ' + error.message;
-      }
+      error => (this.errorMessage = 'Error generating token')
     );
   }
 
 
+
   // Submit the appointment form
-  onSubmit(patform: NgForm): void {
+  onSubmit(form: NgForm): void {
     if (!this.appointment.TokenNumber) {
-      this.errorMessage = 'Please generate a token number before booking the appointment.';
+      this.errorMessage = 'Please generate a token before booking.';
       return;
     }
 
     this.patientService.bookAppointment(this.appointment).subscribe(
-      (response: any) => {
-        this.toastr.success('Appointment booked successfully!', 'Success');
-        this.errorMessage = null;
-        patform.reset();
-        this.router.navigate(['/patients/list']); // Redirect to patients list
+      () => {
+        this.toastr.success('Appointment booked successfully!');
+        form.reset();
+        this.router.navigate(['/patients/list']);
       },
-      (error) => {
-        this.errorMessage = 'Error booking appointment: ' + error.message;
-      }
+      error => (this.errorMessage = 'Error booking appointment')
     );
   }
 }
