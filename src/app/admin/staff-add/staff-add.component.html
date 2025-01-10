@@ -132,15 +132,15 @@
             </div>
         </div>
 
-        <!-- Submit Button -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-primary form-control" 
-                [disabled]="!(stForm.valid && stForm.dirty)">
-                INSERT
-            </button>
-        </div>
-        <div *ngIf="errorMessage" class="error-message validation-error">
-            {{errorMessage}}
-        </div>
-    </form>
+       <!-- Submit Button -->
+       <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-primary form-control" 
+            [disabled]="!(stForm.valid && stForm.dirty)">
+            INSERT
+        </button>
+    </div>
+    <div *ngIf="errorMessage" class="error-message validation-error">
+        {{errorMessage}}
+    </div>
+</form>
 </div>

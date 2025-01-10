@@ -1,6 +1,6 @@
 <div class="container mt-4">
     <!-- Header -->
-    <h3 class="text-center mb-4">List of Staff</h3>
+    <h3 class="text-center mb-4">List of registered users</h3>
   
     <!-- Search and Add Staff -->
     <div class="row mb-3">
@@ -19,7 +19,7 @@
       <div class="col-md-4 text-md-end text-center">
         <a [routerLink]="['/admin/add']" role="button" class="btn btn-outline-primary">
 
-          <i class="fa fa-user-plus fa-lg"></i>&nbsp;Add Staff
+          <i class="fa fa-user-plus fa-lg"></i>&nbsp;User Registration
         </a>
       </div>
     </div>
@@ -31,15 +31,14 @@
           <tr>
             <th scope="col">Staff Code</th>
             <th scope="col">Staff Name</th>
-            <th scope="col">Department</th>
-            <th scope="col">Date of Joining</th>
-            <th scope="col">Date of Birth</th>
+            <th scope="col">DepartmentName</th>
+            <th scope="col">Dob</th>
             <th scope="col">Address</th>
-            <th scope="col">Phone Number</th>
-            <th scope="col">Email</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Created Date</th>
             <th scope="col">Is Active</th>
+            
+            <th scope="col">PhoneNumber</th>
+            <th scope="col">Gender</th>
+            
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -59,7 +58,7 @@
             <td>{{ staff.Gender }}</td>
             <td>{{ staff.CreatedDate | date: 'yyyy-MM-dd' }}</td>
             <td>
-              <input
+              <input  
                 type="checkbox"
                 [checked]="staff.StaffIsActive"
                 class="form-check-input"
