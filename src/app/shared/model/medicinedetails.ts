@@ -6,7 +6,6 @@ export class Medicinedetails {
     ManufacturingDate: Date = new Date();
     ExpiryDate: Date = new Date();
     CategoryId: number = 0;
-    
     Cost: number = 0;
     IsActive: boolean = false ;
 

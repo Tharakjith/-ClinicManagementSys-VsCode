@@ -33,7 +33,7 @@ onSubmit(medForm: NgForm){
    medForm.reset();
 
    //Redirect to Employee List
- this.router.navigate(['/medicine/list']);
+ this.router.navigate(['/medicine-managements/list']);
 
 
 }
@@ -53,7 +53,7 @@ onSubmit(medForm: NgForm){
   this.medicineDetailsService.getAllMedicineDetails();
 
   //Redirect to medicine List
-  this.router.navigate(['/medicine/list']);
+  this.router.navigate(['/medicine-managements/list']);
   //Reset Form
    medForm.reset();
 
