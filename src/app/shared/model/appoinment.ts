@@ -1,4 +1,4 @@
-import { DailyAvailability } from "./daily-availability";
+import { Availability } from "./availability";
 import { Doctor } from "./doctor";
 import { Patient } from "./patient";
 
@@ -14,9 +14,10 @@ export class Appoinment {
     "TokenNumber": number = 0;
     "AppointmentStatusId": number = 0;
    //object Orented Model
+   
    patient : Patient = new Patient();
    doctor : Doctor = new Doctor();
-   dailyAvailability : DailyAvailability = new DailyAvailability();
+   availability : Availability = new Availability();
    
 
 

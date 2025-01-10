@@ -2,6 +2,8 @@ import { Role } from "./role";
 import { Staff } from "./staff";
 
 export class User {
+
+
   
  Username:string ='';
  RegistrationId: number =0;

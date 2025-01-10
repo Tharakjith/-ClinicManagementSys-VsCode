@@ -18,17 +18,15 @@
     <div class="form-group">
       <label>Specialization</label>
       <select
-        class="form-control"
-        [(ngModel)]="selectedSpecializationId"
+        class="form-control" 
+        [(ngModel)]="appointment.SpecializationId"
         name="specialization"
         (change)="onSpecializationChange()"
-        required
-      >
-        <option value="" disabled selected>Select Specialization</option>
+        required>
+        <option value="0" disabled selected >----Select Specialization----</option>
         <option
           *ngFor="let spec of specializations"
-          [value]="spec.SpecializationId"
-        >
+          [value]="spec.SpecializationId">    
           {{ spec.SpecializationName }}
         </option>
       </select>
@@ -37,80 +35,41 @@
     <!-- Doctor Dropdown -->
     <div class="form-group">
       <label>Doctor</label>
-      <select
-        class="form-control"
-        [(ngModel)]="selectedDoctorId"
-        name="doctor"
-        (change)="onDoctorChange()"
-        required
-      >
-        <!-- <option value="" disabled selected>Select Doctor</option>
-        <option *ngFor="let doc of doctors" [value]="doc.DoctorId">
-          {{ doc.StaffName }}
-        </option> -->
+      <select class="form-control" [(ngModel)]="appointment.DoctorId" name="doctor" (change)="onDoctorChange()" required>
+        <option value="0" selected disabled>--Select Doctor--</option>
+        <option *ngFor="let doc of doctorspec" [value]="doc.DoctorId">{{ doc.users.staff.StaffName }}</option>
       </select>
-    </div>
-
+    </div>    
     <!-- Availability Dropdown -->
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label>Availability</label>
-      <select
-        class="form-control"
-        [(ngModel)]="selectedAvailabilityId"
-        name="availability"
-        required
-      >
+      <select class="form-control" [(ngModel)]="selectedAvailabilityId" name="availability" required>
         <option value="" disabled selected>Select Availability</option>
-        <option *ngFor="let avail of availabilities" [value]="avail.availabilityId">
-          {{ avail.session }} ({{ avail.timeslot.startTime }} - {{ avail.timeslot.endTime }})
+        <option *ngFor="let avail of availabilities" [value]="avail.AvailabilityId">
+          {{ avail.Session }} | {{ avail.StartTime }} - {{ avail.EndTime }} | {{ avail.Weekday }}
         </option>
       </select>
-    </div>
+    </div> -->
 
     <!-- Appointment Date -->
-    <div class="form-group">
+     <div class="form-group">
       <label>Appointment Date</label>
-      <input
-        type="date"
-        class="form-control"
-        [(ngModel)]="appointment.AppointmentDate"
-        name="appointmentDate"
-        required
-      />
+      <input type="date" class="form-control" [(ngModel)]="appointment.AppointmentDate" name="appointmentDate" required />
     </div>
 
     <!-- Token Number -->
     <div class="form-group">
       <label>Token Number</label>
-      <input
-        type="number"
-        class="form-control"
-        [(ngModel)]="appointment.TokenNumber"
-        name="tokenNumber"
-        readonly
-      />
-      <button
-        type="button"
-        class="btn btn-primary mt-2"
-        (click)="onGenerateToken()"
-      >
-        Generate Token
-      </button>
+      <input type="number" class="form-control" [(ngModel)]="appointment.TokenNumber" readonly />
+      <button type="button" class="btn btn-primary mt-2" (click)="onGenerateToken()">Generate Token</button>
     </div>
 
-    <!-- Consultation Fee -->
     <div class="form-group">
       <label>Consultation Fee</label>
-      <input
-        type="number"
-        class="form-control"
-        [(ngModel)]="appointment.ConsultationFee"
-        name="consultationFee"
-        readonly
-      />
+      <input type="number" class="form-control" [(ngModel)]="consultationFee" readonly />
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-success">Book Appointment</button>
+     <button type="submit" class="btn btn-success">Book Appointment</button>
   </form>
 </div>
