@@ -1,4 +1,4 @@
-import { MedicineDetail } from "./medicine-detail";
+import { Medicinedetails } from "./medicinedetails";
 
 export class Prescription {
 
@@ -9,7 +9,6 @@ export class Prescription {
     "Dosage": string='';
     "Frequency": string='';
     "NumberofDays": number = 0;
-    medicineDetails:MedicineDetail=new MedicineDetail();
-   
+    medicineDetails:Medicinedetails=new Medicinedetails();
 
 }

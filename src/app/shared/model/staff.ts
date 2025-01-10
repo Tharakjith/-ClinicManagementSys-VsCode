@@ -11,8 +11,11 @@ export class Staff {
   Address: string = '';
   PhoneNumber: string = '';
   Email: string = '';
-  Gender: string = ''; 
+
   
+  Gender: string = ''; 
+  Salary: number = 0.00;
+
   StaffIsActive: boolean = false; 
 
  

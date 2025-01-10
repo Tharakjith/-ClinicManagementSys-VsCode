@@ -1,1 +1,31 @@
 <p>admindash works!</p>
+
+<app-navbar></app-navbar>
+<div class="container mt-5 text-center">
+    <!-- List Employees Button -->
+    <a 
+        [routerLink]="['/register/list']" 
+        role="button" 
+        class="btn btn-outline-primary mx-2 d-inline-block"
+        style="width: 150px;"
+    >
+        <span>
+            <i class="fa fa-users fa-lg"></i>
+        </span>
+        <br>user
+    </a>
+    
+    <!-- Add Employees Button -->
+    <a 
+        [routerLink]="['/admin/list']" 
+        role="button" 
+        class="btn btn-outline-primary mx-2 d-inline-block"
+        style="width: 150px;"
+    >
+        <span>
+            <i class="fa fa-user-plus fa-lg"></i>
+        </span>
+        <br>Add Employees
+    </a>
+</div>
+

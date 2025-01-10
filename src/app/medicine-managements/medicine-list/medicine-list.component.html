@@ -1,6 +1,6 @@
 <div class = "container">
     <!--Medicine Info-->
-    <h3>Medicine Info</h3>
+    <h3>Medicine Management</h3>
     <div class = "header">
         <div class ="row">
             <!--Search-->
@@ -37,9 +37,9 @@
           | paginate: { itemsPerPage: pageSize, currentPage: page }">
             <td>{{'M' + medicineDetail.MedicineId}}</td>
             <td>{{medicineDetail.MedicineName}}</td>
-            <td>{{medicineDetail.ManufacturingDate | date:"dd-mm-yyyy"}}</td>
-            <td>{{medicineDetail.ExpiryDate | date:"dd-mm-yyyy"}}</td>
-            <td>{{medicineDetail.CategoryId}}</td>
+            <td>{{medicineDetail.ManufacturingDate | date:"dd-MM-yyyy"}}</td>
+            <td>{{medicineDetail.ExpiryDate | date:"dd-MM-yyyy"}}</td>
+            <td>{{ getCategoryName(medicineDetail.CategoryId) }}</td>
             <td>{{medicineDetail.Cost}}</td>
             <td><input type="checkbox"[checked]="medicineDetail.IsActive" disabled></td> 
             <td>

@@ -122,6 +122,18 @@
         </div>
     </div>
 </div>
+
+<!-- Salary -->
+<div class="form-group">
+    <label>Salary: </label>
+    <input type="text" name="Salary" #Salary="ngModel" 
+        [(ngModel)]="staffService.formStaffData.Salary" 
+        class="form-control" placeholder="Enter Salary" minlength="5" maxlength="8" required 
+        [ngClass]="{'is-invalid': Salary.touched && Salary.invalid}">
+</div>
+<div class="Validation-error" *ngIf="Salary.touched && Salary.invalid">
+    <div *ngIf="Salary.errors?.['required']">Salary is required!</div>
+</div>
         <!-- Is Active -->
         <div class="form-group">
             <div class="form-check">
@@ -132,15 +144,15 @@
             </div>
         </div>
 
-        <!-- Submit Button -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-primary form-control" 
-                [disabled]="!(stForm.valid && stForm.dirty)">
-                INSERT
-            </button>
-        </div>
-        <div *ngIf="errorMessage" class="error-message validation-error">
-            {{errorMessage}}
-        </div>
-    </form>
+       <!-- Submit Button -->
+       <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-primary form-control" 
+            [disabled]="!(stForm.valid && stForm.dirty)">
+            INSERT
+        </button>
+    </div>
+    <div *ngIf="errorMessage" class="error-message validation-error">
+        {{errorMessage}}
+    </div>
+</form>
 </div>
