@@ -11,6 +11,7 @@ import { ReceptionistdashComponent } from './receptionistdash/receptionistdash.c
 import { LabtechniciandashComponent } from './labtechniciandash/labtechniciandash.component';
 import { PharmacistdashComponent } from './pharmacistdash/pharmacistdash.component';
 import { AdmindashComponent } from './admindash/admindash.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,11 +24,14 @@ import { AdmindashComponent } from './admindash/admindash.component';
     ReceptionistdashComponent,
     LabtechniciandashComponent,
     PharmacistdashComponent,
-    AdmindashComponent
+    AdmindashComponent,
+   
   ],
   imports: [
     CommonModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    ReactiveFormsModule,
+    FormsModule 
   ]
 })
 export class AuthModule { }

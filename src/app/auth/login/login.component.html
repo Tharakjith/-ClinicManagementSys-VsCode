@@ -1,1 +1,69 @@
-<p>login works!</p>
+<div class="container mt-5">
+    <div class="row align-items-center">
+        <!-- Left side EMS profile content -->
+        <div class="col-lg-6 mb-4 mb-lg-0 d-flex align-items-center">
+            <div class="d-flex flex-row align-items-start w-100">
+                <!-- Logo -->
+                <img src="../assets/emp.jpg" alt="EMS Logo" class="me-3" style="max-width: 70px;">
+                <!-- Welcome Text -->
+                <div>
+                    <h1 class="mb-3">Welcome to CMS</h1>
+                    <p class="mb-3">Clinic  Management System</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Right side login form -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">Enter Your Credentials</h4>
+                    <form [formGroup]="loginForm" (ngSubmit)="loginCredentials()">
+                        <!-- Username -->
+                        <div class="form-group mb-3">
+                            <input
+                                type="text"
+                                placeholder="Enter User Name"
+                                formControlName="Username"
+                                class="form-control"
+                            />
+                            <!-- Validation Message -->
+                            <div class="Validation-error" *ngIf="isSubmitted && formControls['Username'].errors">
+                                <small *ngIf="formControls['Username'].errors['required']" class="text-danger">
+                                    Username is invalid or required.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group mb-3">
+                            <input
+                                type="password"
+                                placeholder="Enter Password"
+                                formControlName="Password"
+                                class="form-control"
+                            />
+                            <!-- Validation Message -->
+                            <div class="Validation-error" *ngIf="isSubmitted && formControls['Password'].errors">
+                                <small *ngIf="formControls['Password'].errors['required']" class="text-danger">
+                                    Incorrect password or required.
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-lg btn-primary w-100">LOGIN</button>
+                        </div>
+
+                        <!-- Error Message -->
+                        <div class="Validation-error text-center" *ngIf="error">
+                            <small class="text-danger">{{ error }}</small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

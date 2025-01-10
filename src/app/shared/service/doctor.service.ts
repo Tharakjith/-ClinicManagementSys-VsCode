@@ -93,3 +93,4 @@ return this.httpClient.put(environment.apiUrl + 'startDiagnosy/HistoryId'+ start
   
 
 }
+
