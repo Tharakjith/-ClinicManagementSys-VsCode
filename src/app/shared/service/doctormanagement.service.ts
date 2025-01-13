@@ -17,7 +17,7 @@ export class DoctormanagementService {
   user: User[] = [];
   staff: Staff[] = [];
   specialization: Specialization[] = [];
-  formStaffData: Doctors = new Doctors();
+  formdoctorData: Doctors = new Doctors();
 
   RegisteredDate: any;
 

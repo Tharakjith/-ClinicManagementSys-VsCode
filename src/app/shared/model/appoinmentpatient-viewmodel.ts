@@ -1,4 +1,4 @@
-import { Doctor } from "./doctor";
+import { Doctors } from "./doctors";
 import { Patient } from "./patient";
 
 export class AppoinmentpatientViewmodel {
@@ -18,7 +18,7 @@ export class AppoinmentpatientViewmodel {
     "SpecializationName": string='';
     
 patient : Patient = new Patient();
-doctor : Doctor = new Doctor();
+doctor : Doctors = new Doctors();
 
     
   

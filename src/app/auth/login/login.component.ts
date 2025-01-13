@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
              localStorage.setItem("AccessRole",response.RoleId.toString());
              localStorage.setItem("JWT Token",response.Token);
              this.router.navigate(['auth/admin']);
-        }else if(response.RoleId === 2){
+        }else if(response.RoleId === 4){
              console.log("Doctor");
              localStorage.setItem("User_name",response.Username);
              localStorage.setItem("AccessRole",response.RoleId.toString());
@@ -73,23 +73,23 @@ export class LoginComponent implements OnInit {
              
              this.router.navigate(['auth/doctor']);
         }
-        else if(response.RoleId === 3){
+        else if(response.RoleId === 5){
           console.log("Receptionist");
           localStorage.setItem("User_name",response.Username);
           localStorage.setItem("AccessRole",response.RoleId.toString());
           localStorage.setItem("JWT Token",response.Token);
           
-          this.router.navigate(['auth/receptionist']);
+          this.router.navigate(['patients/list']);
      }
-     else if(response.RoleId === 4){
+     else if(response.RoleId === 2){
       console.log("Pharmacist");
       localStorage.setItem("User_name",response.Username);
       localStorage.setItem("AccessRole",response.RoleId.toString());
       localStorage.setItem("JWT Token",response.Token);
       
-      this.router.navigate(['auth/pharmacist']);
+      this.router.navigate(['auth/pharmacists']);
  }
- else if(response.RoleId === 5){
+ else if(response.RoleId === 3){
   console.log("Lab Technician");
   localStorage.setItem("User_name",response.Username);
   localStorage.setItem("AccessRole",response.RoleId.toString());

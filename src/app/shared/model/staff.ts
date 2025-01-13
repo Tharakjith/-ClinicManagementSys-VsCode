@@ -19,5 +19,6 @@ export class Staff {
   StaffIsActive: boolean = false; 
 
  
-  Department: Department = new Department(); }
+  Department: Department = new Department(); 
+}
   

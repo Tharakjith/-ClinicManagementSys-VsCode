@@ -1,5 +1,5 @@
 import { Availability } from "./availability";
-import { Doctor } from "./doctor";
+import { Doctors } from "./doctors";
 import { Patient } from "./patient";
 import { Specialization } from "./specialization";
 
@@ -14,7 +14,7 @@ export class Appointment {
 
     patient: Patient = new Patient();
     specialization: Specialization = new Specialization();
-    doctor: Doctor = new Doctor();
+    doctor: Doctors = new Doctors();
     availability: Availability = new Availability();
 
 

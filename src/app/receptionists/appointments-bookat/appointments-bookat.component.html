@@ -37,7 +37,7 @@
       <label>Doctor</label>
       <select class="form-control" [(ngModel)]="appointment.DoctorId" name="doctor" (change)="onDoctorChange()" required>
         <option value="0" selected disabled>--Select Doctor--</option>
-        <option *ngFor="let doc of doctorspec" [value]="doc.DoctorId">{{ doc.users.staff.StaffName }}</option>
+        <option *ngFor="let doc of doctorspec" [value]="doc.DoctorId">{{ doc.users.Staff.StaffName }}</option>
       </select>
     </div>    
     <!-- Availability Dropdown -->

@@ -4,8 +4,10 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { StartDiagnosy } from '../model/start-diagnosy';
 import { AppoinmentpatientViewmodel } from '../model/appoinmentpatient-viewmodel';
-import { Appoinment } from '../model/appoinment';
-import { Doctor } from '../model/doctor';
+
+
+import { Appointment } from '../model/appointment';
+import { Doctors } from '../model/doctors';
 
 
 @Injectable({
@@ -16,9 +18,9 @@ export class DoctorService {
   //declare some variables
   //List of Employees
   startDiagnosys: StartDiagnosy[] = [];
-  doctors:Doctor[]=[];
+  doctors:Doctors[]=[];
   formDiagnosysData: StartDiagnosy= new StartDiagnosy();
-  appoinment: Appoinment[] = [];
+  appoitnment: Appointment[] = [];
   appoinmentpatientViewmodel: AppoinmentpatientViewmodel[] = [];
   formappoinment: AppoinmentpatientViewmodel = new AppoinmentpatientViewmodel();
   DateOfJoining: any;

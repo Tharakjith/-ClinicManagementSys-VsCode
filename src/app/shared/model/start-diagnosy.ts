@@ -1,5 +1,7 @@
-import { Appoinment } from "./appoinment";
+
 //import { Doctor } from "./doctor";
+
+import { Appointment } from "./appointment";
 
 export class StartDiagnosy {
 
@@ -14,7 +16,7 @@ export class StartDiagnosy {
     "AppointmentId": number = 0;
     "IsActive": boolean;
     
-    appoinment:Appoinment=new Appoinment();
+    appointment:Appointment=new Appointment();
   
 
 

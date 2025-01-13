@@ -76,7 +76,7 @@ export class PatientService {
         return response.map((doc) => {
           const doctorspeci = new Doctorbyspectn();
           doctorspeci.DoctorId = doc.DoctorId;
-          doctorspeci.users.staff.StaffName = doc.DoctorName; // Map DoctorName to StaffName
+          doctorspeci.users.Staff.StaffName = doc.DoctorName; // Map DoctorName to StaffName
           doctorspeci.specialization.SpecializationName = doc.SpecializationName; // SpecializationName
           doctorspeci.ConsultationFee = doc.ConsultationFee;
           return doctorspeci;

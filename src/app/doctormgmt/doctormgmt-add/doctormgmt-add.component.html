@@ -1,0 +1,77 @@
+<div class="container">
+    <h3>New Doctor Info</h3>
+    <hr>
+    <form name="frmdoctor" #stForm="ngForm" autocomplete="off" (ngSubmit)="onSubmit(stForm)">
+        <!-- Doctor Id -->
+        <div class="form-group">
+            <input type="hidden" readonly name="DoctorId" class="form-control"
+                [(ngModel)]="doctormanagementService.formStaffData.DoctorId">
+        </div>
+  
+    
+           <!--Specialization Id-->
+  <div class="form-group">
+    <label>Specialization:</label>
+    <select name="SpecializationId" id="SpecializationId"
+        #SpecializationId="ngModel"
+        [(ngModel)]="doctormanagementService.formStaffData.SpecializationId"
+        class="form-control"
+        required>
+        <option value="0" selected disabled>----Select specialization----</option>
+        <option *ngFor="let spec of doctormanagementService.specilization"
+            value="{{spec.SpecializationId}}">
+            {{spec.SpecializationName}}
+        </option>
+    </select>
+  </div>
+  
+       <!-- doctorname -->
+  <div class="form-group">
+    <label>DoctorName:</label>
+    <select name="StaffName" id="StaffId"
+        #RegistrationId="ngModel"
+        [(ngModel)]="doctormanagementService.formStaffData.StaffId"
+        class="form-control"
+        required>
+        <option value="0" selected disabled>----Select Doctor Name----</option>
+        <option *ngFor="let doctor of doctormanagementService.staff"
+            value="{{doctor.StaffName}}">
+             {{doctor.StaffName}} 
+        </option>
+    </select>
+  </div> 
+  
+  
+  <!-- Salary -->
+  <div class="form-group">
+    <label>ConsultationFee: </label>
+    <input type="number" name="ConsultationFee" #ConsultationFee="ngModel" 
+        [(ngModel)]="doctormanagementService.formStaffData.ConsultationFee" 
+        class="form-control" placeholder="Enter ConsultationFee" minlength="5" maxlength="8" required 
+        [ngClass]="{'is-invalid': ConsultationFee.touched && ConsultationFee.invalid}">
+  </div>
+  <div class="Validation-error" *ngIf="ConsultationFee.touched && ConsultationFee.invalid">
+    <div *ngIf="ConsultationFee.errors?.['required']">ConsultationFee is required!</div>
+  </div>
+        <!-- Is Active -->
+        <div class="form-group">
+            <div class="form-check">
+                <input type="checkbox" name="DoctorIsActive" #DoctorIsActive="ngModel" 
+                    [(ngModel)]="doctormanagementService.formStaffData.DoctorIsActive" 
+                    class="form-check-input">
+                <label class="form-check-label">Is Active</label>
+            </div>
+        </div>
+  
+       <!-- Submit Button -->
+       <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-primary form-control" 
+            [disabled]="!(stForm.valid && stForm.dirty)">
+            INSERT
+        </button>
+    </div>
+    <div *ngIf="errorMessage" class="error-message validation-error">
+        {{errorMessage}}
+    </div>
+  </form>
+  </div>
