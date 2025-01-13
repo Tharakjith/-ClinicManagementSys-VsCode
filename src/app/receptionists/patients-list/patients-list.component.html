@@ -1,26 +1,49 @@
 <div class="container">
   <!-- Header Section -->
   <div class="header">
-    <h3>Patient Management</h3>
+    <br>
+    <h3>Patient Management...</h3>
   </div>
   <br><br>
 
   <!-- Search and Add Patient Section -->
-  <div class="row mb-4">
+  <!-- <div class="row mb-4">
     <div class="col-sm-8">
-      <input 
-        type="search" 
-        class="form-control shadow-sm" 
-        placeholder="Search by Patient Code or Phone Number..." 
-        [(ngModel)]="searchTerm"
-        (input)="onSearch()">
+      <input type="search" class="form-control shadow-sm" placeholder="Search by Patient Code or Phone Number..."
+        [(ngModel)]="searchTerm" (input)="onSearch()">
     </div>
     <div class="col-sm-4 text-end">
-      <a [routerLink]="['/patients/add']" role="button" class="btn btn-info shadow">
-        <i class="fa fa-user-plus fa-lg"></i> Register Patient
+      <a [routerLink]="['/patients/add']" role="button" class="btn btn-outline-info mx-2 d-inline-block"
+        style="width: 150px;">
+        <span> <i class="fa fa-user-plus fa-lg"></i> </span> <br>Register Patient
+      </a>
+    </div>
+  </div> -->
+  <div class="row mb-4 justify-content-center">
+    <div class="col-auto">
+      <a [routerLink]="['/patients/add']" role="button" class="btn btn-outline-info mx-2 d-inline-block" style="width: 150px;">
+        <span> <i class="fa fa-user-plus fa-lg"></i> </span> <br>Register Patient
+      </a>
+      <a [routerLink]="['/patients/history']" role="button" class="btn btn-outline-info mx-2 d-inline-block" style="width: 150px;">
+        <span> <i class="fa fa-history fa-lg"></i> </span> <br>Patient History
       </a>
     </div>
   </div>
+
+  <!-- Search Section -->
+  <div class="row mb-4 justify-content-center">
+    <div class="col-12 d-flex justify-content-center">
+      <input
+        type="search"
+        class="form-control shadow-sm"
+        style="max-width: 600px;" 
+        placeholder="Search by Patient Code or Phone Number..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+      />
+    </div>
+  </div>
+
   <!-- Display Records Only When Filtered List is Not Empty -->
   <div class="table-responsive ">
     <table *ngIf="filteredPatients().length > 0" class="table table-bordered table-hover table-striped shadow-sm">
@@ -39,7 +62,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let patient of filteredPatients() | paginate:{ itemsPerPage: pageSize, currentPage: page }" class="text-center align-middle">
+        <tr *ngFor="let patient of filteredPatients() | paginate:{ itemsPerPage: pageSize, currentPage: page }"
+          class="text-center align-middle">
           <td>{{'PC' + patient.PatientId}}</td>
           <td>{{patient.PatientName}}</td>
           <td>{{patient.Dob | date: 'dd-MM-yyyy'}}</td>
@@ -51,10 +75,11 @@
           <td><input type="checkbox" [checked]="patient.IsActive" disabled></td>
           <td>
             <div aria-label="Actions" class="d-flex justify-content-center gap-2">
-              <button class="btn btn-outline-primary btn-sm" (click)="editPatient(patient)" title="Edit">
+              <button class="btn btn-outline-info btn-sm" (click)="editPatient(patient)" title="Edit">
                 <i class="fa fa-edit"></i>
               </button>
-              <button class="btn btn-outline-success btn-sm" (click)="bookAppointment(patient)" title="Book Appointment">
+              <button class="btn btn-outline-info btn-sm" (click)="bookAppointment(patient)"
+                title="Book Appointment">
                 Book Appointment
               </button>
             </div>

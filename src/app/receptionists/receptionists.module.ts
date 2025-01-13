@@ -10,7 +10,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppointmentsBookatComponent } from './appointments-bookat/appointments-bookat.component';
-
+import { PatientHistoryComponent } from './patient-history/patient-history.component';
+import { PatientsBillComponent } from './patients-bill/patients-bill.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { AppointmentsBookatComponent } from './appointments-bookat/appointments-
     PatientsEditComponent,
     PatientsListComponent,
     AppointmentsBookatComponent,
-    AppointmentsBookatComponent
+    AppointmentsBookatComponent,
+    PatientHistoryComponent,
+    PatientsBillComponent
   ],
   imports: [
     CommonModule,

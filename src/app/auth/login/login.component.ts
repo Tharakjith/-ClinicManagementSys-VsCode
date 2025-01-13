@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     this.isSubmitted=true;
     //checking form ,if it is invalid
     if(this.loginForm!.invalid){
-      this.toastr.error('please enter username and password','EMS v2024')
+      this.toastr.error('please enter username and password','CMS v2024')
       this.error ="Please enter username and password"
       return;
     }
@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("AccessRole",response.RoleId.toString());
           localStorage.setItem("JWT Token",response.Token);
           
-          this.router.navigate(['auth/receptionist']);
+          this.router.navigate(['patients/list']);
      }
      else if(response.RoleId === 4){
       console.log("Pharmacist");

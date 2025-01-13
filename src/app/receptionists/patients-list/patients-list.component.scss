@@ -118,8 +118,28 @@ input[type="search"] {
     transition: background-color 0.3s, transform 0.2s;
   
     &:hover {
-      background-color: #bdc0c4 !important;
+     // background-color: #bdc0c4 !important;
       transform: translateY(-2px);
     }
   }
+
+  /* Center the row elements */
+
+/* Center the search bar with desired width */
+input[type="search"] {
+  max-width: 600px; /* Set the desired width */
+  width: 100%; /* Responsive design */
+  margin: 0 auto; /* Centers the search bar itself */
+}
+
+/* Center-align the row */
+.row {
+  justify-content: center; /* Aligns the content in the center */
+}
+
+/* Add margin to separate sections */
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
   
