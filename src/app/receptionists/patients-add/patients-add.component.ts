@@ -48,7 +48,7 @@ export class PatientsAddComponent implements OnInit {
         //this.patientService.getAllPatients();
 
         // Redirect to book appointment page
-      this.router.navigate(['/patients/book', response.PatientId]);
+      this.router.navigate(['/patients/list', response.PatientId]);
 
         //this.router.navigate(['/patients/list'])
         //patform.reset();

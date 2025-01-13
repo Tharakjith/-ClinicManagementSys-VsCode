@@ -13,68 +13,68 @@ export class MedicinedetailsService {
   //declare variables
   //list of employees
 
-  medicineDetails:Medicinedetails[]=[];
-  category:Category[]=[];
-  formMedicineDetailsData:Medicinedetails=new Medicinedetails();
+  medicineDetails: Medicinedetails[] = [];
+  category: Category[] = [];
+  formMedicineDetailsData: Medicinedetails = new Medicinedetails();
   DateOfJoining: any;
   ManufacturingDate: any;
   ExpiryDate: any;
 
-//DI: Httpclient
+  //DI: Httpclient
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
+
 
   //1- Get all MedicineDetails
 
-  getAllMedicineDetails():void{
-    this.httpClient.get(environment.apiUrl+'Pharmacists')
-    .toPromise()
-    .then((response:any)=>{
-      if(response ?.Value){
-        this.medicineDetails=response.Value;
-        console.log(this.medicineDetails);
-      }
-     
-
-    })
-    .catch((error)=>{
-      console.log('Error occured: ',error);
-    
-  });
-}
-
-//2-insert an Medicine
-
-insertMedicineDetails(medicineDetails:Medicinedetails):Observable<any>{
-  console.log("Insert : In service");
-  return this.httpClient.post(environment.apiUrl+'Pharmacists',medicineDetails);
-}
+  getAllMedicineDetails(): void {
+    this.httpClient.get(environment.apiUrl + 'Pharmacists')
+      .toPromise()
+      .then((response: any) => {
+        if (response?.Value) {
+          this.medicineDetails = response.Value;
+          console.log(this.medicineDetails);
+        }
 
 
-//3-Get all departments
+      })
+      .catch((error) => {
+        console.log('Error occured: ', error);
 
-getAllCategory():void{
-  this.httpClient.get(environment.apiUrl+'pharmacists/v2')
-  .toPromise()
-  .then((response:any)=>{
-    if(response ?.Value){
-      this.category=response.Value;
-      console.log(this.category);
-    }
-   
+      });
+  }
 
-  })
-  .catch((error)=>{
-    console.log('Error occured: ',error);
-  
-});
-}
+  //2-insert an Medicine
 
-//3-update an employee
+  insertMedicineDetails(medicineDetails: Medicinedetails): Observable<any> {
+    console.log("Insert : In service");
+    return this.httpClient.post(environment.apiUrl + 'Pharmacists', medicineDetails);
+  }
 
-updateMedicineDetails(medicineDetails:Medicinedetails):Observable<any>{
-  console.log("Update : In service");
-  return this.httpClient.put(environment.apiUrl+'Pharmacists'+medicineDetails.MedicineId,medicineDetails);
-}
+
+  //3-Get all category
+
+  getAllCategory(): void {
+    this.httpClient.get(environment.apiUrl + 'pharmacists/v2')
+      .toPromise()
+      .then((response: any) => {
+        if (response?.Value) {
+          this.category = response.Value;
+          console.log(this.category);
+        }
+
+
+      })
+      .catch((error) => {
+        console.log('Error occured: ', error);
+
+      });
+  }
+
+  // Update a Medicine
+  updateMedicineDetails(medicineDetails: Medicinedetails): Observable<any> {
+    console.log('Update : In service');
+    return this.httpClient.put(environment.apiUrl + 'Pharmacists/' + medicineDetails.MedicineId, medicineDetails);
+  }
 
 }
