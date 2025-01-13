@@ -203,7 +203,3 @@ export class DoctorService {
 
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d0fdefa26a72c0830a362f9717447626f7d53d96
