@@ -28,7 +28,7 @@ export class PatientsAddComponent implements OnInit {
     //call Insert  Method
     this.addPatient(patform);
 
-    //this.router.navigate(['/patients/list'])
+    this.router.navigate(['/patients/book'])
 
     patform.reset();
 
@@ -48,14 +48,14 @@ export class PatientsAddComponent implements OnInit {
         //this.patientService.getAllPatients();
 
         // Redirect to book appointment page
-      this.router.navigate(['/patients/list', response.PatientId]);
+      this.router.navigate(['/patients/book', response.PatientId]);
 
         //this.router.navigate(['/patients/list'])
         //patform.reset();
       },
       (error) => {
         console.log(error);
-        this.toastr.error('An error occured !.. try again..', 'CMS v2024')
+        this.toastr.error('An error occured!.. try again..', 'CMS v2024')
         this.errorMessage = 'An error occured' + error;
       }
     )
