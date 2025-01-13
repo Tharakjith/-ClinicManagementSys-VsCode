@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DoctorService } from 'src/app/shared/service/doctor.service';
-import { AppoinmentpatientViewmodel } from 'src/app/shared/model/appoinmentpatient-viewmodel';
+import { AppointmentpatientViewmodel } from 'src/app/shared/model/appointmentpatient-viewmodel';
 import { DatePipe } from '@angular/common';
+import { StartDiagnosy } from 'src/app/shared/model/start-diagnosy';
+import { Doctor } from 'src/app/shared/model/doctor';
 
 
 @Component({
@@ -12,13 +14,15 @@ import { DatePipe } from '@angular/common';
 })
 
 export class ViewAppointmentListComponent implements OnInit {
-  appointments: AppoinmentpatientViewmodel[] = [];
-  searchTerm: string = '';
+  appointments: AppointmentpatientViewmodel[] = [];
+  startDiagnosy: StartDiagnosy[] = [];
+  searchTerm: string | null = null;
   page: number = 1;
   pageSize: number = 6;
 
   constructor(
     public doctorService: DoctorService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -39,8 +43,21 @@ export class ViewAppointmentListComponent implements OnInit {
       );
     }
   }
+  //getDiagnosys(start-diagnosys)
+  
+  insertDiagnosys(doctor: AppointmentpatientViewmodel): void {
+    // Redirect to the booking appointment page
+    this.router.navigate(['/doctor/add/'+doctor.AppointmentId]);
+}
 
-  filteredAppoinment(): AppoinmentpatientViewmodel[] {
+getDiagnosys(): void {
+  // Redirect to the booking appointment page
+  this.router.navigate(['/doctor/list/']);
+}
+
+
+
+  filteredAppointment(): AppointmentpatientViewmodel[] {
     if (!this.searchTerm) {
       return this.appointments;
     }
@@ -49,7 +66,7 @@ export class ViewAppointmentListComponent implements OnInit {
 
     return this.appointments.filter((appointment) =>
       (appointment.PatientName?.toLowerCase().includes(lowerSearch) ||
-        `EC${appointment.TokenNumber}`.toLowerCase().includes(lowerSearch))
+        `${appointment.TokenNumber}`.toLowerCase().includes(lowerSearch))
     );
   }
 }

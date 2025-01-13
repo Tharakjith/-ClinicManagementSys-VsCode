@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 export class MedicineDetail {
     "MedicineId": number = 0;
     "MedicineName": string='';
@@ -6,5 +8,7 @@ export class MedicineDetail {
     "Category": number = 0;
     "Cost": string='';
     IsActive: boolean = false;
+
+    category: Category = new Category();
    
 }

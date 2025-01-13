@@ -1,22 +1,35 @@
-<p>start-diagnosys-add works!</p>
+
 <div class="container">
-    <h3 style="color:rgb(180, 17, 17); font-family: 'Times New Roman', Times, serif; ">New Employee Registration</h3>
+    <h3 style="color:rgb(180, 17, 17); font-family: 'Times New Roman', Times, serif; ">Start Diagnosys</h3>
     <hr>
+   
+    <div class="form-group">
+        <label><b>Appointment Code   </b> </label>
+        <input type="text" readonly name ="AppointmentId"
+        class="form-control"
+        [(ngModel)]="appointment.AppointmentId"/>
+        <!-- {{appointment.AppointmentId}} -->
+        </div> 
+ 
+   
     <!--Template Driven Form--><!--(ngSubmit) Event -->
-    <form name="formDiagnosysData" #empform="ngForm" autocomplete="off"  style="color: black; font-family: 'Times New Roman', Times, serif;"
-    (ngSubmit)="onSubmit(empform)">
+    <form name="formDiagnosysData" #startDiaform="ngForm" autocomplete="off"  
+    style="color: black; font-family: 'Times New Roman', Times, serif;"
+    (ngSubmit)="onSubmit(startDiaform)">
 
     <!--Employee Id -------------------------------------------->
     <div class="form-group">
-        <input type="hidden" readonly name="HistoryId" class="form-control"  style="color: black; font-family: 'Times New Roman', Times, serif;"
+        <input type="hidden" readonly name="HistoryId" class="form-control"  
+        style="color: black; font-family: 'Times New Roman', Times, serif;"
         [(ngModel)]="doctorService.formDiagnosysData.HistoryId">
     </div>
         
     <!--Diagnosis-------------------------------------------->
     <div class="form-group" >
-        <label>Diagnosis : </label>
-        <input type="text" name="Diagnosis"
+        <label><b>Diagnosis</b> </label>
+        <input type="text" 
         #Diagnosis="ngModel"
+        name = "Diagnosis"
         [(ngModel)]="doctorService.formDiagnosysData.Diagnosis"
         class="form-control"
         placeholder="Enter Diagnosis " minlength="3" maxlength="25"
@@ -33,9 +46,10 @@
 </div>
     <!--Symptoms---------------------------------------------->
     <div class="form-group">
-        <label>Symptoms : </label>
-        <input type="text" name="Symptoms"
+        <label><b>Symptoms</b></label>
+        <input type="text" 
         #Symptoms="ngModel"
+        name = "Symptoms"
         [(ngModel)]="doctorService.formDiagnosysData.Symptoms"
         class="form-control"
         placeholder="Enter Symptoms " minlength="3" maxlength="25"
@@ -44,17 +58,17 @@
 
     
     <!--Validation msg-->
-    <div class="Validation-error"  *ngIf= "Symptoms.touched && Symptoms.invalid">
-        <div *ngIf="Symptoms.errors?.['required']">
-            Symptoms is Invalid Or Required !.
-        </div>
-    </div>
+   <div *ngIf="Symptoms.errors?.['minlength']">
+  Symptoms must be at least 3 characters long.
+</div>
+
 </div>
     <!--Date Of Next Visiting-------------------------------------------------->
     <div class="form-group">
-        <label>Next Visiting: </label>
-        <input type="date" name="NextVisiting"
+        <label><b>Next Visiting Date</b></label>
+        <input type="date" 
         #NextVisiting="ngModel"
+        name = "NextVisiting"
         [(ngModel)]="doctorService.formDiagnosysData.NextVisiting"
         class="form-control"
         placeholder="Enter Date Of Next Visiting "
@@ -71,12 +85,13 @@
     </div>
     <!--Doctor Note---------------------------------------------->
     <div class="form-group">
-        <label>DoctorNote : </label>
-        <input type="text" name="DoctorNote"
+        <label><b>Doctor's Note </b></label>
+        <input type="text" 
         #DoctorNote="ngModel"
+        name = "DoctorNote"
         [(ngModel)]="doctorService.formDiagnosysData.DoctorNote"
         class="form-control"
-        placeholder="Enter Doctor Note " minlength="3" maxlength="25"
+        placeholder="Enter Doctor Note " minlength="3" maxlength="80" 
         required
         [ngClass]="{'is-invalid': DoctorNote.touched && DoctorNote.invalid}"/>
 
@@ -90,70 +105,67 @@
 </div>
  <!--Date Of DiagnosysDate------------------------------------------------->
  <div class="form-group">
-    <label>Next Visiting: </label>
-    <input type="date" name="DiagnosysDate"
-    #DiagnosysDate="ngModel"
-    [(ngModel)]="doctorService.formDiagnosysData.DiagnosysDate"
-    class="form-control"
-    placeholder="Enter Date Of Diagnosys "
-    required
-    [ngClass]="{'is-invalid': DiagnosysDate.touched && DiagnosysDate.invalid}"/>
-
-
-<!--Validation msg-->
-<div class="Validation-error"  *ngIf= "DiagnosysDate.touched && DiagnosysDate.invalid">
-    <div *ngIf="DiagnosysDate.errors?.['required']">
-        Diagnosys Date is Invalid Or Required !.
+    <label><b>Diagnosys Date:</b></label>
+    <input 
+      type="date" 
+      #DiagnosysDate="ngModel"
+      [(ngModel)]="doctorService.formDiagnosysData.DiagnosysDate"
+      name = "DiagnosysDate"
+      class="form-control"
+      placeholder="Enter Date Of Diagnosys"
+      required
+      [ngClass]="{'is-invalid': DiagnosysDate.touched && DiagnosysDate.invalid}" /> 
+  
+    <!-- Validation Message -->
+    <div class="Validation-error" *ngIf="DiagnosysDate.touched && DiagnosysDate.invalid">
+      <div *ngIf="DiagnosysDate.errors?.['required']">
+        Diagnosys Date is Invalid 
+      </div>
     </div>
-</div>
-</div>
-    <!--Doctor Id with Dr name-------------------------------------------
-    <div class="form-group">
+  </div>
+  
+    <!--Doctor Id with Dr name--------------------------------------------->
+    <!-- <div class="form-group">
         <label>Reference :</label>
-        <select name="DoctorId" id="DoctorId" #DoctorId="ngModel"
+        <select name="Reference" id="Reference" #Reference="ngModel"
                 class="form-control validation-error"
-                [(ngModel)]="doctorService.formDiagnosysData.DoctorId" 
+                [(ngModel)]="doctorService.formDiagnosysData.Reference" 
                 class ="form-control" required>
 
-            <option value="0" selected disabled> ---Select Doctor---</option>
-            <option *ngFor="let dept of doctorService.doctor"
-                value="{{dept.DoctorId}}">{{dept.DoctorName}}
+            <option value="0" selected disabled></option>
+            <option *ngFor="let dept of doctorService.appointment=No Reference"
+                value="{{dept.DoctorId}}">{{dept.DoctorId}}
             </option>
         </select>
-        <div class="validation-error" *ngIf="DoctorId.touched && DoctorId.invalid">
-        <div *ngIf="DoctorId.errors?.['required']">
+        <div class="validation-error" *ngIf="Reference.touched && Reference.invalid">
+        <div *ngIf="Reference.errors?.['required']">
             Doctor Name is required! </div>
         </div>
-    </div>-->
-            
+    </div> -->
+           
 
-    <!--AppointmentId--------------------------------------------------->
-    <div class="form-group">
-        <label>AppointmentId : </label>
-        <input type="text" name="AppointmentId"
-        #AppointmentId="ngModel"
-        [(ngModel)]="doctorService.formDiagnosysData.AppointmentId"
-        class="form-control"
-        placeholder="Enter AppointmentId " minlength="10" maxlength="10"
-        required
-        [ngClass]="{'is-invalid': AppointmentId.touched && AppointmentId.invalid}"/>
+    <!--AppointmentId-------------------------------------------------
+   
+<br>
 
-    
-    <!--Validation msg-->
-    <div class="Validation-error"  *ngIf= "AppointmentId.touched && AppointmentId.invalid">
-        <div *ngIf="AppointmentId.errors?.['required']">
-            AppointmentId is Invalid Or Required !.
-        </div>
-    </div>
-    </div>
-
+&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="Add Medicine"  class="btn btn-outline-primary" (click)="addmedicines()">
+        Add Medicine</button> &nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="Add Medicine" class="btn btn-outline-primary" (click)="addlabtests()">
+        Add Labtest</button>
+&nbsp;&nbsp;&nbsp;&nbsp;<button type="View Test Report" class="btn btn-outline-primary">View Report</button>
+<br>
+<br>-->
    <!--Submit------------------------------------------------------->
-    <div class="form-group">
-        <button type="submit" class="btn btn-lg btn-primary form-control"
-                              [disabled]="!(empform.valid && empform.dirty)">
-                 INSERT
-        </button>
-        </div>
+   <div class="form-group">
+    <button
+      type="submit"
+      class="btn btn-primary form-control"
+      [disabled]="!startDiaform.valid"
+    >
+      INSERT
+    </button>
+  </div>
     <!--ERROR MESSAGE  After SUBMITTING -->
         <div *ngIf="errorMessage" class="error-message validation-error">
             {{errorMessage}}

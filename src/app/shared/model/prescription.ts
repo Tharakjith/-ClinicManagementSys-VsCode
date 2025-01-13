@@ -1,3 +1,4 @@
+import { Appointment } from "./appointment";
 import { MedicineDetail } from "./medicine-detail";
 
 export class Prescription {
@@ -9,7 +10,10 @@ export class Prescription {
     "Dosage": string='';
     "Frequency": string='';
     "NumberofDays": number = 0;
+    IsActive: boolean = false ;
+    
     medicineDetails:MedicineDetail=new MedicineDetail();
+    appointment:Appointment=new Appointment();
    
 
 }

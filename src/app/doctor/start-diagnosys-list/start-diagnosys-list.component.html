@@ -27,40 +27,40 @@
         <thead class="table-success">
           <tr>
             <th scope="col">History Code</th>
+            <th scope="col">AppointmentId</th>
             <th scope="col">Diagnosis</th>
             <th scope="col">Symptoms</th>
             <th scope="col">Next Visiting Date</th>
             <th scope="col">Doctor's Note</th>
             <th scope="col">Diagnosys Date</th>
-            <th scope="col">Reference</th>
-            <th scope="col">AppointmentId</th>
-            <th scope="col">Is Active</th>
+            
+            
             <th scope="col">Actions</th>
 
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let startDiagnosys of this.filteredDiagnosys()
+          <tr *ngFor="let startDia of this.filteredDiagnosys()
           |paginate:{itemsPerPage:pageSize ,currentPage :page}">
             
-            <td>{{'EC'+startDiagnosys.HistoryId}}</td>
-            <td>{{startDiagnosys.Diagnosis}}</td>
-            <td>{{startDiagnosys.Symptoms}}</td>
-            <td>{{startDiagnosys.NextVisiting|date:"dd-mm-yyyy"}}</td>
-            <td>{{startDiagnosys.DoctorNote}}</td>
-            <td>{{startDiagnosys.DiagnosysDate}}</td>
-            <td>{{startDiagnosys.Reference}}</td>
-            <td>{{startDiagnosys.AppointmentId}}</td>
-            <td>{{startDiagnosys.IsActive}}</td>
-            <td><input type="checkbox"[checked]="startDiagnosys.IsActive" disabled></td>
-            <td><button class="btn btn-sm btn btn-outline-info" (click)="editDiagnosys(startDiagnosys)">
+            <td>{{startDia.HistoryId}}</td>
+            <td>{{startDia.AppointmentId}}</td>
+            <td>{{startDia.Diagnosis}}</td>
+            <td>{{startDia.Symptoms}}</td>
+            <td>{{startDia.NextVisiting|date:"dd-MM-yyyy"}}</td>
+            <td>{{startDia.DoctorNote}}</td>
+            <td>{{startDia.DiagnosysDate}}</td>
+            
+           
+            <!-- <td><input type="checkbox"[checked]="startDiagnosy.IsActive" disabled></td>
+            <td><button class="btn btn-sm btn btn-outline-info" (click)="editDiagnosys(startDiagnosy)">
                 <i class="fa fa-edit"></i>
-            </button>
+            </button> 
             &nbsp;
-            <button class="btn btn-sm btn btn-outline-danger" (click)="deleteDiagnosys(startDiagnosys)">
+            <button class="btn btn-sm btn btn-outline-danger" (click)="deleteDiagnosys(startDiagnosy)">
                 <i class="fa fa-trash"></i>
             </button>
-            </td>
+             </td> -->
           </tr>
           
         </tbody>

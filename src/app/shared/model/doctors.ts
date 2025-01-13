@@ -1,4 +1,5 @@
 import { Specialization } from "./specialization";
+import { Staff } from "./staff";
 import { User } from "./user";
 
 export class Doctors {
@@ -14,6 +15,8 @@ export class Doctors {
     
      
       users: User= new User();
-    
-      specialization: Specialization= new Specialization();}
+      StaffName: string = '';
+      specialization: Specialization= new Specialization();
+      staff:Staff=new Staff();
+    }
 

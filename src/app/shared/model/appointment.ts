@@ -2,7 +2,7 @@ import { DailyAvailability } from "./daily-availability";
 import { Doctor } from "./doctor";
 import { Patient } from "./patient";
 
-export class Appoinment {
+export class Appointment {
     "AppointmentId": number = 0;
     "PatientId": string='';
     "SpecializationId": string='';

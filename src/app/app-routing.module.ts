@@ -12,7 +12,8 @@ const routes: Routes = [
   },
 
   //Lazy Loading
-  {path:'doctor',component:DoctorComponent,
+  {path:'doctor',
+    // component:DoctorComponent,
     loadChildren: () => import('./doctor/doctor.module')
     .then(e=>e.DoctorModule)
   },

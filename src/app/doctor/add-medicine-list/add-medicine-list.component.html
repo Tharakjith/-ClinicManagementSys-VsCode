@@ -1,1 +1,70 @@
 <p>add-medicine-list works!</p>
+
+
+<div class="container">
+    <!--Employee Info-->
+
+    <h3 style="color:green; font-family: 'Times New Roman', Times, serif; "><b>Diagnosys Informations !....</b></h3>
+    <hr>
+    <div class="header">
+        <div class="row">
+            <!--Search For Employe row is divided in to two -->
+            <div class="col-sm-8">
+                <input type="search " class="form-control" style="color: black; font-family: 'Times New Roman', Times, serif;"
+                placeholder="Enter Search text here......"
+                [(ngModel)]="searchTerm">
+            </div>
+            <!--Add Diagnosys total row width is 12 serch set 8 balance in 4 -->
+            <div class="col-sm-4 ">
+                <a [routerLink]="['/addmedicine/add']" role="button" class="btn btn-outline-primary">
+                    <i class="fa fa-user-plus fa-lg"></i>&nbsp;Add Medicine
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--Display Records-->
+    <br>
+    <table class="table table-bordered table-striped"  >
+        <thead class="table-success">
+          <tr>
+            <!-- <th scope="col">History Code</th> -->
+            <th scope="col">PrescriptionId</th>
+            <th scope="col">AppointmentId</th>
+            <th scope="col">MedicineId</th>
+            <th scope="col">Dosage</th>
+            <th scope="col">Frequency </th>
+            <th scope="col">NumberofDays</th>
+            <th scope="col">Is Active</th>
+            <th scope="col">Actions</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prescription of this.filteredMedicine()
+          |paginate:{itemsPerPage:pageSize ,currentPage :page}">
+            
+            <td>{{prescription.PrescriptionId}}</td>
+            <td>{{prescription.AppointmentId}}</td>
+            <td>{{prescription.MedicineId}}</td>
+            <td>{{prescription.Dosage}}</td>
+            <td>{{prescription.Frequency}}</td>
+            <td>{{prescription.NumberofDays}}</td>
+            <td>{{prescription.IsActive}}</td>
+            <td><input type="checkbox"[checked]="prescription.IsActive" disabled></td>
+            <td><button class="btn btn-sm btn btn-outline-info" (click)="editMedicine(prescription)">
+                <i class="fa fa-edit"></i>
+            </button>
+            &nbsp;
+            <!-- <button class="btn btn-sm btn btn-outline-danger" (click)="deleteMedicine(prescription)">
+                <i class="fa fa-trash"></i>
+            </button> -->
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+      <!-- Footer []property binding () event binging -[()]-two way databinding it is angular model-->
+       <div class="footer">
+        <pagination-controls class="custom-page" (pageChange)= "page = $event"></pagination-controls>
+       </div>   
+</div>
