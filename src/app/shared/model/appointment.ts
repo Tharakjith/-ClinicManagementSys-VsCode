@@ -1,7 +1,8 @@
+
 import { Availability } from "./availability";
 import { Doctor } from "./doctor";
 import { Patient } from "./patient";
-<<<<<<< HEAD
+
 
 export class Appointment {
     "AppointmentId": number = 0;
@@ -20,7 +21,7 @@ export class Appointment {
    doctor : Doctor = new Doctor();
    availability : Availability = new Availability();
    
-=======
+
 import { Specialization } from "./specialization";
 
 export class Appointment {
@@ -36,7 +37,16 @@ export class Appointment {
     specialization: Specialization = new Specialization();
     doctor: Doctor = new Doctor();
     availability: Availability = new Availability();
->>>>>>> d0fdefa26a72c0830a362f9717447626f7d53d96
+
+export class Appointment {
+  AppointmentId: number = 0;
+  PatientId: number = 0;
+  DoctorId: number = 0;
+  SpecializationId: number = 0;
+  AppointmentDate: string = '';
+  TokenNumber: number = 0;
+  ConsultationFee: number = 0;
+  AvailabilityId: number = 0;
 
 
 }

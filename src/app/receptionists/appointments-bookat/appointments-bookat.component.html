@@ -1,75 +1,86 @@
 <div class="container">
   <h3>Book an Appointment</h3>
-  <hr>
+  <hr />
+
   <form #patform="ngForm" (ngSubmit)="onSubmit(patform)">
+
     <!-- Patient ID -->
     <div class="form-group">
-      <label>Patient ID:</label>
-      <input
-        type="text"
-        readonly
-        name="PatientId"
-        class="form-control"
-        [(ngModel)]="appointment.PatientId"
-      />
+      <label>Patient Code:</label>
+      <input type="text" readonly name="PatientId" class="form-control" [(ngModel)]="appointment.PatientId" />
     </div>
 
     <!-- Specialization Dropdown -->
     <div class="form-group">
       <label>Specialization</label>
-      <select
-        class="form-control" 
-        [(ngModel)]="appointment.SpecializationId"
-        name="specialization"
-        (change)="onSpecializationChange()"
-        required>
-        <option value="0" disabled selected >----Select Specialization----</option>
-        <option
-          *ngFor="let spec of specializations"
-          [value]="spec.SpecializationId">    
+      <select class="form-control" [(ngModel)]="appointment.SpecializationId" name="specialization"
+        (change)="onSpecializationChange()" required>
+        <option [ngValue]="0" disabled selected>
+          ----Select Specialization----
+        </option>
+        <option *ngFor="let spec of specializations" [ngValue]="spec.SpecializationId">
           {{ spec.SpecializationName }}
         </option>
       </select>
     </div>
 
-    <!-- Doctor Dropdown -->
+    <!-- Update the doctor selection part in the template -->
     <div class="form-group">
       <label>Doctor</label>
-      <select class="form-control" [(ngModel)]="appointment.DoctorId" name="doctor" (change)="onDoctorChange()" required>
-        <option value="0" selected disabled>--Select Doctor--</option>
-        <option *ngFor="let doc of doctorspec" [value]="doc.DoctorId">{{ doc.users.staff.StaffName }}</option>
-      </select>
-    </div>    
-    <!-- Availability Dropdown -->
-    <!-- <div class="form-group">
-      <label>Availability</label>
-      <select class="form-control" [(ngModel)]="selectedAvailabilityId" name="availability" required>
-        <option value="" disabled selected>Select Availability</option>
-        <option *ngFor="let avail of availabilities" [value]="avail.AvailabilityId">
-          {{ avail.Session }} | {{ avail.StartTime }} - {{ avail.EndTime }} | {{ avail.Weekday }}
+      <select class="form-control" [(ngModel)]="appointment.DoctorId" name="doctor" (change)="onDoctorChange()"
+        required>
+        <option [ngValue]="0" selected disabled>--Select Doctor--</option>
+        <option *ngFor="let doc of doctorspec" [ngValue]="doc.DoctorId">
+          {{ doc.DoctorName }} - {{ doc.SpecializationName }}
         </option>
       </select>
-    </div> -->
+    </div>
+
+    <!-- Availability -->
+    <div class="form-group">
+      <label>Availability</label>
+      <select class="form-control" [(ngModel)]="selectedAvailabilityId" name="availability" required>
+        <option [ngValue]="0" selected disabled>
+          ---- Select Availability ----
+        </option>
+        <option *ngFor="let avail of docavail" [ngValue]="avail.AvailabilityId">
+          {{ avail.Weekday }} | {{ avail.Session }} |
+          {{ avail.StartTime }} - {{ avail.EndTime }}
+        </option>
+      </select>
+    </div>
 
     <!-- Appointment Date -->
-     <div class="form-group">
+    <div class="form-group">
       <label>Appointment Date</label>
-      <input type="date" class="form-control" [(ngModel)]="appointment.AppointmentDate" name="appointmentDate" required />
+      <input type="date" class="form-control" [(ngModel)]="appointment.AppointmentDate" name="appointmentDate"
+        required />
     </div>
 
     <!-- Token Number -->
     <div class="form-group">
       <label>Token Number</label>
-      <input type="number" class="form-control" [(ngModel)]="appointment.TokenNumber" readonly />
-      <button type="button" class="btn btn-primary mt-2" (click)="onGenerateToken()">Generate Token</button>
+      <input type="number" class="form-control" [(ngModel)]="appointment.TokenNumber" name="tokenNumber" readonly />
+      <button type="button" class="btn btn-primary mt-2" (click)="onGenerateToken()"
+        [disabled]="!appointment.DoctorId || !appointment.AppointmentDate || !selectedAvailabilityId">
+        Generate Token
+      </button>
     </div>
 
+    <!-- Consultation Fee -->
     <div class="form-group">
       <label>Consultation Fee</label>
-      <input type="number" class="form-control" [(ngModel)]="consultationFee" readonly />
+      <input type="number" class="form-control" [ngModel]="consultationFee" name="consultationFee" readonly />
     </div>
 
     <!-- Submit Button -->
-     <button type="submit" class="btn btn-success">Book Appointment</button>
+    <button type="submit" class="btn btn-success" [disabled]="!patform.valid || !appointment.TokenNumber">
+      Book Appointment
+    </button>
   </form>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
 </div>

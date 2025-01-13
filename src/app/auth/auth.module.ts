@@ -12,6 +12,7 @@ import { LabtechniciandashComponent } from './labtechniciandash/labtechniciandas
 import { PharmacistdashComponent } from './pharmacistdash/pharmacistdash.component';
 import { AdmindashComponent } from './admindash/admindash.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PatientsListComponent } from '../receptionists/patients-list/patients-list.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LabtechniciandashComponent,
     PharmacistdashComponent,
     AdmindashComponent,
+  
    
   ],
   imports: [

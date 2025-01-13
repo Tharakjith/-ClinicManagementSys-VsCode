@@ -4,17 +4,19 @@ import { DoctorComponent } from './doctor/doctor.component';
 import { AuthComponent } from './auth/auth.component';
 import { AdminComponent } from './admin/admin.component';
 import { MedicineManagementsComponent } from './medicine-managements/medicine-managements.component';
-import { PatientsListComponent } from './receptionists/patients-list/patients-list.component';
 import { ReceptionistsComponent } from './receptionists/receptionists.component';
 import { PharmacistsComponent } from './pharmacists/pharmacists.component';
 
 const routes: Routes = [
-
-  // Empty Route
-   {
-     path: '', redirectTo: 'auth/login', pathMatch: 'full'
-    
+  {path:'auth',component:AuthComponent,
+    loadChildren:() =>import('./auth/auth.module')
+    .then(x => x.AuthModule)
   },
+
+  { path: '', redirectTo: '/patients/list', pathMatch: 'full' },
+
+
+
 
   //Lazy Loading
   {path:'doctor',
@@ -23,6 +25,8 @@ const routes: Routes = [
       .then(e => e.DoctorModule)
   
   },
+
+
 
   {
     path: 'patients', component: ReceptionistsComponent,
