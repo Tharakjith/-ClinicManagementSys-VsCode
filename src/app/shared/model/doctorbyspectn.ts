@@ -3,9 +3,8 @@ import { User } from "./user";
 
 export class Doctorbyspectn {
     DoctorId: number = 0;
-    ConsultationFee: number = 0.0;
-    DoctorIsActive: boolean = false;
-  
-    users: User = new User();
-    specialization: Specialization = new Specialization();
+    DoctorName: string = '';
+    SpecializationName: string = '';
+    ConsultationFee: number = 0;
+    DoctorIsActive: boolean = true;
 }

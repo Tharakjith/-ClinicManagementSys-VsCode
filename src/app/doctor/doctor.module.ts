@@ -25,9 +25,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     StartDiagnosysAddComponent,
     StartDiagnosysEditComponent,
     StartDiagnosysListComponent,
-    AddMedicineAddComponent,
+     AddMedicineAddComponent,
     AddMedicineListComponent,
-    AddMedicineEditComponent,
+   AddMedicineEditComponent,
     LabtestaddAddComponent,
     LabtestaddEditComponent,
     LabtestaddListComponent

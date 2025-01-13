@@ -1,69 +1,72 @@
-<p>view-appoinment-list works!</p>
-
 <div class="container">
-    <!--Employee Info-->
+  <!--Employee Info-->
+  <h2 style="color:rgb(0, 172, 17); font-family: 'Times New Roman', Times, serif; ">Welcome Back Doctor!!!!</h2>
 
-    <h3 style="color:green; font-family: 'Times New Roman', Times, serif; "><b>doctor Todays Appoinments !....</b></h3>
-    <hr>
-    <div class="header">
-        <div class="row">
-            <!--Search For appoinment row is divided in to two -->
-            <div class="col-sm-8">
-                <input type="search" class="form-control" style="color: black; font-family: 'Times New Roman', Times, serif;"
-                placeholder="Enter Search text here......"
-                [(ngModel)]="searchTerm">
-            </div>
-            
-        </div>
+  <h3 style="font-family: 'Times New Roman', Times, serif; "> Todays Appointments !....</h3>
+  <hr>
+  <div class="header">
+    <div class="row">
+      <!--Search For appointment row is divided in to two -->
+      <div class="col-sm-8">
+        <input type="search" class="form-control" style="color: black; font-family: 'Times New Roman', Times, serif;"
+          placeholder="Enter Search text here......" [(ngModel)]="searchTerm">
+      </div>
+
     </div>
-    <!--Display Records-->
-    <br>
-    <table class="table table-bordered table-striped"  >
-        <thead class="table-success">
-          <tr>
-            <!-- <th scope="col">PatientId</th> -->
-            <th scope="col">Patient Name</th>
-            <th scope="col">Gender</th>
-            <th scope="col">BloodGroup</th>
-            <th scope="col">PatientPhone</th>
-            <!-- <th scope="col">AppointmentId</th> -->
-            <th scope="col">AppointmentDate</th>
-            <th scope="col">TokenNumber</th>
-            <!-- <th scope="col">SpecializationName</th> -->
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let doctor of this.filteredAppoinment()
-          |paginate:{itemsPerPage:pageSize ,currentPage :page}">
-            
-            <!-- <td>{{'EC'+doctor.PatientId}}</td> -->
-            <td>{{doctor.PatientName}}</td>
-            <td>{{doctor.Gender}}</td>
-            <td>{{doctor.BloodGroup}}</td>
-            <td>{{doctor.PatientPhone}}</td>
-            <!-- <td>{{doctor.AppointmentId}}</td> -->
-            <td>{{doctor.AppointmentDate|date:"dd-MM-yyyy"}}</td>
-            <td>{{doctor.TokenNumber}}</td>
-            <!-- <td>{{doctor.SpecializationName}}</td> -->
-            <!-- <td><input type="checkbox"[checked]="doctor.IsActive" disabled></td>
-            <td><button class="btn btn-sm btn btn-outline-info" (click)="editDoctor(doctor)">
-                <i class="fa fa-edit"></i>
-            </button>
-            &nbsp;
-            <button class="btn btn-sm btn btn-outline-danger" (click)="deleteDoctor(doctor)">
-                <i class="fa fa-trash"></i>
-            </button>
-            </td> -->
-          </tr>
-          
+  </div>
+  <!--Display Records-->
+  <br>
+  <table class="table table-bordered table-striped">
+    <thead class="table-success">
+      <tr>
+        <!-- <th scope="col">PatientId</th> -->
 
-          
-        </tbody>
-      </table>
-      <!-- Footer []property binding () event binging -[()]-two way databinding it is angular model-->
-       <div class="footer">
-        <pagination-controls class="custom-page" (pageChange)= "page = $event"></pagination-controls>
-       </div>
-      
-     
+        <th scope="col">AppointmentDate</th>
+        <th scope="col">Appointment Code</th>
+        <th scope="col">TokenNumber</th>
+        <th scope="col">Patient Name</th>
+        <th scope="col">Gender</th>
+        <th scope="col">BloodGroup</th>
+        <th scope="col">PatientPhone</th>
+        <th scope="col">Actions</th>
+        <!-- <th scope="col">SpecializationName</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appoint of this.filteredAppointment()
+          |paginate:{itemsPerPage:pageSize ,currentPage :page}">
+
+        <!-- <td>{{'EC'+doctor.PatientId}}</td> -->
+        <td>{{appoint.AppointmentDate|date:"dd-MM-yyyy"}}</td>
+        <td>{{appoint.AppointmentId}}</td>
+        <td>{{appoint.TokenNumber}}</td>
+        <td>{{appoint.PatientName}}</td>
+        <td>{{appoint.Gender}}</td>
+        <td>{{appoint.BloodGroup}}</td>
+        <td>{{appoint.PatientPhone}}</td>
+        <!-- <td>{{doctor.SpecializationName}}</td> 
+            <td><input type="checkbox"[checked]="doctor.IsActive" disabled></td>-->
+        <!-- <td><button class="btn btn-sm btn btn-outline-info" (click)="addDiagnosys(doctor)">
+                <i class="fa fa-"></i>
+            </button>
+            &nbsp;-->
+        <td>
+          <button type="Add Diagnosys" class="btn btn-outline-primary" (click)="insertDiagnosys(appoint)">
+            Start Diagnosis
+          </button>
+          <button type="View Diagnosys" class="btn btn-outline-primary" (click)="getDiagnosys()">Diagnosis History</button>
+          <button type="View Test Report" class="btn btn-outline-primary">View Report</button>
+        </td>
+      </tr>
+
+
+
+    </tbody>
+  </table>
+  <!-- Footer []property binding () event binging -[()]-two way databinding it is angular model-->
+  <div class="footer">
+    <pagination-controls class="custom-page" (pageChange)="page = $event"></pagination-controls>
+  </div>
+
+
 </div>

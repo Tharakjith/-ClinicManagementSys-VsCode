@@ -1,7 +1,8 @@
-import { Doctors } from "./doctors";
+import { Appointment } from "./appointment";
+import { Doctor } from "./doctor";
 import { Patient } from "./patient";
 
-export class AppoinmentpatientViewmodel {
+export class AppointmentpatientViewmodel {
     
     "PatientId": number = 0;
     "PatientName": string='';
@@ -17,8 +18,9 @@ export class AppoinmentpatientViewmodel {
     "TokenNumber": number = 0;
     "SpecializationName": string='';
     
-patient : Patient = new Patient();
-doctor : Doctors = new Doctors();
+Patient : Patient = new Patient();
+doctor : Doctor = new Doctor();
+Appointment :Appointment=new Appointment();
 
     
   

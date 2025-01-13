@@ -4,7 +4,6 @@ import { DoctorComponent } from './doctor/doctor.component';
 import { AuthComponent } from './auth/auth.component';
 import { AdminComponent } from './admin/admin.component';
 import { MedicineManagementsComponent } from './medicine-managements/medicine-managements.component';
-import { PatientsListComponent } from './receptionists/patients-list/patients-list.component';
 import { ReceptionistsComponent } from './receptionists/receptionists.component';
 import { PharmacistsComponent } from './pharmacists/pharmacists.component';
 import { LabComponent } from './lab/lab.component';
@@ -12,6 +11,10 @@ import { DoctormgmtComponent } from './doctormgmt/doctormgmt.component';
 //import { LabtestlistListComponent } from './labtechnicians/labtestlist-list/labtestlist-list.component';
 
 const routes: Routes = [
+  {path:'auth',component:AuthComponent,
+    loadChildren:() =>import('./auth/auth.module')
+    .then(x => x.AuthModule)
+  },
 
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
 

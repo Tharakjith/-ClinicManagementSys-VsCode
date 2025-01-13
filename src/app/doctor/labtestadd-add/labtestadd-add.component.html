@@ -1,1 +1,96 @@
 <p>labtestadd-add works!</p>
+<div class="container">
+    <h3 style="color:rgb(180, 17, 17); font-family: 'Times New Roman', Times, serif; ">Prescribe Labtest</h3>
+    <hr>
+    <!--Template Driven Form--><!--(ngSubmit) Event -->
+    <form name="frmLabtest" #labform="ngForm" autocomplete="off"  style="color: black; font-family: 'Times New Roman', Times, serif;"
+    (ngSubmit)="onSubmit(labform)"> 
+
+    <!--Employee Id -------------------------------------------->
+     <div class="form-group">
+        <input type="hidden" readonly name="L" class="form-control"  style="color: black; font-family: 'Times New Roman', Times, serif;"
+        [(ngModel)]="doctorService.formLabtestData.TpId">
+    </div>
+    
+    <!-- "": number = 0;
+    "AppointmentId": number = 0;
+    "": number = 0;
+    "": string=''; -->
+
+         
+    <div class="form-group">
+        <label><b>Appointment Code   </b> </label>
+        <input type="text" readonly name ="AppointmentId"
+        class="form-control"
+        [(ngModel)]="appointment.AppointmentId"/>
+        <!-- {{appointment.AppointmentId}} -->
+        </div> 
+ 
+    <!--LabTest Id--------------------------------------------->
+    <div class="form-group">
+        <label>LabTest Name:</label>
+        <select name="LabTestId" id="LabTestId" #LabTestId="ngModel"
+                class="form-control validation-error"
+                [(ngModel)]="doctorService.formLabtestData.LabTestId" 
+                class ="form-control" required>
+
+            <option value="0" selected disabled> ---Select Labtest---</option>
+            <option *ngFor="let dept of doctorService.labtest"
+                value="{{dept.LabTestId}}">{{dept.TestName}}
+            </option>
+        </select>
+        <div class="validation-error" *ngIf="LabTestId.touched &&
+                    LabTestId.invalid">
+        <div *ngIf="LabTestId.errors?.['required']">
+            LabTest is required! </div>
+        </div>
+    </div>
+            
+    <!--Designation---------------------------------------------->
+     <div class="form-group">
+        <label>SampleItem : </label>
+        <input type="text" name="SampleItem"
+        #SampleItem="ngModel"
+        [(ngModel)]="doctorService.formLabtestData.SampleItem"
+        class="form-control"
+        placeholder="Enter SampleItem " minlength="3" maxlength="25"
+        required
+        [ngClass]="{'is-invalid': SampleItem.touched && SampleItem.invalid}"/> 
+
+    
+    <!--Validation msg-->
+     <div class="Validation-error"  *ngIf= "SampleItem.touched && SampleItem.invalid">
+        <div *ngIf="SampleItem.errors?.['required']">
+            SampleItem is Invalid Or Required !.
+        </div>
+    </div>
+</div> 
+  
+
+
+
+    <!--Is Active---------------------------------------------->
+   <!-- <div class="form-group">
+        <div class="form-check">
+        <input type="checkbox" name="IsActive" #isActive="ngModel"
+        class="form-check-input"
+        [(ngModel)]="doctorService.formLabtestData.IsActive" />
+        <label class="form-check-label">Is Active</label>
+        </div>
+    </div>  -->
+    <!--No Validation on Is Active-->
+        
+    <!--Submit------------------------------------------------------->
+     <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-primary form-control"
+                              [disabled]="!(labform.valid && labform.dirty)">
+                 INSERT
+        </button>
+        </div> 
+    <!--ERROR MESSAGE  After SUBMITTING -->
+        <div *ngIf="errorMessage" class="error-message validation-error">
+            {{errorMessage}}
+        </div>
+
+    </form>
+</div> 

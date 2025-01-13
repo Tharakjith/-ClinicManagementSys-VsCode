@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AdmindashComponent } from './admindash/admindash.component';
 import { DoctordashComponent } from './doctordash/doctordash.component';
+import { ReceptionistsComponent } from '../receptionists/receptionists.component';
 import { ReceptionistdashComponent } from './receptionistdash/receptionistdash.component';
-import { LabtechniciandashComponent } from './labtechniciandash/labtechniciandash.component';
-import { PharmacistdashComponent } from './pharmacistdash/pharmacistdash.component';
+import { PatientsListComponent } from '../receptionists/patients-list/patients-list.component';
 
 const routes: Routes = [
   { path: 'login',component: LoginComponent},
+  {path:'admin',component:AdmindashComponent},
   {path:'doctor',component:DoctordashComponent},
-  {path: 'receptionist', component: ReceptionistdashComponent},
-  {path: 'admin', component: AdmindashComponent},
-  {path: 'labtechnician', component: LabtechniciandashComponent},
-  {path: 'pharmacists', component: PharmacistdashComponent},
+  {path: 'receptionist', component: PatientsListComponent
+    
+  }
 ];
 
 @NgModule({
