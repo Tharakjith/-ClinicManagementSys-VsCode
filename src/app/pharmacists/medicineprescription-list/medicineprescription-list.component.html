@@ -9,12 +9,6 @@
                 placeholder="Enter search text here.."
                 [(ngModel)]="searchTerm">
             </div>
-            <!--Add employee Button-->
-            <div class="col-sm-4">
-                <!-- <a [routerLink]="['/employees/add']" role="button" class= "btn btn-outline-primary">
-                    <i class="fa fa-user-plus fa-lg"></i>&nbsp;Add Employee
-                </a> -->
-            </div>
         </div>
     </div>
 
@@ -43,18 +37,18 @@
             <td>{{prescribedmedicine.Frequency}}</td>
             <td>{{prescribedmedicine.NumberofDays}}</td>
             <td>
-                <!-- <button class="btn btn-sm btn btn-outline-info" (click)="editEmployee(employee)">
-                <i class="fa fa-edit"></i></button>
-                &nbsp;
-                <button class="btn btn-sm btn-outline-info" (click)="deleteEmployee(employee)">
-                    <i class="fa fa-trash"></i></button>-->
+            <div class="col-sm-4">
+              <a (click) = medicineDis(prescribedmedicine) role="button" class="btn btn-outline-primary">
+                <i class="fa fa-user-plus fa-lg"></i>&nbsp;View Medicine Details
+              </a>
+            </div>
             </td> 
           </tr>
         </tbody>
       </table>
 
       <!--footer-->
-      <div class="footer">
-        <pagination-controls class ="custom-page" (pageChange)= "page = $event"></pagination-controls>
+      <div class="footer" *ngIf="medicineprescriptionService.medicineprescription.length > 0">
+        <pagination-controls class="custom-page" (pageChange)="page = $event"></pagination-controls>
       </div>
 </div>

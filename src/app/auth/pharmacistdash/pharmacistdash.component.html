@@ -1,1 +1,33 @@
-<p>pharmacistdash works!</p>
+<p>Pharmacist Dashboard</p>
+
+<app-navbar></app-navbar>
+<div class="container mt-5 text-center">
+    <!-- List Medicine Prescription Button -->
+    <a 
+        [routerLink]="['/medicine-prescriptions/Medicineprescriptionlist']" 
+        role="button" 
+        class="btn btn-outline-primary mx-2 d-inline-block"
+        style="width: 150px;"
+    >
+        <span>
+            <i class="fa fa-users fa-lg"></i>
+        </span>
+        <br>Today's Medicine Prescription
+    </a>
+    
+    <!-- Add Medicine Prescription Button -->
+    <a 
+        [routerLink]="['/medicine-managements/list']" 
+        role="button" 
+        class="btn btn-outline-primary mx-2 d-inline-block"
+        style="width: 150px;"
+    >
+        <span>
+            <i class="fa fa-user-plus fa-lg"></i>
+        </span>
+        <br>Stock Management
+    </a>
+</div>
+
+
+

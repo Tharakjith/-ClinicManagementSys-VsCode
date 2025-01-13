@@ -1,1 +1,58 @@
-<p>medicinebill-list works!</p>
+<div class="container">
+    <!-- Medicine Bill Info -->
+    <h3>Medicine Bill</h3>
+
+    <!-- Display Records -->
+    <br />
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Patient ID</th>
+                <th scope="col">Patient Name</th>
+                <th scope="col">Medicine Name</th>
+                <th scope="col">Bill Date</th>
+                <th scope="col">Dosage</th>
+                <th scope="col">Frequency</th>
+                <th scope="col">Number Of Days</th>
+                <th scope="col">Cost</th>
+                <th scope="col">GST (10%)</th>
+                <th scope="col">Grand Total</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let medicinebill of medicinebillService.medicinebills
+            | filter: searchTerm
+            | paginate: { itemsPerPage: pageSize, currentPage: page }">
+            
+                <td>{{ medicinebill.PatientId }}</td>
+                <td>{{ medicinebill.PatientName }}</td>
+                <td>{{ medicinebill.MedicineName }}</td>
+                <td>{{ medicinebill.BillDateTime | date: 'dd-MM-yyyy' }}</td>
+                <td>{{ medicinebill.Dosage }}</td>
+                <td>{{ medicinebill.Frequency }}</td>
+                <td>{{ medicinebill.NumberOfDays }}</td>
+                <td>{{ medicinebill.Cost | currency: 'Rs' }}</td>
+                <td>{{ medicinebill.Cost * 0.1 | currency: 'Rs' }}</td>
+                <td>{{ medicinebill.Cost + medicinebill.Cost * 0.1 | currency: 'Rs' }}</td>
+                <td>
+                    <!-- <button class="btn btn-sm btn-outline-info" (click)="printBill(medicinebill)">
+                        Print
+                    </button> -->
+                    &nbsp;
+                    <!-- <button class="btn btn-sm btn-outline-info" (click)="sendEmail(medicinebill)">
+                        Send Email
+                    </button> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Footer -->
+    <div class="footer">
+        <pagination-controls
+            class="custom-page"
+            (pageChange)="page = $event"
+        ></pagination-controls>
+    </div>
+</div>

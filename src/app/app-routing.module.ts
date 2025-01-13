@@ -6,6 +6,9 @@ import { AdminComponent } from './admin/admin.component';
 import { MedicineManagementsComponent } from './medicine-managements/medicine-managements.component';
 import { ReceptionistsComponent } from './receptionists/receptionists.component';
 import { PharmacistsComponent } from './pharmacists/pharmacists.component';
+import { LabComponent } from './lab/lab.component';
+import { DoctormgmtComponent } from './doctormgmt/doctormgmt.component';
+//import { LabtestlistListComponent } from './labtechnicians/labtestlist-list/labtestlist-list.component';
 
 const routes: Routes = [
   {path:'auth',component:AuthComponent,
@@ -13,25 +16,35 @@ const routes: Routes = [
     .then(x => x.AuthModule)
   },
 
-  { path: '', redirectTo: '/patients/list', pathMatch: 'full' },
-
-
-
+  { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
 
   //Lazy Loading
-  {path:'doctor',
-    // component:DoctorComponent,
+  {
+    path: 'doctor', component: DoctorComponent,
     loadChildren: () => import('./doctor/doctor.module')
       .then(e => e.DoctorModule)
-  
+  },
+  {
+    path: 'uregistration',
+    loadChildren: () => import('./uregistration/uregistration.module')
+      .then(e => e.UregistrationModule)
   },
 
-
+  {
+    path: 'doctormgmt', component: DoctormgmtComponent,
+    loadChildren: () => import('./doctormgmt/doctormgmt.module')
+      .then(x => x.DoctormgmtModule),
+  },
 
   {
     path: 'patients', component: ReceptionistsComponent,
     loadChildren: () => import('./receptionists/receptionists.module')
       .then(x => x.ReceptionistsModule),
+  },
+  {
+    path: 'lab', component: LabComponent,
+    loadChildren: () => import('./lab/lab.module')
+      .then(x => x.LabModule),
   },
   {
     path: 'admin', component: AdminComponent,
@@ -49,8 +62,21 @@ const routes: Routes = [
     loadChildren: () => import('./pharmacists/pharmacists.module')
       .then(e => e.PharmacistsModule)
   },
+  // {
+  //   path: 'Labtest-list', component: LabtestlistListComponent,
+  //   loadChildren: () => import('./pharmacists/pharmacists.module')
+  //     .then(e => e.PharmacistsModule)
+  // },
 
-  { path: '**', redirectTo: 'auth/notfound', pathMatch: 'full' }
+
+  {
+    path: 'auth', component: AuthComponent,
+    loadChildren: () => import('./auth/auth.module')
+      .then(x => x.AuthModule)
+  },
+
+
+  { path: '', redirectTo: 'auth/notfound', pathMatch: 'full' }
 
 ];
 

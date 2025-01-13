@@ -1,1 +1,32 @@
-<p>labtechniciandash works!</p>
+<p>labtechnician works!</p>
+
+<app-navbar></app-navbar>
+<div class="container mt-5 text-center">
+    <!-- List labtechnician buttons Button -->
+    <a 
+        [routerLink]="['/labtechnician/Labtestlist']" 
+        role="button" 
+        class="btn btn-outline-primary mx-2 d-inline-block"
+        style="width: 150px;"
+    >
+        <span>
+            <i class="fa fa-users fa-lg"></i>
+        </span>
+        <br>Today's Labtests
+    </a>
+    
+    <!-- Add Labtechnician Button -->
+    <a 
+        [routerLink]="['/Labtechnician/list']" 
+        role="button" 
+        class="btn btn-outline-primary mx-2 d-inline-block"
+        style="width: 150px;"
+    >
+        <span>
+            <i class="fa fa-user-plus fa-lg"></i>
+        </span>
+        <br>NULL
+    </a>
+</div>
+
+

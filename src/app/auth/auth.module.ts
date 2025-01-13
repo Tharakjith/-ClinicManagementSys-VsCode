@@ -31,9 +31,10 @@ import { PatientsListComponent } from '../receptionists/patients-list/patients-l
   ],
   imports: [
     CommonModule,
-    AuthRoutingModule,
     ReactiveFormsModule,
-    FormsModule 
+    FormsModule,
+    AuthRoutingModule
+
   ]
 })
 export class AuthModule { }

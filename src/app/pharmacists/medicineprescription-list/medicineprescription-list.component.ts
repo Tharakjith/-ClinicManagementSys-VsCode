@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { MedicinedistributeService } from 'src/app/shared/service/medicinedistribute.service';
 import { MedicinepresciptionService } from 'src/app/shared/service/medicinepresciption.service';
 
 
@@ -12,11 +13,14 @@ import { MedicinepresciptionService } from 'src/app/shared/service/medicinepresc
 export class MedicineprescriptionListComponent implements OnInit {
 
   //declare variables
+
   page: number=1;
   pageSize: number=10;
   searchTerm: string='';
 
-  constructor(public medicineprescriptionService: MedicinepresciptionService,
+  constructor(
+    public medicinedistributeService:MedicinedistributeService,
+    public medicineprescriptionService: MedicinepresciptionService,
     private router : Router,private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -44,13 +48,17 @@ export class MedicineprescriptionListComponent implements OnInit {
   {
     const medCode = `p${e.PrescriptionId}`.toLowerCase()
     return(
-    e.medicinedetails.MedicineName?.toLowerCase().includes(searchTermLower) ||
+    e.MedicineName?.toLowerCase().includes(searchTermLower) ||
     medCode.includes(searchTermLower)
   );
 });
 
 
 
+  }
+  medicineDis(prescribedmedicine:any){
+      this.medicinedistributeService.formMedicinedistributeData = Object.assign({},prescribedmedicine)
+      this.router.navigate(['/medicine-prescriptions/Medicinedistributeadd',prescribedmedicine.PrescriptionId])
   }
 }
 

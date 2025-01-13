@@ -13,5 +13,5 @@ export class Medicinepresciption {
     PatientName: string='';
 
     //object Oriented Model
-    medicinedetails : Medicinedetails = new Medicinedetails();
+    Medicinedetails : Medicinedetails = new Medicinedetails();
 }
