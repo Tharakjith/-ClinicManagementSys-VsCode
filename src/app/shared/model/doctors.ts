@@ -15,8 +15,15 @@ export class Doctors {
     
      staff:Staff=new Staff();
       users: User= new User();
+<<<<<<< HEAD
+      StaffName: string = '';
+      specialization: Specialization= new Specialization();
+      staff:Staff=new Staff();
+    }
+=======
     
       specialization: Specialization= new Specialization();
     }
 
+>>>>>>> d0fdefa26a72c0830a362f9717447626f7d53d96
 

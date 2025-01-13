@@ -1,1 +1,131 @@
 <p>add-medicine-edit works!</p>
+
+<div class="container">
+    <h3 style="color:rgb(180, 17, 17); font-family: 'Times New Roman', 
+    Times, serif; ">Edit Medicines Prescriptions !...</h3>
+    <hr>
+ 
+    <form name="frmMedicine" #medicineform="ngForm" autocomplete="off"  style="color: black; font-family: 
+    'Times New Roman', Times, serif;"
+    (ngSubmit)="onSubmit(medicineform)"> 
+
+    
+    <div class="form-group">
+        <label>Prescription Number</label>
+        <input type="text" readonly name="PrescriptionId" class="form-control"  style="color: black; font-family: 
+        'Times New Roman', Times, serif;"
+        [(ngModel)]="doctorService.formMedicineData.PrescriptionId">
+    </div>
+   
+        
+    <div class="form-group" >
+        <label>Appointment Id</label>
+        <input type="text" name="AppointmentId"
+        #AppointmentId="ngModel"
+        [(ngModel)]="doctorService.formMedicineData.AppointmentId"
+        class="form-control"
+        placeholder="Enter AppointmentId" minlength="3" maxlength="25"
+        required
+        [ngClass]="{'is-invalid': AppointmentId.touched && AppointmentId.invalid}"/>
+
+    <div class="Validation-error"  *ngIf= "AppointmentId.touched && AppointmentId.invalid">
+        <div *ngIf="AppointmentId.errors?.['required']">
+            AppointmentId is Invalid Or Required !.
+        </div>
+    </div>
+    
+</div>
+    <div class="form-group">
+        <label>Dosage : </label>
+        <input type="text" name="Dosage"
+        #Dosage="ngModel"
+        [(ngModel)]="doctorService.formMedicineData.Dosage"
+        class="form-control"
+        placeholder="Enter Dosage " minlength="3" maxlength="25"
+        required
+        [ngClass]="{'is-invalid': Dosage.touched && Dosage.invalid}"/>
+
+    
+    <div class="Validation-error"  *ngIf= "Dosage.touched && Dosage.invalid">
+        <div *ngIf="Dosage.errors?.['required']">
+            Dosage is Invalid Or Required !.
+        </div>
+    </div>
+</div>
+    <div class="form-group">
+        <label>Frequency: </label>
+        <input type="date" name="Frequency"
+        #Frequency="ngModel"
+        [(ngModel)]="doctorService.formMedicineData.Frequency"
+        class="form-control"
+        placeholder="Enter Frequency"
+        required
+        [ngClass]="{'is-invalid': Frequency.touched && Frequency.invalid}"/>
+
+    
+    <div class="Validation-error"  *ngIf= "Frequency.touched && Frequency.invalid">
+        <div *ngIf="Frequency.errors?.['required']">
+            Frequency is Invalid Or Required !.
+        </div>
+    </div>
+    </div>
+    <div class="form-group">
+        <label>MedicineId:</label>
+        <select name="MedicineId" id="MedicineId" #MedicineId="ngModel"
+                class="form-control validation-error"
+                [(ngModel)]="doctorService.formMedicineData.MedicineId" 
+                class ="form-control" required>
+
+            <option value="0" selected disabled> ---Select Department---</option>
+            <option *ngFor="let dept of doctorService.medicinedetails"
+                value="{{dept.MedicineId}}">
+                {{dept.MedicineId}}
+            </option>
+        </select>
+        <div class="validation-error" *ngIf="MedicineId.touched &&
+        MedicineId.invalid">
+        <div *ngIf="MedicineId.errors?.['required']">
+                    medicine is required! </div>
+        </div>
+    </div>
+            
+
+    <div class="form-group">
+        <label>Number of Days : </label>
+        <input type="text" name="Contact"
+        #NumberofDays="ngModel"
+        [(ngModel)]="doctorService.formMedicineData.NumberofDays"
+        class="form-control"
+        placeholder="Enter NumberofDays " minlength="10" maxlength="10"
+        required
+        [ngClass]="{'is-invalid': NumberofDays.touched && NumberofDays.invalid}"/>
+
+    
+    <div class="Validation-error"  *ngIf= "NumberofDays.touched && NumberofDays.invalid">
+        <div *ngIf="NumberofDays.errors?.['required']">
+            NumberofDays is Invalid Or Required !.
+        </div>
+    </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-check">
+        <input type="checkbox" name="IsActive" #isActive="ngModel"
+        class="form-check-input"
+        [(ngModel)]="doctorService.formMedicineData.IsActive" />
+        <label class="form-check-label">Is Active</label>
+        </div>
+    </div>
+        
+    <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-primary form-control"
+                              [disabled]="!(medicineform.valid && medicineform.dirty)">
+                 Update 
+        </button>
+        </div>
+        <div *ngIf="errorMessage" class="error-message validation-error">
+            {{errorMessage}}
+        </div>
+
+    </form>
+</div>

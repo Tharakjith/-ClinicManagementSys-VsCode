@@ -15,11 +15,19 @@ const routes: Routes = [
 
   { path: '', redirectTo: '/patients/list', pathMatch: 'full' },
 
-  {
-    path: 'doctor', component: DoctorComponent,
+
+
+
+  //Lazy Loading
+  {path:'doctor',
+    // component:DoctorComponent,
     loadChildren: () => import('./doctor/doctor.module')
       .then(e => e.DoctorModule)
+  
   },
+
+
+
   {
     path: 'patients', component: ReceptionistsComponent,
     loadChildren: () => import('./receptionists/receptionists.module')

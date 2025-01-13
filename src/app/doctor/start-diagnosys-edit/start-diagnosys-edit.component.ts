@@ -19,37 +19,37 @@ export class StartDiagnosysEditComponent implements OnInit {
   ) { }
 
  //Submit form
- onSubmit(empform:NgForm){
-  console.log(empform.value);
+ onSubmit(startDiaform:NgForm){
+  console.log(startDiaform.value);
   //call insert method
-  this.editDiagnosys(empform);
+  this.editDiagnosys(startDiaform);
   
 
   //Redirect to Employee List
-  this.router.navigate(['/doctor/startDiagnosys']);
+  this.router.navigate(['/doctor/startDiagnosys/']);
 
   //Reset Form
- empform.reset();
+  startDiaform.reset();
 
 }
 //Insert Method
-editDiagnosys(empform:NgForm){
+editDiagnosys(startDiaform:NgForm){
 console.log("Updating...");
-this.doctorService.editDiagnosys(empform.value).subscribe(
+this.doctorService.editDiagnosys(startDiaform.value).subscribe(
   (response)=>{
     console.log(response);
-    this.toastr.success('Record has been Updated successfully','EMS v2024')
+    this.toastr.success('Record has been Updated successfully','EMSv2024')
     this.errorMessage=null;
     this.doctorService.getAllDiagnosys();
 
     this.router.navigate(['/doctor/startDiagnosys']);
 
-    empform.reset()
+    startDiaform.reset()
 
   },
   (error)=>{
     console.log(error);
-    this.toastr.error('An error Occured','EMS v2024');
+    this.toastr.error('An error Occured','CMSv2024');
     this.errorMessage='An error Occured' + error;
   }
 );

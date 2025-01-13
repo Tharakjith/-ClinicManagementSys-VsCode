@@ -1,5 +1,5 @@
-import { Appoinment } from "./appoinment";
-//import { Doctor } from "./doctor";
+import { Appointment } from "./appointment";
+import { Doctors } from "./doctors";
 
 export class StartDiagnosy {
 
@@ -10,11 +10,12 @@ export class StartDiagnosy {
     "DoctorNote":number = 0;
     "DiagnosysDate": string='';
     "DateTime": Date = new Date();
-    "Reference": number = 0;
+   
     "AppointmentId": number = 0;
     "IsActive": boolean;
     
-    appoinment:Appoinment=new Appoinment();
+    appointment:Appointment=new Appointment();
+    doctors:Doctors=new Doctors();
   
 
 
