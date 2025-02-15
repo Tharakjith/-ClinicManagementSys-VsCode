@@ -1,16 +1,21 @@
-
 <div class="container">
-    <h3 style="color:rgb(180, 17, 17); font-family: 'Times New Roman', Times, serif; ">Start Diagnosys</h3>
+    <br><br><br><br>
+    <div class="card" style="max-width: 800px; margin: 0 auto; padding: 2px;">
+
+    <h3 style="color:rgb(180, 17, 17);">Start Diagnosys</h3>
     <hr>
    
     <div class="form-group">
-        <label><b>Appointment Code   </b> </label>
+       <!-- <label><b>Appointment Code   </b> </label>
         <input type="text" readonly name ="AppointmentId"
         class="form-control"
         [(ngModel)]="appointment.AppointmentId"/>
-        <!-- {{appointment.AppointmentId}} -->
-        </div> 
- 
+       {{appointment.AppointmentId}} 
+        </div>  --><label> <b>History Code </b></label>
+        <input type="text" readonly name="AppointmentId"
+        class="form-control"   
+        [(ngModel)]="doctorService.formDiagnosysData.AppointmentId"/>
+    </div>
    
     <!--Template Driven Form--><!--(ngSubmit) Event -->
     <form name="formDiagnosysData" #startDiaform="ngForm" autocomplete="off"  
@@ -25,84 +30,121 @@
     </div>
         
     <!--Diagnosis-------------------------------------------->
-    <div class="form-group" >
-        <label><b>Diagnosis</b> </label>
+    <div class="form-group">
+        <label><b>Diagnosis</b></label>
         <input type="text" 
-        #Diagnosis="ngModel"
-        name = "Diagnosis"
-        [(ngModel)]="doctorService.formDiagnosysData.Diagnosis"
-        class="form-control"
-        placeholder="Enter Diagnosis " minlength="3" maxlength="25"
-        required
-        [ngClass]="{'is-invalid': Diagnosis.touched && Diagnosis.invalid}"/>
-
-    <!--Validation msg-->
-    <div class="Validation-error"  *ngIf= "Diagnosis.touched && Diagnosis.invalid">
-        <div *ngIf="Diagnosis.errors?.['required']">
-            Diagnosis  is Invalid Or Required !.
+            #Diagnosis="ngModel"
+            name="Diagnosis"
+            [(ngModel)]="doctorService.formDiagnosysData.Diagnosis"
+            class="form-control"
+            placeholder="Enter Diagnosis"
+            minlength="3" maxlength="25"
+            required
+            pattern="^[A-Za-z]+( [A-Za-z]+)*$"
+            [ngClass]="{'is-invalid': Diagnosis.touched && Diagnosis.invalid}"/>
+    
+        <!-- Validation Messages -->
+        <div class="Validation-error" *ngIf="Diagnosis.touched && Diagnosis.invalid">
+            <div *ngIf="Diagnosis.errors?.['required']">
+                Diagnosis is required!.
+            </div>
+            <div *ngIf="Diagnosis.errors?.['minlength']">
+                Diagnosis must be at least 3 characters long!.
+            </div>
+            <div *ngIf="Diagnosis.errors?.['maxlength']">
+                Diagnosis must be at most 25 characters long!.
+            </div>
+            <div *ngIf="Diagnosis.errors?.['pattern']">
+                Diagnosis can only contain letters and one space between words!.
+            </div>
         </div>
     </div>
     
-</div>
     <!--Symptoms---------------------------------------------->
     <div class="form-group">
         <label><b>Symptoms</b></label>
         <input type="text" 
-        #Symptoms="ngModel"
-        name = "Symptoms"
-        [(ngModel)]="doctorService.formDiagnosysData.Symptoms"
-        class="form-control"
-        placeholder="Enter Symptoms " minlength="3" maxlength="25"
-        required
-        [ngClass]="{'is-invalid': Symptoms.touched && Symptoms.invalid}"/>
-
+            #Symptoms="ngModel"
+            name="Symptoms"
+            [(ngModel)]="doctorService.formDiagnosysData.Symptoms"
+            class="form-control"
+            placeholder="Enter Symptoms"
+            minlength="3" maxlength="25"
+            required
+            pattern="^[A-Za-z]+( [A-Za-z]+)*$"
+            [ngClass]="{'is-invalid': Symptoms.touched && Symptoms.invalid}"/>
     
-    <!--Validation msg-->
-   <div *ngIf="Symptoms.errors?.['minlength']">
-  Symptoms must be at least 3 characters long.
-</div>
-
-</div>
+        <!-- Validation Messages -->
+        <div class="Validation-error" *ngIf="Symptoms.touched && Symptoms.invalid">
+            <div *ngIf="Symptoms.errors?.['required']">
+                Symptoms are required!.
+            </div>
+            <div *ngIf="Symptoms.errors?.['minlength']">
+                Symptoms must be at least 3 characters long.
+            </div>
+            <div *ngIf="Symptoms.errors?.['maxlength']">
+                Symptoms must be at most 25 characters long.
+            </div>
+            <div *ngIf="Symptoms.errors?.['pattern']">
+                Symptoms can only contain letters and one space between words!.
+            </div>
+        </div>
+    </div>
     <!--Date Of Next Visiting-------------------------------------------------->
     <div class="form-group">
         <label><b>Next Visiting Date</b></label>
         <input type="date" 
-        #NextVisiting="ngModel"
-        name = "NextVisiting"
-        [(ngModel)]="doctorService.formDiagnosysData.NextVisiting"
-        class="form-control"
-        placeholder="Enter Date Of Next Visiting "
-        required
-        [ngClass]="{'is-invalid': NextVisiting.touched && NextVisiting.invalid}"/>
-
+            #NextVisiting="ngModel"
+            name="NextVisiting"
+            [(ngModel)]="doctorService.formDiagnosysData.NextVisiting"
+            class="form-control"
+            placeholder="Enter Date Of Next Visiting"
+            required
+            [min]="minDate"
+            [ngClass]="{'is-invalid': NextVisiting.touched && NextVisiting.invalid}"/>
     
-    <!--Validation msg-->
-    <div class="Validation-error"  *ngIf= "NextVisiting.touched && NextVisiting.invalid">
-        <div *ngIf="NextVisiting.errors?.['required']">
-            Date Of Next Visiting is Invalid Or Required !.
+        <!-- Validation msg -->
+        <div class="Validation-error" *ngIf="NextVisiting.touched && NextVisiting.invalid">
+            <div *ngIf="NextVisiting.errors?.['required']">
+                Date Of Next Visiting is Required!.
+            </div>
+            <div *ngIf="NextVisiting.errors?.['min']">
+                Date Of Next Visiting cannot be in the past!.
+            </div>
         </div>
     </div>
-    </div>
+    
     <!--Doctor Note---------------------------------------------->
     <div class="form-group">
-        <label><b>Doctor's Note </b></label>
+        <label><b>Doctor's Note</b></label>
         <input type="text" 
-        #DoctorNote="ngModel"
-        name = "DoctorNote"
-        [(ngModel)]="doctorService.formDiagnosysData.DoctorNote"
-        class="form-control"
-        placeholder="Enter Doctor Note " minlength="3" maxlength="80" 
-        required
-        [ngClass]="{'is-invalid': DoctorNote.touched && DoctorNote.invalid}"/>
-
+            #DoctorNote="ngModel"
+            name="DoctorNote"
+            [(ngModel)]="doctorService.formDiagnosysData.DoctorNote"
+            class="form-control"
+            placeholder="Enter Doctor's Note"
+            minlength="3" maxlength="80"
+            required
+            pattern="^[A-Za-z]+( [A-Za-z]+)*$"
+            [ngClass]="{'is-invalid': DoctorNote.touched && DoctorNote.invalid}"/>
     
-    <!--Validation msg-->
-    <div class="Validation-error"  *ngIf= "DoctorNote.touched && DoctorNote.invalid">
-        <div *ngIf="DoctorNote.errors?.['required']">
-            DoctorNote is Invalid Or Required !.
+        <!-- Validation Messages -->
+        <div class="Validation-error" *ngIf="DoctorNote.touched && DoctorNote.invalid">
+            <div *ngIf="DoctorNote.errors?.['required']">
+                Doctor's Note is required!.
+            </div>
+            <div *ngIf="DoctorNote.errors?.['minlength']">
+                Doctor's Note must be at least 3 characters long.
+            </div>
+            <div *ngIf="DoctorNote.errors?.['maxlength']">
+                Doctor's Note must be at most 80 characters long.
+            </div>
+            <div *ngIf="DoctorNote.errors?.['pattern']">
+                Doctor's Note can only contain letters and one space between words!.
+            </div>
         </div>
     </div>
-</div>
+    
  <!--Date Of DiagnosysDate------------------------------------------------->
  <div class="form-group">
     <label><b>Diagnosys Date:</b></label>
@@ -124,52 +166,38 @@
     </div>
   </div>
   
-    <!--Doctor Id with Dr name--------------------------------------------->
-    <!-- <div class="form-group">
-        <label>Reference :</label>
-        <select name="Reference" id="Reference" #Reference="ngModel"
-                class="form-control validation-error"
-                [(ngModel)]="doctorService.formDiagnosysData.Reference" 
-                class ="form-control" required>
+   
 
-            <option value="0" selected disabled></option>
-            <option *ngFor="let dept of doctorService.appointment=No Reference"
-                value="{{dept.DoctorId}}">{{dept.DoctorId}}
-            </option>
-        </select>
-        <div class="validation-error" *ngIf="Reference.touched && Reference.invalid">
-        <div *ngIf="Reference.errors?.['required']">
-            Doctor Name is required! </div>
-        </div>
-    </div> -->
-           
-
-    <!--AppointmentId-------------------------------------------------
+    <!--AppointmentId--------------------------------------------------->
    
 <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;
-    <button type="Add Medicine"  class="btn btn-outline-primary" (click)="addmedicines()">
+    <button type="Add Medicine"  class="btn btn-outline-info" (click)="addmedicines()">
         Add Medicine</button> &nbsp;&nbsp;&nbsp;&nbsp;
-      <button type="Add Medicine" class="btn btn-outline-primary" (click)="addlabtests()">
-        Add Labtest</button>
-&nbsp;&nbsp;&nbsp;&nbsp;<button type="View Test Report" class="btn btn-outline-primary">View Report</button>
+      <button type="Add Medicine" class="btn btn-outline-info" (click)="addlabtests()">
+        Add Labtest</button>  &nbsp;&nbsp;&nbsp;&nbsp;
+        <!-- <a class="btn btn-outline-secondary" [routerLink]="['/doctor/list', doctorId]">
+            <i class="fa fa-arrow-left"></i>&nbsp;Back
+        </a> -->
+
+&nbsp;&nbsp;&nbsp;&nbsp;<!-- In your start-diagnosys-add.component.html -->
+
+
 <br>
-<br>-->
+<br>
    <!--Submit------------------------------------------------------->
-   <div class="form-group">
-    <button
-      type="submit"
-      class="btn btn-primary form-control"
-      [disabled]="!startDiaform.valid"
-    >
-      INSERT
-    </button>
-  </div>
+   <div class="form-group text-center">
+    <button type="submit" class="btn btn-outline-info form-control">
+        INSERT
+      </button>
+      
+   </div>
     <!--ERROR MESSAGE  After SUBMITTING -->
         <div *ngIf="errorMessage" class="error-message validation-error">
             {{errorMessage}}
         </div>
 
     </form>
+    </div>
 </div>

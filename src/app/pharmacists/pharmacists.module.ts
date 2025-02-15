@@ -9,6 +9,9 @@ import { FormsModule } from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MedicinedistributeAddComponent } from './medicinedistribute-add/medicinedistribute-add.component';
+import { NavbarComponent } from '../auth/navbar/navbar.component';
+import { AuthModule } from '../auth/auth.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -17,14 +20,15 @@ import { MedicinedistributeAddComponent } from './medicinedistribute-add/medicin
     MedicineprescriptionListComponent,
     MedicinedistributeAddComponent,
     MedicinebillListComponent,
-    MedicinedistributeAddComponent
+    MedicinedistributeAddComponent,
   ],
   imports: [
     CommonModule,
     PharmacistsRoutingModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class PharmacistsModule { }

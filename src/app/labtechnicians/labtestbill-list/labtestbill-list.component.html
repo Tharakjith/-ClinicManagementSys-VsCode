@@ -1,1 +1,55 @@
-<p>labtestbill-list works!</p>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="mb-0">Lab Test Bill</h3>
+        </div>
+        <div class="card-body">
+            <div *ngIf="loading" class="text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <div *ngIf="!loading">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Doctor Name</th>
+                            <th>Test Name</th>
+                            <th class="text-end">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let bill of bills">
+                            <td>{{bill.PatientName}}</td>
+                            <td>{{bill.DoctorName}}</td>
+                            <td>{{bill.TestName}}</td>
+                            <td class="text-end">₹{{bill.Price.toFixed(2)}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-end fw-bold">Subtotal:</td>
+                            <td class="text-end">₹{{totalAmount.toFixed(2)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end fw-bold">GST (18%):</td>
+                            <td class="text-end">₹{{gstAmount.toFixed(2)}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end fw-bold">Grand Total:</td>
+                            <td class="text-end">₹{{grandTotal.toFixed(2)}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="text-end mt-3">
+                    <button class="btn btn-primary" (click)="downloadPDF()">
+                        <i class="bi bi-download me-2"></i>Download PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

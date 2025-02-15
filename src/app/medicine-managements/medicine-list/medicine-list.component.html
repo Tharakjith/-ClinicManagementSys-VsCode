@@ -1,60 +1,69 @@
-<div class = "container">
-    <!--Medicine Info-->
-    <h3>Medicine Management</h3>
-    <div class = "header">
-        <div class ="row">
-            <!--Search-->
-            <div class=" col-sm-8">
-                <input type= "search" class=" form-control"
-                placeholder="Enter search text here.."
-                [(ngModel)]="searchTerm">
-            </div>
-            <!--Add medicine details Button-->
-            <div class="col-sm-4">
-                <a [routerLink]="['/medicine-managements/add']" role="button" class= "btn btn-outline-primary">
-                    <i class="fa fa-user-plus fa-lg"></i>&nbsp;Add Medicine
-                </a>
-            </div>
-        </div>
-    </div>
 
-    <!--Display Records-->
-    <br>
-    <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th scope="col">MedicineId</th>
-            <th scope="col">MedicineName</th>
-            <th scope="col">ManufacturingDate</th>
-            <th scope="col">ExpiryDate</th>
-            <th scope="col">CategoryName</th>
-            <th scope="col">Cost</th>
-            <th scope="col">Active</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let medicineDetail of this.filteredMedicineDetails()
-          | paginate: { itemsPerPage: pageSize, currentPage: page }">
-            <td>{{'M' + medicineDetail.MedicineId}}</td>
-            <td>{{medicineDetail.MedicineName}}</td>
-            <td>{{medicineDetail.ManufacturingDate | date:"dd-MM-yyyy"}}</td>
-            <td>{{medicineDetail.ExpiryDate | date:"dd-MM-yyyy"}}</td>
-            <td>{{ getCategoryName(medicineDetail.CategoryId) }}</td>
-            <td>{{medicineDetail.Cost}}</td>
-            <td><input type="checkbox"[checked]="medicineDetail.IsActive" disabled></td> 
-            <td>
-                <button class="btn btn-sm btn btn-outline-info" (click)="editMedicineDetails(medicineDetail)">
-                <i class="fa fa-edit"></i></button>
-                &nbsp;
-                <button class="btn btn-sm btn-outline-info" (click)="deleteMedicineDetails(medicineDetail)">
-                    <i class="fa fa-trash"></i></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="content">
+        <br><br><br><br>
+        <!-- Main Content -->
+        <div class="container mt-4">
+            <!-- Header -->
+            <h3 class="text-center mb-4"style="color: #17baaf;"
+            >Medicine Management</h3>
 
-      <!--footer-->
-      <div class="footer">
-        <pagination-controls class ="custom-page" (pageChange)= "page = $event"></pagination-controls>
-      </div>
-</div>
+            <!-- Search and Add Medicine -->
+            <div class="row mb-3">
+                <!-- Search -->
+                <div class="col-md-8">
+                    <input type="search" class="form-control" placeholder="Enter search text here.." [(ngModel)]="searchTerm">
+                </div>
+
+                <!-- Add Medicine Button -->
+                <div class="col-md-4 text-md-end text-center">
+                    <a class="btn btn-outline-secondary" [routerLink]="['/auth/admin']">
+                        <i class="fa fa-arrow-left"></i>&nbsp;Back
+                    </a>&nbsp;&nbsp;            
+                    <a [routerLink]="['/medicine-managements/add']" role="button" class="btn btn-outline-info">
+                        <i class="fa fa-plus-circle fa-lg"></i>&nbsp;Add Medicine
+                    </a>&nbsp;&nbsp;
+                    <a [routerLink]="['/auth/login']" role="button" class="btn btn-outline-danger btn-sm">
+                        <span><i class="fa fa-sign-out fa-lg"></i></span>
+                        Logout
+                    </a>
+                </div>
+            </div>
+
+            <!-- Medicine Records Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark text-center">
+                        <tr>
+                            <th scope="col">Medicine Code</th>
+                            <th scope="col">MedicineName</th>
+                            <th scope="col">ManufacturingDate</th>
+                            <th scope="col">ExpiryDate</th>
+                            <th scope="col">CategoryName</th>
+                            <th scope="col">Cost</th>
+                            <th scope="col">Active</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let medicineDetail of filteredMedicineDetails() 
+                        | paginate: { itemsPerPage: pageSize, currentPage: page }">
+                            <td>{{'M' + medicineDetail.MedicineId}}</td>
+                            <td>{{medicineDetail.MedicineName}}</td>
+                            <td>{{medicineDetail.ManufacturingDate | date:"dd-MM-yyyy"}}</td>
+                            <td>{{medicineDetail.ExpiryDate | date:"dd-MM-yyyy"}}</td>
+                            <td>{{ getCategoryName(medicineDetail.CategoryId) }}</td>
+                            <td>{{medicineDetail.Cost}}</td>
+                            <td><input type="checkbox" [checked]="medicineDetail.IsActive" disabled></td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-outline-info" (click)="editMedicineDetails(medicineDetail)">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                &nbsp;
+                                <button class="btn btn-sm btn-outline-danger" (click)="deleteMedicineDetails(medicineDetail)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>

@@ -1,1 +1,52 @@
-<p>patients-bill works!</p>
+<!-- patients-bill.component.html -->
+<div class="container mt-4">
+  <br><br>
+    <div class="card">
+      <div class="card-header bg-info text-white">
+        <h3 class="mb-0">Patient Bill</h3>
+      </div>
+      <div class="card-body">
+        <div *ngIf="isLoading" class="text-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+  
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+  
+        <div *ngIf="billDetails && !isLoading">
+          <h4>Appointment Details</h4>
+          <table class="table table-bordered">
+            <tr><th>Appointment Code</th><td>{{ billDetails.appointmentId }}</td></tr>
+            <tr><th>Doctor Name</th><td>{{ billDetails.staffName }}</td></tr>
+            <tr><th>Token Number</th><td>{{ billDetails.tokenNumber }}</td></tr>
+            <tr><th>Appointment Date</th><td>{{ billDetails.appointmentDate | date:'mediumDate' }}</td></tr>
+          </table>
+  
+          <h4>Patient Information</h4>
+          <table class="table table-bordered">
+            <tr><th>Patient Code</th><td>{{ billDetails.patientId }}</td></tr>
+            <tr><th>Patient Name</th><td>{{ billDetails.patientName }}</td></tr>
+            <tr><th>Phone</th><td>{{ billDetails.patientPhone }}</td></tr>
+            <tr><th>Address</th><td>{{ billDetails.patientAddress }}</td></tr>
+          </table>
+  
+          <h4>Fee Details</h4>
+          <table class="table table-bordered">
+            <tr><th>Consultation Fee</th><td>₹{{ billDetails.consultationFee }}</td></tr>
+            <tr><th>Registration Fee</th><td>₹{{ billDetails.registrationFee }}</td></tr>
+            <tr class="table-primary">
+              <th>Total Amount</th>
+              <td>₹{{ billDetails.consultationFee + billDetails.registrationFee }}</td>
+            </tr>
+          </table>
+  
+          <button class="btn btn-outline-info mt-3" (click)="generatePDF()">
+            <i class="fas fa-download"></i> Generate PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

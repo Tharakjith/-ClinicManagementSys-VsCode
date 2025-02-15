@@ -1,35 +1,45 @@
 <div class="container">
-    <div class="header mb-4">
-      <h3>Patient History</h3>
-    </div>
-  
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover table-striped shadow-sm">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Patient Code</th>
-            <th scope="col">Patient Name</th>
-            <th scope="col">DOB</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Blood Group</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Address</th>
-            <th scope="col">Registration Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let patient of patientService.patients" class="text-center align-middle">
-            <td>{{'PC' + patient.PatientId}}</td>
-            <td>{{patient.PatientName}}</td>
-            <td>{{patient.Dob | date: 'dd-MM-yyyy'}}</td>
-            <td>{{patient.Gender}}</td>
-            <td>{{patient.BloodGroup}}</td>
-            <td>{{patient.PatientPhone}}</td>
-            <td>{{patient.PatientAddress}}</td>
-            <td>{{patient.RegistrationDate | date: 'dd-MM-yyyy'}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <br><br><br><br>
+  <div class="header mb-4">
+    <div>
+    <h3 style="color: #17baaf;"
+    >Patient History &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+    <a class="btn btn-lg btn-outline-secondary" [routerLink]="['/patients/list']">
+      <i class="fa fa-arrow-left"></i>&nbsp;Back
+  </a></h3></div>
+
   </div>
-  
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped shadow-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Patient Code</th>
+          <th scope="col">Patient Name</th>
+          <th scope="col">DOB</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Blood Group</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Address</th>
+          <th scope="col">Registration Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patientService.patients" class="text-center align-middle">
+          <td>{{'PC' + patient.PatientId}}</td>
+          <td>{{patient.PatientName}}</td>
+          <td>{{patient.Dob | date: 'dd-MM-yyyy'}}</td>
+          <td>{{patient.Gender}}</td>
+          <td>{{patient.BloodGroup}}</td>
+          <td>{{patient.PatientPhone}}</td>
+          <td>{{patient.PatientAddress}}</td>
+          <td>{{patient.RegistrationDate | date: 'dd-MM-yyyy'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

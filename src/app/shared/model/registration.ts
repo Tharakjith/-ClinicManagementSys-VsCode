@@ -11,8 +11,7 @@ export class Registration {
     Token: string = '';
     RisActive: boolean = false;
     RoleName: string = '';
-    RegisteredDate: Date = new Date();
-
+    RegisteredDate: string = new Date().toISOString().split('T')[0]; 
     Staff: Staff = new Staff();
     Role: Role = new Role();
 }

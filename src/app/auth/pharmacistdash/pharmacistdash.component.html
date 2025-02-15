@@ -1,12 +1,20 @@
-<p>Pharmacist Dashboard</p>
-
 <app-navbar></app-navbar>
+<br><br><br><br><br><br><br><br>
+<h2 class="r text-center" style="color: #17baaf;"
+>Pharmacist Dashboard!! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a [routerLink]="['/auth/login']" role="button" class="btn btn-lg btn-outline-danger btn-sm">
+    <span><i class="fa fa-sign-out fa-lg"></i></span>
+    Logout
+</a>
+</h2>
+
+
 <div class="container mt-5 text-center">
     <!-- List Medicine Prescription Button -->
     <a 
         [routerLink]="['/medicine-prescriptions/Medicineprescriptionlist']" 
         role="button" 
-        class="btn btn-outline-primary mx-2 d-inline-block"
+        class="btn btn-outline-info mx-2 d-inline-block"
         style="width: 150px;"
     >
         <span>
@@ -19,7 +27,7 @@
     <a 
         [routerLink]="['/medicine-managements/list']" 
         role="button" 
-        class="btn btn-outline-primary mx-2 d-inline-block"
+        class="btn btn-outline-info mx-2 d-inline-block"
         style="width: 150px;"
     >
         <span>

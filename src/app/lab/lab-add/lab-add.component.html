@@ -1,23 +1,30 @@
 <div class="container">
-    <h3>New Staff Info</h3>
+    <br><br><br><br>
+    <div class="card" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+
+    <h3 style="color: #17baaf;"
+    >New Staff Info</h3>
     <hr>
     <form name="frmStaff" #stForm="ngForm" autocomplete="off" (ngSubmit)="onSubmit(stForm)">
-        <!-- Staff Id -->
+        <!-- Staff Id (Hidden) -->
         <div class="form-group">
-            <input type="hidden" readonly name="LabTestId" class="form-control"
+            <input type="hidden" readonly name="LabTestId" 
                 [(ngModel)]="labService.formlabData.LabTestId">
         </div>
         
-        <!-- Staff Name -->
+        <!-- Test Name -->
         <div class="form-group">
             <label>Test Name: </label>
             <input type="text" name="TestName" #TestName="ngModel" 
                 [(ngModel)]="labService.formlabData.TestName" 
-                class="form-control" placeholder="Enter TestName" minlength="3" maxlength="25" required 
+                class="form-control" placeholder="Enter TestName" 
+                minlength="3" maxlength="25" required 
+                pattern="^[A-Z][a-zA-Z]{2,24}$"
                 [ngClass]="{'is-invalid': TestName.touched && TestName.invalid}">
         </div>
         <div class="Validation-error" *ngIf="TestName.touched && TestName.invalid">
             <div *ngIf="TestName.errors?.['required']">Test Name is required!</div>
+            <div *ngIf="TestName.errors?.['pattern']">Must start with capital letter, 3-25 characters, no spaces or numbers!</div>
         </div>
 
         <!-- Price -->
@@ -25,87 +32,89 @@
             <label>Price: </label>
             <input type="number" name="Price" #Price="ngModel" 
                 [(ngModel)]="labService.formlabData.Price" 
-                class="form-control" placeholder="Enter Price" required 
+                class="form-control" placeholder="Enter Price" 
+                min="50" max="1000" required 
                 [ngClass]="{'is-invalid': Price.touched && Price.invalid}">
         </div>
         <div class="Validation-error" *ngIf="Price.touched && Price.invalid">
             <div *ngIf="Price.errors?.['required']">Price is required!</div>
+            <div *ngIf="Price.errors?.['min']">Minimum price is 50!</div>
+            <div *ngIf="Price.errors?.['max']">Maximum price is 1000!</div>
         </div>
 
-        <!-- LowRange -->
+        <!-- Low Range -->
         <div class="form-group">
-            <label>LowRange: </label>
+            <label>Low Range: </label>
             <input type="number" name="LowRange" #LowRange="ngModel" 
-                [(ngModel)]="labService.formlabData.Price" 
-                class="form-control" placeholder="Enter LowRange" required 
+                [(ngModel)]="labService.formlabData.LowRange" 
+                class="form-control" placeholder="Enter Low Range" 
+                min="10" required 
                 [ngClass]="{'is-invalid': LowRange.touched && LowRange.invalid}">
         </div>
         <div class="Validation-error" *ngIf="LowRange.touched && LowRange.invalid">
-            <div *ngIf="LowRange.errors?.['required']">LowRange is required!</div>
+            <div *ngIf="LowRange.errors?.['required']">Low Range is required!</div>
+            <div *ngIf="LowRange.errors?.['min']">Minimum Low Range is 10!</div>
         </div>
 
-        <!-- HighRange -->
+        <!-- High Range -->
         <div class="form-group">
-            <label>HighRange: </label>
+            <label>High Range: </label>
             <input type="number" name="HighRange" #HighRange="ngModel" 
-                [(ngModel)]="labService.formlabData.Price" 
-                class="form-control" placeholder="Enter HighRange" required 
+                [(ngModel)]="labService.formlabData.HighRange" 
+                class="form-control" placeholder="Enter High Range" 
+                max="350" required 
                 [ngClass]="{'is-invalid': HighRange.touched && HighRange.invalid}">
         </div>
         <div class="Validation-error" *ngIf="HighRange.touched && HighRange.invalid">
-            <div *ngIf="HighRange.errors?.['required']">HighRange is required!</div>
+            <div *ngIf="HighRange.errors?.['required']">High Range is required!</div>
+            <div *ngIf="HighRange.errors?.['max']">Maximum High Range is 350!</div>
         </div>
         
-<!-- Created date-->
-<div class="form-group">
-    <label>Created date: </label>
-    <input type="date" name="CreatedDate" #CreatedDate="ngModel" 
-        [(ngModel)]="labService.formlabData.CreatedDate" 
-        class="form-control" required 
-        [ngClass]="{'is-invalid': CreatedDate.touched && CreatedDate.invalid}">
-</div>
-<div class="Validation-error" *ngIf="CreatedDate.touched && CreatedDate.invalid">
-    <div *ngIf="CreatedDate.errors?.['required']">CreatedDate is required!</div>
-</div>
-
-        
-
-    
-         
-<div class="form-group">
-    <label>Sample:</label>
-    <select name="Sample" #Sample="ngModel" class="form-control"
-        [(ngModel)]="labService.formlabData.Sample" required>
-        <option value="" selected disabled>---Select Sample---</option>
-        <option value="Blood">Blood</option>
-        <option value="Urine">Urine</option>
-        <option value="Other">Other</option>
-    </select>
-    <div class="Validation-error" *ngIf="Sample.touched && Sample.invalid">
-        <div *ngIf="Sample.errors?.['required']">
-            Sample is required!
-        </div>
-    </div>
-</div>
-        <!-- Is Active -->
+        <!-- Created Date (Auto-set) -->
         <div class="form-group">
-            <div class="form-check">
-                <input type="checkbox" name="IsActive" #IsActive="ngModel" 
-                    [(ngModel)]="labService.formlabData.IsActive" 
-                    class="form-check-input">
-                <label class="form-check-label">Is Active</label>
+            <label>Created Date: </label>
+            <input type="date" name="CreatedDate" #CreatedDate="ngModel" 
+                [(ngModel)]="labService.formlabData.CreatedDate" 
+                class="form-control" readonly required>
+        </div>
+
+        <!-- Sample -->
+        <div class="form-group">
+            <label>Sample:</label>
+            <select name="Sample" #Sample="ngModel" 
+                class="form-control"
+                [(ngModel)]="labService.formlabData.Sample" 
+                required>
+                <option value="" selected disabled>---Select Sample---</option>
+                <option value="Blood">Blood</option>
+                <option value="Urine">Urine</option>
+                <option value="Other">Other</option>
+            </select>
+            <div class="Validation-error" *ngIf="Sample.touched && Sample.invalid">
+                <div *ngIf="Sample.errors?.['required']">Sample is required!</div>
             </div>
         </div>
 
+        <!-- Is Active (Hidden input) -->
+        <input type="hidden" name="IsActive" 
+            [(ngModel)]="labService.formlabData.IsActive" 
+            value="true">
+<br>
         <!-- Submit Button -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-primary form-control" 
-                [disabled]="!(stForm.valid && stForm.dirty)">
-                INSERT
-            </button>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-outline-info" 
+                [disabled]="!(stForm.valid)">
+                Insert
+            </button>&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-outline-secondary" [routerLink]="['/lab/list']">
+                <i class="fa fa-arrow-left"></i>&nbsp;Back
+            </a>
+    
         </div>
+        
         <div *ngIf="errorMessage" class="error-message validation-error">
             {{errorMessage}}
         </div>
     </form>
+    </div>
 </div>

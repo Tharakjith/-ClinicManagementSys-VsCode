@@ -49,13 +49,14 @@ export class MedicinedetailsService {
   insertMedicineDetails(medicineDetails: Medicinedetails): Observable<any> {
     console.log("Insert : In service");
     return this.httpClient.post(environment.apiUrl + 'Pharmacists', medicineDetails);
+
   }
 
 
   //3-Get all category
 
   getAllCategory(): void {
-    this.httpClient.get(environment.apiUrl + 'pharmacists/v2')
+    this.httpClient.get(environment.apiUrl + 'Pharmacists/v2')
       .toPromise()
       .then((response: any) => {
         if (response?.Value) {

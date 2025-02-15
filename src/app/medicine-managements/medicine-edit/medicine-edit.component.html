@@ -1,5 +1,9 @@
 <div class="container">
-    <h3>Edit Medicine Details Info</h3>
+    <br><br><br><br>
+    <div class="card" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+
+    <h3 style="color: #17baaf;"
+    >Update Medicine Info</h3>
 
     <hr>
 
@@ -9,6 +13,7 @@
         <!--MedicineId -->
 
         <div class="form-group">
+            <label><b>Medicine Code:</b></label>&nbsp;&nbsp;
             <input type="text" readonly name="MedicineId"
                 [(ngModel)]="medicineDetailsService.formMedicineDetailsData.MedicineId" />
 
@@ -17,7 +22,7 @@
 
         <!--Medicine Name-->
         <div class="form-group">
-            <label>Medicine Id:</label>
+            <label><b>Medicine Name:</b></label>
             <input type="text" name="MedicineName" #MedicineName="ngModel" class="form-control validation-error"
                 [(ngModel)]="medicineDetailsService.formMedicineDetailsData.MedicineName" class="form-control"
                 placeholder="Enter Medicine Name" minlength="3" maxlength="25" required
@@ -35,7 +40,7 @@
         <!-- ManufacturingDate -->
 
         <div class="form-group">
-            <label>ManufacturingDate:</label>
+            <label><b>ManufacturingDate:</b></label>
             <input type="date" name="ManufacturingDate" #ManufacturingDate="ngModel"
                 [(ngModel)]="medicineDetailsService.formMedicineDetailsData.ManufacturingDate" 
                 class="form-control"required
@@ -52,7 +57,7 @@
         <!-- Expiry Date -->
 
         <div class="form-group">
-            <label>Expiry Date:</label>
+            <label><b>Expiry Date:</b></label>
             <input type="date" name="ExpiryDate" #ExpiryDate="ngModel"
                 [(ngModel)]="medicineDetailsService.formMedicineDetailsData.ExpiryDate" 
                 class="form-control"required
@@ -70,7 +75,7 @@
 
         <!--Category Dropdown List-->
         <div class="form-group">
-            <label>category:</label>
+            <label><b>category:</b></label>
             <select name="CategoryId" id="CategoryId" #DepartmentId="ngModel"
                 [(ngModel)]="medicineDetailsService.formMedicineDetailsData.CategoryId" class="form-control" required>
 
@@ -84,7 +89,7 @@
 
 
         <div class="form-group">
-            <label>Cost</label>
+            <label><b>Cost: </b></label>
             <input type="text" name="Cost" #Cost="ngModel" class="form-control validation-error"
                 [(ngModel)]="medicineDetailsService.formMedicineDetailsData.Cost" class="form-control"
                 placeholder="Enter the Cost" minlength="10" maxlength="10" required
@@ -105,16 +110,20 @@
             <div class="form-check">
                 <input type="checkbox" name="IsActive" #IsActive="ngModel" class="form-check-input"
                     [(ngModel)]="medicineDetailsService.formMedicineDetailsData.IsActive" />
-                <label class="form-check-label">IsActive</label>
+                <label class="form-check-label"><b>IsActive</b></label>
             </div>
         </div>
 
         <!-- submit -->
-        <div class="form-group">
+        <div class="form-group text-center">
 
-            <button type="submit" class="btn btn-lg btn-primary form-control "
+            <button type="submit" class="btn btn-outline-info"
                 [disabled]="!(medForm.valid && medForm.dirty)">
-                UPDATE</button>
+                UPDATE</button>&nbsp;&nbsp;
+                <a class="btn btn-outline-secondary" [routerLink]="['/medicine-managements/list']">
+                    <i class="fa fa-arrow-left"></i>&nbsp;Back
+                </a>
+        
 
         </div>
         <!-- Error After submission -->
@@ -125,6 +134,7 @@
         </div>
 
     </form>
+    </div>
 </div>
 
 

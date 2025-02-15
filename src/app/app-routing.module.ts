@@ -8,7 +8,9 @@ import { ReceptionistsComponent } from './receptionists/receptionists.component'
 import { PharmacistsComponent } from './pharmacists/pharmacists.component';
 import { LabComponent } from './lab/lab.component';
 import { DoctormgmtComponent } from './doctormgmt/doctormgmt.component';
-//import { LabtestlistListComponent } from './labtechnicians/labtestlist-list/labtestlist-list.component';
+import { LabtestlistListComponent } from './labtechnicians/labtestlist-list/labtestlist-list.component';
+import { LabtestsComponent } from './labtests/labtests.component';
+
 
 const routes: Routes = [
   {path:'auth',component:AuthComponent,
@@ -62,17 +64,29 @@ const routes: Routes = [
     loadChildren: () => import('./pharmacists/pharmacists.module')
       .then(e => e.PharmacistsModule)
   },
-  // {
-  //   path: 'Labtest-list', component: LabtestlistListComponent,
-  //   loadChildren: () => import('./pharmacists/pharmacists.module')
-  //     .then(e => e.PharmacistsModule)
-  // },
+
+  {
+    path: 'labtests', component:LabtestsComponent,
+    loadChildren: () => import('./labtests/labtests.module')
+      .then(l => l.LabtestsModule)
+  },
+  
+  {
+    path: 'Labtechnichian', component: LabtestlistListComponent,
+    loadChildren: () => import('./labtechnicians/labtechnicians.module')
+      .then(e => e.LabtechniciansModule)
+  },
 
 
   {
     path: 'auth', component: AuthComponent,
     loadChildren: () => import('./auth/auth.module')
       .then(x => x.AuthModule)
+  },
+  
+  {path : 'davail', 
+    loadChildren: () => import ('./davail/davail.module')
+    .then(e => e.DavailModule)
   },
 
 

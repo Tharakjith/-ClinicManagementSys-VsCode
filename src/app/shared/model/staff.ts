@@ -6,8 +6,8 @@ export class Staff {
   StaffName: string = '';
   DepartmentId: number = 0;
   Dob: Date = new Date(); 
-  Doj: Date = new Date(); 
-  CreatedDate: Date = new Date(); 
+  Doj?: Date; // Change from string to Date
+  CreatedDate?: Date; // Change from string to Date
   Address: string = '';
   PhoneNumber: string = '';
   Email: string = '';

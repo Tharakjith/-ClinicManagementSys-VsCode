@@ -1,8 +1,37 @@
 <div class="container">
+  <br>
+  <br><br><br>
   <!--Employee Info-->
-  <h2 style="color:rgb(0, 172, 17); font-family: 'Times New Roman', Times, serif; ">Welcome Back Doctor!!!!</h2>
-
-  <h3 style="font-family: 'Times New Roman', Times, serif; "> Todays Appointments !....</h3>
+  <h2 style="color: #17baaf;
+  font-family: 'Times New Roman', Times, serif; ">Welcome Back Doctor!!!!</h2>
+  <h3 style="color: #17baaf;
+  font-family: 'Times New Roman', Times, serif; "> Todays Appointments !....   
+  &nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp; &nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]="['/auth/login']" role="button" class="btn btn-outline-danger">
+  <span><i class="fa fa-sign-out fa-lg"></i></span>
+  Logout
+</a></h3>
   <hr>
   <div class="header">
     <div class="row">
@@ -54,9 +83,20 @@
           <button type="Add Diagnosys" class="btn btn-outline-primary" (click)="insertDiagnosys(appoint)">
             Start Diagnosis
           </button>
-          <button type="View Diagnosys" class="btn btn-outline-primary" (click)="getDiagnosys()">Diagnosis History</button>
-          <button type="View Test Report" class="btn btn-outline-primary">View Report</button>
-        </td>
+<!-- Ensure this matches exactly -->
+<button type="button" 
+        class="btn btn-outline-primary" 
+        (click)="gettheDiagnosys(appoint.AppointmentId)">
+  Diagnosis History
+</button>
+          
+
+
+                <button type="button" 
+          class="btn btn-outline-primary" 
+          (click)="getReport(appoint.AppointmentId)">
+    View Report
+  </button>        </td>
       </tr>
 
 

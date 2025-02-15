@@ -1,21 +1,15 @@
-import { Medicinedetails } from "./medicinedetails";
-import { Patient } from "./patient";
-import { Prescription } from "./prescription";
-
+// medicinedistribute.model.ts
 export class Medicinedistribute {
-    PrescriptionId: number=0;
-    MedicineId: number=0;
-    QuantityDistributed: number=0;
-    DistributionDate:  Date = new Date();
-    PatientName:string='';
-    MedicineName: string='';
-    Dosage: string='';
-    Frequency: string='';
-    NumberofDays: number=0;
-    StockInHand: number=0;
-
-    prescription:Prescription = new Prescription();
-    medicinedetails:Medicinedetails = new Medicinedetails();
-    patient:Patient = new Patient();
-
+    MedDistId: number = 0;
+    PrescriptionId: number = 0;
+    MedicineId: number = 0;
+    QuantityDistributed: number = 0;
+    DistributionDate: string = ''; // Changed to string type
+    MedStatusId: number = 1;
+    PatientName: string = '';
+    MedicineName: string = '';
+    Dosage: string = '';
+    Frequency: string = '';
+    NumberofDays: number = 0;
+    StockInHand: number = 0;
 }

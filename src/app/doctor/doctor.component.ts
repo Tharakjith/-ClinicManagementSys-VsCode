@@ -10,6 +10,15 @@ export class DoctorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // Push an initial dummy state to the history
+    history.pushState(null, '', window.location.href);
+
+    // Disable the back button by overriding popstate event
+    window.addEventListener('popstate', (event) => {
+      event.preventDefault(); // Prevent default back navigation
+      history.pushState(null, '', window.location.href);
+    });
+  }
   }
 
-}
+

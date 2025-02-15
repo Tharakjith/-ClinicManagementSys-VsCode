@@ -1,4 +1,5 @@
 export class Medicinebill {
+    PrescriptionId: number = 0;
     AppointmentId: number = 0;
     PatientId: number = 0;
     PatientName: string = '';

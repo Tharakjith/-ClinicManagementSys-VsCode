@@ -1,14 +1,26 @@
+
+<app-navbar></app-navbar>
 <div class = "container">
+
+  <br><br><br><br>
     <!--DOctor Prescribed medicine-->
-    <h3>Doctor Prescribed Medicine of Today</h3>
+    <h3 style="color: #17baaf;"
+    >Today' Medicine Prescription List... 
+
+  </h3>
     <div class = "header">
         <div class ="row">
             <!--Search-->
             <div class=" col-sm-8">
-                <input type= "search" class=" form-control"
+                <input type= "search" class="form-control"
                 placeholder="Enter search text here.."
                 [(ngModel)]="searchTerm">
             </div>
+            <div class=" col-sm-4">
+              <a class="btn btn-outline-secondary" [routerLink]="['/auth/pharmacist']">
+                <i class="fa fa-arrow-left"></i>&nbsp;Back
+            </a>    
+          </div>
         </div>
     </div>
 

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { error } from 'console';
 import { ToastrService } from 'ngx-toastr';
 import { Appointment } from 'src/app/shared/model/appointment';
-import { Medicinedetails } from 'src/app/shared/model/medicinedetails';
 import { StartDiagnosy } from 'src/app/shared/model/start-diagnosy';
+import { Prescription } from 'src/app/shared/model/prescription';
 import { DoctorService } from 'src/app/shared/service/doctor.service';
 
 @Component({
@@ -14,69 +13,103 @@ import { DoctorService } from 'src/app/shared/service/doctor.service';
   styleUrls: ['./add-medicine-add.component.scss']
 })
 export class AddMedicineAddComponent implements OnInit {
-  //declare error message
-   //declare error message
-   appointment:Appointment=new Appointment();
-   startDiagnosy:StartDiagnosy=new StartDiagnosy();
-   errorMessage:string |null=null;
-   AppointmentId : number = 0;
-   
-   
-  
-  constructor(public doctorService:DoctorService,
-    private router:Router,
-    private toastr: ToastrService,
-    private route:ActivatedRoute  ) { }
+  appointment: Appointment = new Appointment();
+  startDiagnosy: StartDiagnosy = new StartDiagnosy();
+  errorMessage: string | null = null;
+  appointmentId: number = 0;
+  isSubmitting: boolean = false;
 
-  ngOnInit(): void {
-       // Retrieve Patient ID from route
-       this.route.paramMap.subscribe((params) => {
-        this.AppointmentId = Number(params.get('appId'));
-        this.startDiagnosy.AppointmentId = this.AppointmentId;
-      });     
-      console.log(this.AppointmentId);
-  
-      console.log(this.AppointmentId);
-   
-   
+  dosagePattern = '^[a-zA-Z0-9]+(\s[a-zA-Z0-9]+)?$';
 
-    this.doctorService.getAllMedicine();
-
-  }
-  //Submit form
-  onSubmit(medicineform:NgForm){
-    console.log(medicineform.value);
-    //call insert method
-    this.addMedicine(medicineform);
-    //Reset Form
-    medicineform.reset();
-
-    //Redirect to Employee List
-    this.router.navigate(['/doctor/list']);
-
-  }  //Insert Method
-  addMedicine(medicineform:NgForm){
-    console.log("inserting...");
-    this.doctorService.insertMedicine(medicineform.value).subscribe(
-      (response)=>{
-        console.log(response);
-        this.toastr.success('Record has been inserted successfully','EMSv2024')
-        this.errorMessage=null;
-        this.doctorService.getAllMedicine();
-
-        this.router.navigate(['/doctor/list']);
-
-        medicineform.reset()
-
-      },
-      (error)=>{
-        console.log(error);
-        this.toastr.error('An error Occured','EMSv2024')
-        this.errorMessage='An error Occured' + error;
-      }
-         
-    );
+  validateDosage(event: any) {
+    const input = event.target.value;
+    // Remove multiple spaces, keep only single spaces between words
+    event.target.value = input.replace(/\s+/g, ' ').trim();
+    
+    // Optional: Additional validation to match the pattern
+    const regex = new RegExp(this.dosagePattern);
+    if (!regex.test(event.target.value)) {
+      // Handle invalid input if needed
+    }
   }
 
+  validateNumberOfDays(event: any) {
+  const input = event.target.value;
+  // Ensure only numeric input
+  event.target.value = input.replace(/[^0-9]/g, '');
 }
 
+  constructor(
+    public doctorService: DoctorService,
+    private router: Router,
+    private toastr: ToastrService,
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.appointmentId = +params['apId'];
+      this.initializeForm();
+    });
+
+    // Fetch medicine details
+    this.doctorService.getAllMedicine();
+  }
+
+  private initializeForm(): void {
+    this.doctorService.formMedicineData = new Prescription();
+    this.doctorService.formMedicineData.AppointmentId = this.appointmentId;
+    this.doctorService.formMedicineData.IsActive = true;
+  }
+
+  onSubmit(medicineform: NgForm) {
+    if (this.isSubmitting || !medicineform.valid) {
+      this.errorMessage = "Please fill all required fields";
+      return;
+    }
+
+    this.isSubmitting = true;
+
+    // Create prescription data with the correct MedicineId
+    const prescriptionData = {
+      ...this.doctorService.formMedicineData,
+      AppointmentId: this.appointmentId
+    };
+
+    this.doctorService.insertMedicine(prescriptionData).subscribe({
+      next: (response) => {
+        if (response && response.Value) {
+          console.log('Medicine added successfully:', response.Value);
+          this.toastr.success('Medicine has been prescribed successfully', 'Success');
+          this.errorMessage = null;
+          medicineform.resetForm();
+          this.initializeForm();
+          this.router.navigate(['/doctor/list', this.appointmentId]);
+        } else {
+          this.handleError('Invalid response from server');
+        }
+      },
+      error: (error) => {
+        this.handleError(error);
+      },
+      complete: () => {
+        this.isSubmitting = false;
+      }
+    });
+  }
+
+  private handleError(error: any): void {
+    console.error('Error adding medicine:', error);
+    this.toastr.error('Failed to prescribe medicine', 'Error');
+
+    if (error.status === 400) {
+      this.errorMessage = 'Invalid data submitted. Please check all fields.';
+    } else if (error.status === 404) {
+      this.errorMessage = 'Medicine or appointment not found.';
+    } else {
+      this.errorMessage = 'Failed to add medicine. Please try again.';
+    }
+
+    this.isSubmitting = false;
+  }
+}

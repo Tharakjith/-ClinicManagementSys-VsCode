@@ -53,8 +53,6 @@ export class MedicineprescriptionListComponent implements OnInit {
   );
 });
 
-
-
   }
   medicineDis(prescribedmedicine:any){
       this.medicinedistributeService.formMedicinedistributeData = Object.assign({},prescribedmedicine)
