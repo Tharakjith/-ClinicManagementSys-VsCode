@@ -1,0 +1,71 @@
+
+<div class="container mt-4 print-container">
+    <div class="card">
+      <div class="card-header">
+        <h3>Lab Test Report Preview</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tr>
+            <th>Report ID</th>
+            <td>{{ reportDetails.LtreportId }}</td>
+          </tr>
+          <tr>
+            <th>Patient Name</th>
+            <td>{{ reportDetails.PatientName }}</td>
+          </tr>
+          <tr>
+            <th>Test Name</th>
+            <td>{{ reportDetails.TestName }}</td>
+          </tr>
+          <tr>
+            <th>Sample</th>
+            <td>{{ reportDetails.SampleItem }}</td>
+          </tr>
+          <tr>
+            <th>Blood Group</th>
+            <td>{{ reportDetails.BloodGroup }}</td>
+          </tr>
+          <tr>
+            <th>Gender</th>
+            <td>{{ reportDetails.Gender }}</td>
+          </tr>
+          <tr>
+            <th>Patient Phone</th>
+            <td>{{ reportDetails.PatientPhone }}</td>
+          </tr>
+          <tr>
+            <th>Low Range</th>
+            <td>{{ reportDetails.LowRange }}</td>
+          </tr>
+          <tr>
+            <th>High Range</th>
+            <td>{{ reportDetails.HighRange }}</td>
+          </tr>
+          <tr>
+            <th>Actual Result</th>
+            <td>{{ reportDetails.ActualResult }}</td>
+          </tr>
+          <tr>
+            <th>Remarks</th>
+            <td>{{ reportDetails.Remarks }}</td>
+          </tr>
+        </table>
+        <div class="mt-3 no-print">
+          <button 
+            class="btn btn-primary me-2" 
+            [disabled]="isPrintDisabled"
+            (click)="printLabReport()"
+          >
+            Print Lab Report
+          </button>
+          <button 
+            class="btn btn-success" 
+            (click)="downloadBill()"
+          >
+            Generate Bill
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
