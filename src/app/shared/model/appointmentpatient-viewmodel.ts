@@ -25,5 +25,3 @@ Appointment :Appointment=new Appointment();
     
   
 }
-
-

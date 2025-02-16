@@ -7,4 +7,6 @@ export class Labtest {
   CreatedDate: string = new Date().toISOString().split('T')[0];
   Sample: string = '';
   IsActive: boolean = true;
+
 }
+
