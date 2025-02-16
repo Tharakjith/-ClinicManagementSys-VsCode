@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import { Appointment } from "./appointment";
 import { MedicineDetail } from "./medicine-detail";
 
