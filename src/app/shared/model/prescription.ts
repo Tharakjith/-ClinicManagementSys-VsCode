@@ -15,3 +15,4 @@ export class Prescription {
     medicineDetails: MedicineDetail = new MedicineDetail();
     appointment: Appointment = new Appointment();
 }
+
