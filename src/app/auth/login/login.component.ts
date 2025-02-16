@@ -3,112 +3,93 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/service/auth.service';
+import { User } from 'src/app/shared/model/user';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
-  isSubmitted:boolean =false;
-  error: string ='';
+    loginForm!: FormGroup;
+    isSubmitted: boolean = false;
+    error: string = '';
 
-  constructor(private formBuilder:FormBuilder,
-    private authService:AuthService,
-    private router:Router,
-    private toastr:ToastrService
-  ) { }
+    constructor(
+        private formBuilder: FormBuilder,
+        private authService: AuthService,
+        private router: Router,
+        private toastr: ToastrService
+    ) { }
 
-  ngOnInit(): void {
-
-    //create Reactive form
-     this.loginForm=this.formBuilder.group({
-      Username:['',[Validators.required]],
-      Password:['',[Validators.required]]
-     });
-  }
-
-  //get all controls for validation
-  get formControls(){
-    return this.loginForm.controls;
-  }
-  //Functionality
-  loginCredentials():void{
-    //setting value is submitted
-    this.isSubmitted=true;
-    //checking form ,if it is invalid
-    if(this.loginForm!.invalid){
-      this.toastr.error('please enter username and password','CMS v2024')
-      this.error ="Please enter username and password"
-      return;
+    ngOnInit(): void {
+        this.loginForm = this.formBuilder.group({
+            Username: ['', [Validators.required]],
+            Password: ['', [Validators.required]]
+        });
     }
-    //checking form if it is valid
-    if(this.loginForm.valid){
-      this.error='';
-      console.log(this.loginForm.value);
 
-      //checking login credentials
-      this.authService.loginVerify(this.loginForm.value)
-      .subscribe((response)=>{
-        console.log(response.RoleId);
-        //based on role , need to redirect
-        if(response == null){
-          this.error="Invalid username and password"
-        }
-        if(response.RoleId === 1){
-             
-
-             console.log("Admin");
-             //Local storage 
-             localStorage.setItem("User_name",response.Username);
-             localStorage.setItem("AccessRole",response.RoleId.toString());
-             localStorage.setItem("JWT Token",response.Token);
-             this.router.navigate(['auth/admin']);
-        }else if(response.RoleId === 4){
-             console.log("Doctor");
-             localStorage.setItem("User_name",response.Username);
-             localStorage.setItem("AccessRole",response.RoleId.toString());
-             localStorage.setItem("JWT Token",response.Token);
-             
-             this.router.navigate(['auth/doctor']);
-        }
-        else if(response.RoleId === 5){
-          console.log("Receptionist");
-          localStorage.setItem("User_name",response.Username);
-          localStorage.setItem("AccessRole",response.RoleId.toString());
-          localStorage.setItem("JWT Token",response.Token);
-          
-          this.router.navigate(['patients/list']);
-     }
-     else if(response.RoleId === 2){
-      console.log("Pharmacist");
-      localStorage.setItem("User_name",response.Username);
-      localStorage.setItem("AccessRole",response.RoleId.toString());
-      localStorage.setItem("JWT Token",response.Token);
-      
-      this.router.navigate(['auth/pharmacists']);
- }
- else if(response.RoleId === 3){
-  console.log("Lab Technician");
-  localStorage.setItem("User_name",response.Username);
-  localStorage.setItem("AccessRole",response.RoleId.toString());
-  localStorage.setItem("JWT Token",response.Token);
-  
-  this.router.navigate(['auth/labtechnician']);
-}
-        else{
-          this.error ="Sorry.. Invalid credentials not allowed";
-        }
-
-      },
-    //based on role need to redirect
-    (error)=>{
-      console.log(error);
-      this.error ="Invalid username and password";
-      
-    });
+    get formControls() {
+        return this.loginForm.controls;
     }
-  }
 
+    loginCredentials(): void {
+        this.isSubmitted = true;
+
+        if (this.loginForm.invalid) {
+            this.toastr.error('Please enter username and password', 'CMS v2024');
+            this.error = "Please enter username and password";
+            return;
+        }
+
+        if (this.loginForm.valid) {
+            this.error = '';
+            
+            this.authService.loginVerify(this.loginForm.value).subscribe(
+                (response: User) => {
+                    if (!response) {
+                        this.error = "Invalid username and password";
+                        return;
+                    }
+
+                    // Store common data
+                    localStorage.setItem("User_name", response.Username);
+                    localStorage.setItem("AccessRole", response.RoleId.toString());
+                    localStorage.setItem("JWT Token", response.Token);
+
+                    // Handle different role redirections
+                    switch (response.RoleId) {
+                        case 1: // Admin
+                            this.router.navigate(['auth/admin']);
+                            break;
+                        case 2: // Doctor
+                            if (response.DoctorId) {
+                                // Store DoctorId for future use
+                                localStorage.setItem("DoctorId", response.DoctorId.toString());
+                                // Redirect to doctor's appointment list with their specific DoctorId
+                                this.router.navigate(['/doctor/list', response.DoctorId]);
+                            } else {
+                                this.error = "Doctor ID not found";
+                            }
+                            break;
+                        case 3: // Receptionist
+                            this.router.navigate(['patients/list']);
+                            break;
+                        case 4: // Pharmacist
+                            this.router.navigate(['auth/pharmacist']);
+                            break;
+                        case 5: // Lab Technician
+                            this.router.navigate(['labtests/labtests']);
+                            break;
+                        default:
+                            this.error = "Sorry.. Invalid credentials not allowed";
+                    }
+                },
+                (error) => {
+                    console.error(error);
+                    this.error = "Invalid username and password";
+                }
+            );
+        }
+    }
 }

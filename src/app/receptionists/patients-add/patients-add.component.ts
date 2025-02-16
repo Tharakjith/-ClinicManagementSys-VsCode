@@ -10,55 +10,89 @@ import { PatientService } from 'src/app/shared/service/patient.service';
   styleUrls: ['./patients-add.component.scss']
 })
 export class PatientsAddComponent implements OnInit {
-
-  //declare variable
+  todayDate: string = new Date().toISOString().split('T')[0];
+  minDobDate: string = "1950-01-01";
+  maxDobDate: string = this.todayDate;
+  showBookingPrompt: boolean = false;
+  showConfirmationDialog: boolean = false;
+  registeredPatientId: number | null = null;
   errorMessage: string | null = null;
 
   constructor(public patientService: PatientService,
-    private router: Router, 
+    private router: Router,
     private toastr: ToastrService
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   //Submit Form
   onSubmit(patform: NgForm) {
     console.log('Form Values Submitted:', patform.value);
-
-    //call Insert  Method
     this.addPatient(patform);
-
-    this.router.navigate(['/patients/book'])
-
-    patform.reset();
-
   }
 
-  //Insert Method
   addPatient(patform: NgForm) {
-    console.log("Inserting Patient...")
-    this.patientService.insertPatient(patform.value).subscribe(
-      (response) => {
-        console.log('Response from Server:',response);
-        this.toastr.success('Record has been inserted successfully','CMS v2024')
-
-        //Insert successful, clear error message
-        this.errorMessage = null;
-
-        //this.patientService.getAllPatients();
-
-        // Redirect to book appointment page
-      this.router.navigate(['/patients/book', response.PatientId]);
-
-        //this.router.navigate(['/patients/list'])
-        //patform.reset();
+    console.log("Inserting Patient...");
+    this.patientService.insertPatient(patform.value).subscribe({
+      next: (response: any) => {
+        console.log('Raw Response:', response); // Debug log
+        
+        // Check if response has a Value property (based on your API structure)
+        if (response && response.Value && response.Value.PatientId) {
+          this.registeredPatientId = response.Value.PatientId;
+          console.log('Extracted Patient ID:', this.registeredPatientId);
+          this.toastr.success('Record has been inserted successfully', 'CMS v2024');
+          this.errorMessage = null;
+          this.showConfirmationDialog = true;
+          patform.reset();
+        }
+        // Check if PatientId is directly on the response object
+        else if (response && response.PatientId) {
+          this.registeredPatientId = response.PatientId;
+          console.log('Direct Patient ID:', this.registeredPatientId);
+          this.toastr.success('Record has been inserted successfully', 'CMS v2024');
+          this.errorMessage = null;
+          this.showConfirmationDialog = true;
+          patform.reset();
+        }
+        else {
+          console.error('Unexpected response structure:', response);
+          this.errorMessage = 'Server response format error';
+          this.toastr.error('Unexpected server response format', 'Error');
+        }
       },
-      (error) => {
-        console.log(error);
-        this.toastr.error('An error occured!.. try again..', 'CMS v2024')
-        this.errorMessage = 'An error occured' + error;
+      error: (error) => {
+        console.error('Registration error:', error);
+        this.toastr.error('An error occurred during registration', 'CMS v2024');
+        this.errorMessage = 'An error occurred: ' + (error.message || error);
       }
-    )
-  };
+    });
+  }
 
+  onBookAppointment() {
+    if (this.registeredPatientId) {
+      console.log('Navigating to booking with ID:', this.registeredPatientId);
+      // Ensure we're using the correct route format
+      this.router.navigate(['patients', 'book', this.registeredPatientId]).then(
+        (success) => {
+          if (!success) {
+            console.error('Navigation failed');
+            this.toastr.error('Navigation to booking page failed', 'Error');
+          }
+        }
+      );
+    } else {
+      console.error('No patient ID available for navigation');
+      this.toastr.error('Patient ID not available', 'Error');
+    }
+  }
+
+  onCloseDialog() {
+    this.showConfirmationDialog = false;
+    this.router.navigate(['patients', 'list']);
+  }
+
+  cancelRegistration() {
+    this.router.navigate(['patients', 'list']);
+  }
 }

@@ -1,4 +1,10 @@
 <div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="card" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+<br>
     <h3>New Doctor Info</h3>
     <hr>
     <form name="frmdoctor" #stForm="ngForm" autocomplete="off" (ngSubmit)="onSubmit(stForm)">
@@ -44,15 +50,22 @@
   
   <!-- Salary -->
   <div class="form-group">
-    <label>ConsultationFee: </label>
+    <label>Consultation Fee: </label>
     <input type="number" name="ConsultationFee" #ConsultationFee="ngModel" 
         [(ngModel)]="doctormanagementService.formStaffData.ConsultationFee" 
-        class="form-control" placeholder="Enter ConsultationFee" minlength="5" maxlength="8" required 
+        class="form-control" placeholder="Enter Consultation Fee" 
+        required 
+        min="100" 
+        max="1000" 
         [ngClass]="{'is-invalid': ConsultationFee.touched && ConsultationFee.invalid}">
-  </div>
-  <div class="Validation-error" *ngIf="ConsultationFee.touched && ConsultationFee.invalid">
-    <div *ngIf="ConsultationFee.errors?.['required']">ConsultationFee is required!</div>
-  </div>
+</div>
+
+<div class="Validation-error" *ngIf="ConsultationFee.touched && ConsultationFee.invalid">
+    <div *ngIf="ConsultationFee.errors?.['required']">Consultation Fee is required!</div>
+    <div *ngIf="ConsultationFee.errors?.['min']">Consultation Fee must be at least 100!</div>
+    <div *ngIf="ConsultationFee.errors?.['max']">Consultation Fee cannot exceed 1000!</div>
+</div>
+
         <!-- Is Active -->
         <div class="form-group">
             <div class="form-check">
@@ -64,14 +77,19 @@
         </div>
   
        <!-- Submit Button -->
-       <div class="form-group">
-        <button type="submit" class="btn btn-lg btn-primary form-control" 
+       <div class="form-group text-center">
+        <button type="submit" class="btn btn-outline-info" 
             [disabled]="!(stForm.valid && stForm.dirty)">
             INSERT
-        </button>
-    </div>
+        </button>&nbsp; &nbsp;&nbsp;<a class="btn btn-outline-secondary" [routerLink]="['/doctormgmt/list']">
+            <i class="fa fa-arrow-left"></i>&nbsp;Back
+        </a>
+        <br>
+        </div>
+       
     <div *ngIf="errorMessage" class="error-message validation-error">
         {{errorMessage}}
     </div>
   </form>
+  </div>
   </div>

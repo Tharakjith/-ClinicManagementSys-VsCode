@@ -13,28 +13,30 @@ import { PharmacistdashComponent } from './pharmacistdash/pharmacistdash.compone
 import { AdmindashComponent } from './admindash/admindash.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientsListComponent } from '../receptionists/patients-list/patients-list.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
     AuthComponent,
     LoginComponent,
-    NavbarComponent,
     PagenotfoundComponent,
     DoctordashComponent,
     ReceptionistdashComponent,
     LabtechniciandashComponent,
-    PharmacistdashComponent,
+    PharmacistdashComponent, 
     AdmindashComponent,
-  
    
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    SharedModule
 
-  ]
+  ],
+  
+  
 })
 export class AuthModule { }

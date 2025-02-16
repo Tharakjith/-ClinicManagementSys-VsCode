@@ -35,13 +35,20 @@ export class AppointmentsBookatComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Subscribe to route params to get patient ID
     this.route.params.subscribe(params => {
-      this.patientId = +params['id'];
-      if (this.patientId) {
+      const id = params['id'];
+      if (id) {
+        this.patientId = +id;
         this.appointment.PatientId = this.patientId;
         console.log('Patient ID set:', this.patientId);
+      } else {
+        console.error('No patient ID in route params');
+        this.errorMessage = 'No patient ID provided';
+        this.toastr.error('No patient ID provided', 'Error');
       }
     });
+
     this.loadSpecializations();
   }
 
@@ -210,9 +217,10 @@ export class AppointmentsBookatComponent implements OnInit {
     this.patientService.bookAppointment(appointmentData).subscribe({
       next: (response) => {
         console.log('Booking success:', response);
-        this.toastr.success('Appointment booked successfully!');
+        this.toastr.success('Appointment placed successfully!');
         this.resetForm(form);
-        this.router.navigate(['/patients/list']);
+        // Navigate using the patient ID instead of appointment ID
+        this.router.navigate(['/patients/bill', appointmentData.PatientId]);
       },
       error: (error) => {
         console.error('Booking error:', error);
@@ -276,4 +284,10 @@ export class AppointmentsBookatComponent implements OnInit {
     this.doctorspec = [];
     this.errorMessage = undefined;
   }
+
+  cancelRegistration() {
+    // Redirect to the list page
+    this.router.navigate(['/patients/list']);
+  }
+  
 }

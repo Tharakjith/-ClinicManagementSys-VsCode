@@ -1,0 +1,12 @@
+.btn-outline-custom {
+    width: 200px; /* Increased width */
+    height: 100px; /* Increased height */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-color: #17baaf !important;
+    color: #17baaf !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

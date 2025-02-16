@@ -41,7 +41,9 @@ export class StaffListComponent implements OnInit {
         staff.PhoneNumber?.toLowerCase().includes(searchTermLower) ||
         staffCode.includes(searchTermLower)
       );
+      
     });
+    
   }
 
   UpdateStaffs(staff:Staff):void{
@@ -66,12 +68,12 @@ export class StaffListComponent implements OnInit {
 
   // Delete staff record
   deleteStaff(staff: Staff): void {
-    if (confirm('Are you sure you want to DELETE this record?')) {
+    if (confirm('Are you sure you want to DISABLE this record?')) {
       staff.StaffIsActive = false; // Mark staff as inactive
       this.staffService.UpdateStaffs(staff).subscribe(
         response => {
           console.log(response);
-          this.toastr.info('Staff has been deleted successfully', 'EMS v2024');
+          this.toastr.info('Staff has been Disabled successfully', 'KATT v2024');
           this.staffService.getAllStaffs();
         },
         error => {

@@ -3,52 +3,45 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Medicinedistribute } from '../model/medicinedistribute';
 import { Observable } from 'rxjs';
-import { Patient } from '../model/patient';
-import { Prescription } from '../model/prescription';
-import { Medicinedetails } from '../model/medicinedetails';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MedicinedistributeService {
+  formMedicinedistributeData: Medicinedistribute = new Medicinedistribute();
 
-  //declare variables
-  //list of employees
+  constructor(private httpClient: HttpClient) {}
 
-  medicinedistribute:Medicinedistribute[]=[];
-  patient: Patient[] = [];
-  prescription: Prescription[] = [];
-  medicnedetails:Medicinedetails[] = [];
-  formMedicinedistributeData:Medicinedistribute=new Medicinedistribute();
-  DistributionDate: any;
-
-  constructor(private httpClient:HttpClient) {}
-  
   getPrescriptionDetails(prescriptionId: number): Observable<Medicinedistribute> {
-    return this.httpClient.get<Medicinedistribute>(`${environment.apiUrl}pharmacists/vm3/${prescriptionId}`);
+    return this.httpClient.get<any>(`${environment.apiUrl}pharmacists/vm3/${prescriptionId}`)
+      .pipe(
+        map(response => {
+          const distribution = new Medicinedistribute();
+          distribution.PrescriptionId = prescriptionId;
+          distribution.MedicineId = response.MedicineId;
+          distribution.PatientName = response.PatientName;
+          distribution.MedicineName = response.MedicineName;
+          distribution.Dosage = response.Dosage;
+          distribution.Frequency = response.Frequency;
+          distribution.NumberofDays = response.NumberofDays;
+          distribution.StockInHand = response.StockInHand;
+          return distribution;
+        })
+      );
   }
 
-    getAllMedicineDistribute():void{
-      this.httpClient.get(environment.apiUrl+'pharmacists/vm3')
-      .toPromise( )
-      .then((response:any)=>{
-        if(response ?.Value){
-          this.medicinedistribute=response.Value;
-          console.log(this.medicinedistribute);
-        }
-       
-  
-      })
-      .catch((error)=>{
-        console.log('Error occured: ',error);
-      
-    });
+  insertMedicineDistribute(distribution: any): Observable<any> {
+    // Ensure all required fields are included in the request
+    const payload = {
+      PrescriptionId: Number(distribution.PrescriptionId),
+      MedicineId: Number(distribution.MedicineId),
+      QuantityDistributed: Number(distribution.QuantityDistributed),
+      DistributionDate: distribution.DistributionDate,
+      MedStatusId: Number(distribution.MedStatusId)
+    };
+
+    console.log('Service sending payload:', payload);
+    return this.httpClient.post(`${environment.apiUrl}pharmacists/md`, payload);
   }
-  
-  //2-insert an employee
-  
-  insertMedicineDistribute(medicinedistributes:Medicinedistribute):Observable<any>{
-    console.log("Insert : In service");
-    return this.httpClient.post(environment.apiUrl+'pharmacists/add-md',medicinedistributes);
-  } 
-  }
+}

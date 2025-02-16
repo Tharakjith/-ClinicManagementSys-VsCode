@@ -7,6 +7,8 @@ import { Specialization } from '../model/specialization';
 import { Doctorbyspectn } from '../model/doctorbyspectn';
 import { Doctoravail } from '../model/doctoravail';
 import { Appointment } from '../model/appointment';
+import { Patientbill } from '../model/patient-bill';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,7 @@ import { Appointment } from '../model/appointment';
 
 export class PatientService {
   patients: Patient[] = [];
+  billDetails: Patientbill | null = null;
   formPatientData: Patient = new Patient();
 
   constructor(private httpClient: HttpClient) { }
@@ -34,10 +37,26 @@ export class PatientService {
   }
 
   // Insert a new Patient
+  // insertPatient(patient: Patient): Observable<any> {
+  //   console.log("Insert: In service");
+  //   return this.httpClient.post(environment.apiUrl + 'receptions', patient);
+  // }
   insertPatient(patient: Patient): Observable<any> {
-    console.log("Insert: In service");
-    return this.httpClient.post(environment.apiUrl + 'receptions', patient);
+    console.log("Insert: In service with data:", patient);
+    return this.httpClient.post(`${environment.apiUrl}receptions`, patient)
+      .pipe(
+        map((response: any) => {
+          console.log("Service received response:", response);
+          // Handle both possible response formats
+          if (response.Value) {
+            return response.Value;
+          }
+          return response;
+        })
+      );
   }
+
+
 
   // Update an existing Patient
   updatePatient(patient: Patient): Observable<any> {
@@ -106,9 +125,13 @@ export class PatientService {
     );
   }
 
-  bookAppointment(appointment: Appointment): Observable<any> {
-    console.log('Sending appointment data:', appointment);
-    return this.httpClient.post(`${environment.apiUrl}receptions/Bookappointment`, appointment)
+  getPatientBill(patientId: number): Observable<Patientbill> {
+    return this.httpClient.get<Patientbill>(`${environment.apiUrl}receptions/bill/${patientId}`);
+  }
+
+  bookAppointment(appointmentData: any): Observable<any> {
+    console.log('Sending appointment data:', appointmentData);
+    return this.httpClient.post(`${environment.apiUrl}receptions/Bookappointment`, appointmentData)
       .pipe(
         catchError(error => {
           console.error('Booking error in service:', error);
@@ -116,5 +139,5 @@ export class PatientService {
         })
       );
   }
-  
+
 }

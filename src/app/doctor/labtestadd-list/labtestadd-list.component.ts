@@ -22,9 +22,10 @@ export class LabtestaddListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("Hai I am Employee List Compnent !....");
+    console.log("Lab Test Report +!....");
     this.doctorService.getAllTest();
   }
+  
   
 
    //search method
@@ -109,4 +110,3 @@ export class LabtestaddListComponent implements OnInit {
  }
 }
 }
- 

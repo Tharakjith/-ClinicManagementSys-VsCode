@@ -1,71 +1,84 @@
-<div class="container mt-4">
-    <h3 class="text-center mb-4">List of registered users</h3>
-    <div class="row mb-3">
-      <div class="col-md-8">
-        <input
-          type="search"
-          class="form-control"
-          placeholder="Search staff here..."
-          [(ngModel)]="searchTerm"
-        />
-      </div>
-      <div class="col-md-4 text-md-end text-center">
-        <a [routerLink]="['/doctormgmt/add']" role="button" class="btn btn-outline-primary">
-          <i class="fa fa-user-plus fa-lg"></i>&nbsp;User Registration
-        </a>
-      </div>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark text-center">
-          <tr>
-            <th scope="col">Doctor Code</th>
-            <th scope="col">Doctor Name</th>
-            <th scope="col">Consultation Fee</th>
-            <th scope="col">Specialization</th>
-            <th scope="col">Is Active</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let doctor of filteredStaffs() | paginate: { itemsPerPage: pageSize, currentPage: page }">
-            <td>{{ 'DR' + doctor.DoctorId }}</td>
-            <td>{{ doctor.Registration.Staff.StaffName }}</td>
-            <td>{{ doctor.ConsultationFee }}</td>
-            <td>{{ doctor.Specialization?.SpecializationName }}</td>
-            <td>
-              <input
-                type="checkbox"
-                [checked]="doctor.DoctorIsActive"
-                class="form-check-input"
-                disabled
-              />
-            </td>
-            <td class="text-center">
-              <button
-                class="btn btn-sm btn-outline-info"
-                (click)="Updateusers(doctor)"
-                title="Edit"
-              >
-                <i class="fa fa-edit"></i>
-              </button>
-              &nbsp;
-              <button
-                class="btn btn-sm btn-outline-danger"
-                (click)="deleteStaff(doctor)"
-                title="Delete"
-              >
-                <i class="fa fa-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="footer text-center mt-3">
-      <pagination-controls
-        class="custom-page"
-        (pageChange)="page = $event"
-      ></pagination-controls>
-    </div>
-  </div>
+
+    <div class="content">
+        <!-- Main Content -->
+        <div class="container mt-4">
+            <br>  <br>  <br>  <br>
+            <!-- Header -->
+            <h3 class="text-center mb-4" style="color: #17baaf;">List of Available Doctors</h3>
+
+
+            <!-- Search and Add Doctor -->
+            <div class="row mb-3">
+                <!-- Search -->
+                <div class="col-md-8">
+                    <input
+                        type="search"
+                        class="form-control"
+                        placeholder="Search doctors here..."
+                        [(ngModel)]="searchTerm"
+                    />
+                </div>
+                <br>
+                <br>
+
+                <!-- Add Doctor -->
+                <div class="col-md-4 text-md-end text-center">
+                    <a class="btn btn-outline-secondary" [routerLink]="['/auth/admin']">
+                        <i class="fa fa-arrow-left"></i>&nbsp;Back
+                    </a>&nbsp; &nbsp;
+                    <a [routerLink]="['/doctormgmt/add']" role="button" class="btn btn-outline-info">
+                        <i class="fa fa-user-plus fa-lg"></i>&nbsp;Doctor Registration
+                    </a>&nbsp;&nbsp;
+                    <a [routerLink]="['/auth/login']" role="button" class="btn btn-outline-danger btn-sm">
+                        <span><i class="fa fa-sign-out fa-lg"></i></span>
+                        Logout
+                    </a>
+                </div>
+            </div>
+
+            <!-- Doctor Records Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark text-center">
+                        <tr>
+                            <th scope="col">Doctor Code</th>
+                            <th scope="col">Doctor Name</th>
+                            <th scope="col">Consultation Fee</th>
+                            <th scope="col">Specialization</th>
+                            <th scope="col">Is Active</th>
+                            <th scope="col">Set Availability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let doctor of filteredStaffs() | paginate: { itemsPerPage: pageSize, currentPage: page }">
+                            <td>{{ 'DR' + doctor.DoctorId }}</td>
+                            <td>{{ doctor.Registration.Staff.StaffName }}</td>
+                            <td>{{ doctor.ConsultationFee }}</td>
+                            <td>{{ doctor.Specialization?.SpecializationName }}</td>
+                            <td>
+                                <input type="checkbox" [checked]="doctor.DoctorIsActive" class="form-check-input" disabled />
+                            </td>
+                            <td class="text-center">
+                               
+                                &nbsp;
+                                <button
+                                    class="btn btn-sm btn-outline-info"
+                                    [routerLink]="['/davail/add', doctor.DoctorId]"
+                                    title="Set Availability"
+                                >
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class=" text-center mt-3">
+                <pagination-controls
+                    class="custom-pag"
+                    (pageChange)="page = $event"
+                ></pagination-controls>
+            </div>
+        </div>

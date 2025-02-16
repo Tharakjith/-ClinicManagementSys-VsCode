@@ -8,6 +8,9 @@ import { AddMedicineAddComponent } from './add-medicine-add/add-medicine-add.com
 import { AddMedicineEditComponent } from './add-medicine-edit/add-medicine-edit.component';
 import { AddMedicineListComponent } from './add-medicine-list/add-medicine-list.component';
 import { LabtestaddAddComponent } from './labtestadd-add/labtestadd-add.component';
+import { LabtestviewreportListComponent } from './labtestviewreport-list/labtestviewreport-list.component';
+import { LabtestaddListComponent } from './labtestadd-list/labtestadd-list.component';
+import { LabtestaddEditComponent } from './labtestadd-edit/labtestadd-edit.component';
 //import { AddMedicineAddComponent } from './add-medicine-add/add-medicine-add.component';
 //import { AddMedicineListComponent } from './add-medicine-list/add-medicine-list.component';
 //import { AddMedicineEditComponent } from './add-medicine-edit/add-medicine-edit.component';
@@ -23,18 +26,21 @@ const routes: Routes = [
   
   {path:'edit/:id',component:StartDiagnosysEditComponent},
   
-  {path:'diagnosis/list',component:StartDiagnosysListComponent},
 
-  
+  {
+    path: 'viewdigno/:appointmentId',component: StartDiagnosysListComponent
+  },
+  { path: 'viewreport/:appointmentId', component: LabtestviewreportListComponent },
 //Medicine 
-  {path:'medadd/:appId',component:AddMedicineAddComponent},
+  {path:'medadd/:apId',component:AddMedicineAddComponent},
 
   {path:'edit/:id',component:AddMedicineEditComponent},
  {path:'list',component:AddMedicineListComponent},
 //Labtest
-  {path:'labadd',component:LabtestaddAddComponent},
-  {path:'labedit',component:LabtestaddAddComponent},
-  {path:'lablist',component:LabtestaddAddComponent},
+{path:'labadd/:apId', component: LabtestaddAddComponent},  
+ {path:'labedit',component:LabtestaddEditComponent},
+  {path:'lablist',component:LabtestaddListComponent},
+  
 ];
 
 @NgModule({

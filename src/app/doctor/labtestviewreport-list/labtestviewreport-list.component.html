@@ -1,0 +1,49 @@
+<!-- labtestviewreport-list.component.html -->
+<div class="container">
+  <br><br><br><br><br><br>
+  <h3 class=" font-serif"><b>Lab Test Report</b></h3>
+  <hr>
+
+  <div class="mt-3" *ngIf="labTestReport">
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th class="bg-light">Report ID</th>
+              <td>{{labTestReport.LtreportId}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">Appointment ID</th>
+              <td>{{labTestReport.AppointmentId}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">Lab Test ID</th>
+              <td>{{labTestReport.LabTestId}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">High Range</th>
+              <td>{{labTestReport.HighRange}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">Low Range</th>
+              <td>{{labTestReport.LowRange}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">Actual Result</th>
+              <td>{{labTestReport.ActualResult}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">Remarks</th>
+              <td>{{labTestReport.Remarks}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!labTestReport" class="alert alert-info mt-3">
+    No lab test report found for this appointment.
+  </div>
+</div>

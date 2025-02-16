@@ -43,7 +43,7 @@ export class DoctormgmtAddComponent implements OnInit {
           this.toastr.success('Doctor successfully registered.', 'CMS v2025');
           this.errorMessage = null;
           this.doctormanagementService.getAlldoctors();
-          
+          this.router.navigate(['/doctormgmt/list']); // Redirect to staff list
          
         } 
       },
@@ -57,3 +57,4 @@ export class DoctormgmtAddComponent implements OnInit {
     );
   }
 }
+

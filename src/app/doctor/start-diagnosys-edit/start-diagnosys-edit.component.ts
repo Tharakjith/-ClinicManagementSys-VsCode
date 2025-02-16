@@ -26,7 +26,7 @@ export class StartDiagnosysEditComponent implements OnInit {
   
 
   //Redirect to Employee List
-  this.router.navigate(['/doctor/startDiagnosys/']);
+  this.router.navigate(['/doctor/startDiagnosys/:id']);
 
   //Reset Form
   startDiaform.reset();
@@ -42,7 +42,7 @@ this.doctorService.editDiagnosys(startDiaform.value).subscribe(
     this.errorMessage=null;
     this.doctorService.getAllDiagnosys();
 
-    this.router.navigate(['/doctor/startDiagnosys']);
+    this.router.navigate(['/doctor/startDiagnosys/:id']);
 
     startDiaform.reset()
 

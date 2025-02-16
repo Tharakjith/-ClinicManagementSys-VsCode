@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { doesNotReject } from 'node:assert';
+import { Registration } from '../model/registration';
 
 
 @Injectable({
@@ -18,6 +19,7 @@ export class StaffService {
   doj: any;
   createdDate: any;
   dob:any;
+  registration:Registration[] =[];
 
   constructor(private httpClient: HttpClient) {}
 

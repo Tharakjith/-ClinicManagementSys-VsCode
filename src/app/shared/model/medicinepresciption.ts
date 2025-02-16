@@ -11,7 +11,7 @@ export class Medicinepresciption {
     StaffName: string='';
     NumberofDays: number=0;
     PatientName: string='';
-
+    isProcessed?: boolean;
     //object Oriented Model
     Medicinedetails : Medicinedetails = new Medicinedetails();
 }

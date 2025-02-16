@@ -5,6 +5,7 @@ import { PatientsEditComponent } from './patients-edit/patients-edit.component';
 import { PatientsAddComponent } from './patients-add/patients-add.component';
 import { AppointmentsBookatComponent } from './appointments-bookat/appointments-bookat.component';
 import { PatientHistoryComponent } from './patient-history/patient-history.component';
+import { PatientsBillComponent } from './patients-bill/patients-bill.component';
 
 const routes: Routes = [
   //SETTING-UP CHILDREN ROUTES
@@ -18,6 +19,8 @@ const routes: Routes = [
   {path : 'edit/:id', component: PatientsEditComponent},
 
   {path : 'book/:id', component: AppointmentsBookatComponent},
+
+  { path: 'bill/:id', component: PatientsBillComponent },
 
   { path: 'history', component: PatientHistoryComponent }
 

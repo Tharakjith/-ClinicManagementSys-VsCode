@@ -1,64 +1,44 @@
-<p>admindash works!</p>
-
-<app-navbar></app-navbar>
 <div class="container mt-5 text-center">
-    <!-- List Employees Button -->
-    <a 
-        [routerLink]="['/register/list']" 
-        role="button" 
-        class="btn btn-outline-primary mx-2 d-inline-block"
-        style="width: 150px;"
-    >
-        <span>
-            <i class="fa fa-users fa-lg"></i>
-        </span>
-        <br>user
-    </a>
-    
-    <!-- Add Employees Button -->
-    <a 
-        [routerLink]="['/admin/list']" 
-        role="button" 
-        class="btn btn-outline-primary mx-2 d-inline-block"
-        style="width: 150px;"
-    >
-        <span>
-            <i class="fa fa-user-plus fa-lg"></i>
-        </span>
-        <br>Staff Management
-    </a>
-    <a 
-        [routerLink]="['/medicine-managements/list']" 
-        role="button" 
-        class="btn btn-outline-primary mx-2 d-inline-block"
-        style="width: 150px;"
-    >
-        <span>
-            <i class="fa fa-user-plus fa-lg"></i>
-        </span>
-        <br>Medicine Management
-    </a>
-    <a 
-        [routerLink]="['/doctormanagement/list']" 
-        role="button" 
-        class="btn btn-outline-primary mx-2 d-inline-block"
-        style="width: 150px;"
-    >
-        <span>
-            <i class="fa fa-user-plus fa-lg"></i>
-        </span>
-        <br>Doctor Management
-    </a>
-    <a 
-        [routerLink]="['/admin/list']" 
-        role="button" 
-        class="btn btn-outline-primary mx-2 d-inline-block"
-        style="width: 150px;"
-    >
-        <span>
-            <i class="fa fa-user-plus fa-lg"></i>
-        </span>
-        <br>Set Doctor Availability
-    </a>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- Heading -->
+    <div>
+        <h2 style="color: #17baaf;">Admin Dashboard</h2>
+        <a [routerLink]="['/auth/login']" role="button" class="btn btn-outline-danger btn-sm">
+            <span><i class="fa fa-sign-out fa-lg"></i></span>
+            Logout
+        </a>
+    </div>
+    <br>
+    <br>
+    <!-- Buttons -->
+    <div class="d-flex flex-wrap justify-content-center">
+        <a [routerLink]="['/admin/list']" role="button" class="btn btn-outline-custom">
+            <span><i class="fa fa-user-plus fa-lg"></i></span>
+            Staff Management
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a [routerLink]="['/uregistration/list']" role="button" class="btn btn-outline-custom">
+            <span><i class="fa fa-users fa-lg"></i></span>
+            User Management
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a [routerLink]="['/doctormgmt/list']" role="button" class="btn btn-outline-custom">
+            <span><i class="fa fa-user-plus fa-lg"></i></span>
+            Doctor Management
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a [routerLink]="['/medicine-managements/list']" role="button" class="btn btn-outline-custom">
+            <span><i class="fa fa-user-plus fa-lg"></i></span>
+            Medicine Management
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a [routerLink]="['/lab/list']" role="button" class="btn btn-outline-custom">
+            <span><i class="fa fa-user-plus fa-lg"></i></span>
+            Labtest Management
+        </a>
+    </div>
 </div>
-

@@ -12,6 +12,10 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppointmentsBookatComponent } from './appointments-bookat/appointments-bookat.component';
 import { PatientHistoryComponent } from './patient-history/patient-history.component';
 import { PatientsBillComponent } from './patients-bill/patients-bill.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { AppModule } from '../app.module';
+import { AuthModule } from '../auth/auth.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,14 +26,19 @@ import { PatientsBillComponent } from './patients-bill/patients-bill.component';
     AppointmentsBookatComponent,
     AppointmentsBookatComponent,
     PatientHistoryComponent,
-    PatientsBillComponent
+    PatientsBillComponent,
+    ConfirmationDialogComponent,
+    
+    
   ],
   imports: [
     CommonModule,
     ReceptionistsRoutingModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    FormsModule
+    FormsModule,
+    SharedModule
+    
   ]
 })
 export class ReceptionistsModule { }

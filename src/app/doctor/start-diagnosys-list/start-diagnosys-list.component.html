@@ -1,74 +1,50 @@
-<p>start-diagnosys-list works!</p>
-
+<!-- labtestviewreport-list.component.html -->
 <div class="container">
-    <!--Employee Info-->
+  <br><br><br><br>
+  <h3 class="text-success font-serif"><b>Diagnosys History</b></h3>
+  <hr>
 
-    <h3 style="color:green; font-family: 'Times New Roman', Times, serif; "><b>Diagnosys Informations !....</b></h3>
-    <hr>
-    <div class="header">
-        <div class="row">
-            <!--Search For Employe row is divided in to two -->
-            <div class="col-sm-8">
-                <input type="search " class="form-control" style="color: black; font-family: 'Times New Roman', Times, serif;"
-                placeholder="Enter Search text here......"
-                [(ngModel)]="searchTerm">
-            </div>
-            <!--Add Diagnosys total row width is 12 serch set 8 balance in 4 -->
-            <div class="col-sm-4 ">
-                <a [routerLink]="['/startDiagnosys/add']" role="button" class="btn btn-outline-primary">
-                    <i class="fa fa-user-plus fa-lg"></i>&nbsp;Add Diagnosys
-                </a>
-            </div>
-        </div>
+
+  <div class="mt-3" *ngIf="startDiagnosy">
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th class="bg-light">History ID</th>
+              <td>{{startDiagnosy.HistoryId}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">Diagnosis </th>
+              <td>{{startDiagnosy.Diagnosis}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">Symptoms</th>
+              <td>{{startDiagnosy.Symptoms}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">NextVisiting</th>
+              <td>{{startDiagnosy.NextVisiting}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">DoctorNote</th>
+              <td>{{startDiagnosy.DoctorNote}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">DiagnosysDate</th>
+              <td>{{startDiagnosy.DiagnosysDate}}</td>
+            </tr>
+            <tr>
+              <th class="bg-light">AppointmentId</th>
+              <td>{{startDiagnosy.AppointmentId}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <!--Display Records-->
-    <br>
-    <table class="table table-bordered table-striped"  >
-        <thead class="table-success">
-          <tr>
-            <th scope="col">History Code</th>
-            <th scope="col">AppointmentId</th>
-            <th scope="col">Diagnosis</th>
-            <th scope="col">Symptoms</th>
-            <th scope="col">Next Visiting Date</th>
-            <th scope="col">Doctor's Note</th>
-            <th scope="col">Diagnosys Date</th>
-            
-            
-            <th scope="col">Actions</th>
+  </div>
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let startDia of this.filteredDiagnosys()
-          |paginate:{itemsPerPage:pageSize ,currentPage :page}">
-            
-            <td>{{startDia.HistoryId}}</td>
-            <td>{{startDia.AppointmentId}}</td>
-            <td>{{startDia.Diagnosis}}</td>
-            <td>{{startDia.Symptoms}}</td>
-            <td>{{startDia.NextVisiting|date:"dd-MM-yyyy"}}</td>
-            <td>{{startDia.DoctorNote}}</td>
-            <td>{{startDia.DiagnosysDate}}</td>
-            
-           
-            <!-- <td><input type="checkbox"[checked]="startDiagnosy.IsActive" disabled></td>
-            <td><button class="btn btn-sm btn btn-outline-info" (click)="editDiagnosys(startDiagnosy)">
-                <i class="fa fa-edit"></i>
-            </button> 
-            &nbsp;
-            <button class="btn btn-sm btn btn-outline-danger" (click)="deleteDiagnosys(startDiagnosy)">
-                <i class="fa fa-trash"></i>
-            </button>
-             </td> -->
-          </tr>
-          
-        </tbody>
-      </table>
-      <!-- Footer []property binding () event binging -[()]-two way databinding it is angular model-->
-       <div class="footer">
-        <pagination-controls class="custom-page" (pageChange)= "page = $event"></pagination-controls>
-       </div>
-      
-     
+  <div *ngIf="!startDiagnosy" class="alert alert-info mt-3">
+    No History found for this appointment.
+  </div>
 </div>

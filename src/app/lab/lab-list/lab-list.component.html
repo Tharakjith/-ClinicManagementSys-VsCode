@@ -1,6 +1,7 @@
 <div class="container mt-4">
-    <!-- Header -->
-    <h3 class="text-center mb-4">List of tests</h3>
+    <!-- Header --><br><br><br><br>
+    <h2 class="text-center mb-4" style="color: #17baaf;"
+    >List of tests</h2>
   
     <!-- Search and Add Staff -->
     <div class="row mb-3">
@@ -17,9 +18,16 @@
 
       <!-- Add Staff -->
       <div class="col-md-4 text-md-end text-center">
-        <a [routerLink]="['/lab/add']" role="button" class="btn btn-outline-primary">
+        <a class="btn btn-outline-secondary" [routerLink]="['/auth/admin']">
+          <i class="fa fa-arrow-left"></i>&nbsp;Back
+      </a>&nbsp;&nbsp;
+        <a [routerLink]="['/lab/add']" role="button" class="btn btn-outline-info">
 
           <i class="fa fa-user-plus fa-lg"></i>&nbsp;Add test
+        </a>&nbsp;&nbsp;
+        <a [routerLink]="['/auth/login']" role="button" class="btn btn-outline-danger btn-sm">
+            <span><i class="fa fa-sign-out fa-lg"></i></span>
+            Logout
         </a>
       </div>
     </div>

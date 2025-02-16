@@ -1,4 +1,4 @@
 export class Weekdays {
-    weekdaysId: number = 0;
-    weekdaysName: string = "";
+    WeekdaysId: number = 0;
+    WeekdaysName: string = "";
 }

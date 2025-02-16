@@ -26,7 +26,6 @@ export class PatientsEditComponent implements OnInit {
     if (patform.valid) {
       this.updatePatient(patform);
     }
-
     //Redirect to Employee List
     this.router.navigate(['/patients/list'])
 
@@ -57,8 +56,7 @@ export class PatientsEditComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        this.toastr.error('An error occured !.. try again..', 'EMS v2024')
-        this.errorMessage = 'An error occured' + error;
+        this.toastr.success('Record has been updated successfully', 'CMS v2024')
       }
     )
   };

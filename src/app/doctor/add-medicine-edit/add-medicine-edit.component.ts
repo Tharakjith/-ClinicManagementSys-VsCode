@@ -49,7 +49,7 @@ export class AddMedicineEditComponent implements OnInit {
           },
           (error)=>{
             console.log(error);
-            this.toastr.error('An error Occured','EMS v2024');
+            this.toastr.error('An error Occured','EMS v2024');
             this.errorMessage='An error Occured' + error;
           }
         );
@@ -60,4 +60,3 @@ export class AddMedicineEditComponent implements OnInit {
         this.doctorService.getAllMedicine();
       }
     }
-    

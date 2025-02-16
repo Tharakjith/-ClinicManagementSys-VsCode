@@ -11,98 +11,103 @@ import { DoctorService } from 'src/app/shared/service/doctor.service';
   templateUrl: './start-diagnosys-add.component.html',
   styleUrls: ['./start-diagnosys-add.component.scss']
 })
-
 export class StartDiagnosysAddComponent implements OnInit {
-  
-  //declare error message
-  appointment:Appointment=new Appointment();
-  errorMessage:string |null=null;
-  AppointmentId : number = 0;
-  todayDate: string = '';
+  diagnosisPattern = /^[A-Za-z]+( [A-Za-z]+)*$/;
+  doctorId!: number;
 
-  constructor(public doctorService:DoctorService,
-    private router:Router,
+  isValidDiagnosis(value: string): boolean {
+    return this.diagnosisPattern.test(value);
+  }
+
+  symptomsPattern = /^[A-Za-z]+( [A-Za-z]+)*$/;
+
+  isValidSymptoms(value: string): boolean {
+    return this.symptomsPattern.test(value);
+  }
+  doctorNotePattern = /^[A-Za-z]+( [A-Za-z]+)*$/;
+
+  isValidDoctorNote(value: string): boolean {
+    return this.doctorNotePattern.test(value);
+  }
+  appointment: Appointment = new Appointment();
+  errorMessage: string | null = null;
+  minDate: string | undefined;
+  
+  constructor(
+     // Set today's date as minDate in "YYYY-MM-DD" format
+     public doctorService: DoctorService,
+    private router: Router,
     private toastr: ToastrService,
-    private route:ActivatedRoute  ) { }
+    private route: ActivatedRoute
+  ) 
+  {
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
+  
+  }
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Ensure two digits
+    const day = date.getDate().toString().padStart(2, '0'); // Ensure two digits
+    return `${year}-${month}-${day}`;}
 
   ngOnInit(): void {
-    // Retrieve Patient ID from route
-    this.route.paramMap.subscribe((params) => {
-      this.AppointmentId = Number(params.get('appId'));
-      this.appointment.AppointmentId = this.AppointmentId;
-    });      
-    console.log(this.AppointmentId);
-
-
-    // Set today's date in ISO format
-
-
-    // const today = new Date();
-    // this.todayDate = today.toISOString().split('T')[0];
-    // this.doctorService.formDiagnosysData.DiagnosysDate = this.todayDate;
-
-    const today = new Date();
-    this.todayDate = today.toISOString().split('T')[0];
-    this.doctorService.formDiagnosysData.DiagnosysDate = this.todayDate;
-
-
-
+    this.route.params.subscribe(params => {
+      const appointmentId = +params['appId'];
+      if (appointmentId) {
+        this.appointment.AppointmentId = appointmentId;
+        
+        // Ensure formDiagnosysData is initialized
+        if (!this.doctorService.formDiagnosysData) {
+          this.doctorService.formDiagnosysData = new StartDiagnosy();
+        }
   
-    this.doctorService.getAllDoctors();
-  }
+        this.doctorService.formDiagnosysData.AppointmentId = appointmentId;
+      }
+    });
+      // Ensure DiagnosysDate is set
+  const today = new Date();
+  this.doctorService.formDiagnosysData.DiagnosysDate = today.toISOString().split('T')[0];
+}
   
-  // //Submit form
-  // onSubmit(formDiagnosysData: NgForm): void {
-  //   if (formDiagnosysData.valid) {
-  //     this.addDiagnosys(formDiagnosysData);
-  //     formDiagnosysData.reset();
-  //     this.router.navigate(['/doctor/startdiagnosys/list']);
-  //   } else {
-  //     this.toastr.error('Please fill all required fields.', 'Validation Error');
-  //   }
-  // }
+  
+  
 
-  onSubmit(formDiagnosysData: NgForm): void {
-    if (formDiagnosysData.valid) {
-      // Pass the form data directly to the service
-      this.addDiagnosys(formDiagnosysData.value);
-      formDiagnosysData.reset();
-      this.router.navigate(['doctor/diagnosis/list']);
-    } else {
-      this.toastr.error('Please fill all required fields.', 'Validation Error');
-    }
-  }
-  
-  //Insert Method
-  addDiagnosys(formDiagnosysData: NgForm): void {
-    console.log("Inserting...");
-    console.log('Form Data:', formDiagnosysData.value);  // Log form data to verify it's correct
-  
-    this.doctorService.insertDiagnosys(formDiagnosysData.value).subscribe(
+onSubmit(form: NgForm): void {
+  if (form.valid) {
+    console.log('Form Data:', this.doctorService.formDiagnosysData);
+
+    this.doctorService.insertDiagnosys(this.doctorService.formDiagnosysData).subscribe(
       (response) => {
-        console.log(response);
-        this.toastr.success('Record has been inserted successfully', 'CMSv2024');
-        this.errorMessage = null;
-        this.doctorService.getAllDiagnosys();
-        this.router.navigate(['add/:appId']);
+        console.log('Success:', response);
+        this.toastr.success('Diagnosis added successfully');
+        this.router.navigate(['/doctor/diagnosis/list', this.appointment.AppointmentId]);
       },
       (error) => {
-        console.log(error);
-        this.toastr.error('An error occurred', 'CMSv2024');
-        this.errorMessage = 'An error occurred: ' + error.message;
+        console.error('Error adding diagnosis:', error);
+        this.toastr.error('Error adding diagnosis');
+        this.errorMessage = error.message;
       }
     );
+  } else {
+    console.warn('Form is invalid:', form);
   }
-  
+
+
+  }
 
   addmedicines(): void {
-    // Redirect to the booking appointment page
-    this.router.navigate(['/doctor/medadd/:appId']);
-    }
-  
+    if (this.appointment.AppointmentId) {
+      this.router.navigate(['/doctor/medadd', this.appointment.AppointmentId]);
+    }
+  }
+
   addlabtests(): void {
-    // Redirect to the booking appointment page
-    this.router.navigate(['/doctor/labtestadd']);
-    }
+    if (this.appointment.AppointmentId) {
+      this.router.navigate(['/doctor/labadd', this.appointment.AppointmentId]);
+    }
+  }
+
+
 
 }

@@ -1,9 +1,9 @@
+// medicinedistribute-add.component.ts
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MedicinedistributeService } from 'src/app/shared/service/medicinedistribute.service';
-import { MedicinepresciptionService } from 'src/app/shared/service/medicinepresciption.service';
 
 @Component({
   selector: 'app-medicinedistribute-add',
@@ -11,76 +11,66 @@ import { MedicinepresciptionService } from 'src/app/shared/service/medicinepresc
   styleUrls: ['./medicinedistribute-add.component.scss']
 })
 export class MedicinedistributeAddComponent implements OnInit {
-
-  //declare variables
-  errorMessage: string | null = null;
-  distributionDate = new Date().toISOString().slice(0, 10); // Set to today's date
-  prescriptionId: number | null = null;
+  distributionDate: string = new Date().toISOString().split('T')[0];
+  submitted: boolean = false;
 
   constructor(
-    public medicinedistributeService:MedicinedistributeService,
-    private route: ActivatedRoute,
-    private router:Router,private toastr: ToastrService) { }
+    public medicinedistributeService: MedicinedistributeService,
+    private router: Router,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.prescriptionId = +params['pid'];
-      if (this.prescriptionId) {
-        this.getPrescriptionDetails(this.prescriptionId);
+  }
+
+  onSubmit(mdaForm: NgForm) {
+    if (mdaForm.invalid) {
+      this.toastr.warning('Please fill all required fields', 'Validation');
+      return;
+    }
+  
+    const quantityDistributed = this.medicinedistributeService.formMedicinedistributeData.QuantityDistributed;
+    const stockInHand = this.medicinedistributeService.formMedicinedistributeData.StockInHand;
+  
+    if (quantityDistributed < 1) {
+      this.toastr.warning('Quantity must be at least 1', 'Validation');
+      return;
+    }
+  
+    if (quantityDistributed > stockInHand) {
+      this.toastr.warning(`Quantity cannot exceed stock in hand (${stockInHand})`, 'Validation');
+      return;
+    }
+  
+    this.submitted = true;
+    const distributionData = {
+      PrescriptionId: this.medicinedistributeService.formMedicinedistributeData.PrescriptionId,
+      MedicineId: this.medicinedistributeService.formMedicinedistributeData.MedicineId,
+      QuantityDistributed: quantityDistributed,
+      DistributionDate: this.distributionDate,
+      MedStatusId: 1
+    };
+  
+    this.medicinedistributeService.insertMedicineDistribute(distributionData).subscribe({
+      next: (response) => {
+        this.toastr.success('Medicine distributed successfully', 'Success');
+        this.router.navigate(['/medicine-prescriptions/Medicinebilllist', distributionData.PrescriptionId]);
+      },
+      error: (error) => {
+        this.toastr.error('Failed to distribute medicine', 'Error');
+        console.error('Error submitting distribution:', error);
+        this.submitted = false;
       }
     });
   }
+  
 
-  getPrescriptionDetails(prescriptionId: number): void {
-    this.medicinedistributeService.getPrescriptionDetails(prescriptionId).subscribe(
-      (response) => {
-        this.medicinedistributeService.formMedicinedistributeData = response;
-      },
-      (error) => {
-        this.toastr.error('Failed to fetch prescription details', 'Error');
-        console.error(error);
-      }
-    );
+  navigateToBill() {
+    const prescriptionId = this.medicinedistributeService.formMedicinedistributeData.PrescriptionId;
+    if (prescriptionId && this.submitted) {
+      this.router.navigate(['/medicine-prescriptions/Medicinebilllist', prescriptionId]);
+    } else {
+      this.toastr.warning('Please submit the distribution form first', 'Warning');
+    }
   }
-
-onSubmit(mdaForm: NgForm){
-  console.log(mdaForm.value);
-
-  //Call Insert Method
- this.addMedicineDistribute(mdaForm);
-
-  //Reset Form
-  mdaForm.reset();
-
-
-}
-
-//Insert Method
-addMedicineDistribute(mdaForm: NgForm){
-console.log("inserting...");
-this.medicinedistributeService.insertMedicineDistribute(mdaForm.value).subscribe(
-  (response)=>{
-    console.log(response);
-    this.toastr.success('Record has been inserted successfully','EMS v2024');
-
-    //insert successfull ,clear error message
-    this.errorMessage = null;
-
-    //refresh the list anf navigate to the employee list page
-    this.medicinedistributeService.getAllMedicineDistribute();
-
-    //Redirect to medicine distribute List
-    this.router.navigate(['/pharmacists/Medicineprescriptionlist']);
-    //Reset Form
-    mdaForm.reset();
-
-  },
-  (error)=>{
-    console.log(error);
-    this.toastr.error('An error occurred ','EMS v2024');
-    this.errorMessage ='An error occured!' + error;
-  }
-);
-}
-
 }

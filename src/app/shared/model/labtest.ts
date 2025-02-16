@@ -3,15 +3,8 @@ export class Labtest {
   TestName: string = '';
   Price: number = 0.00;
   LowRange: number = 0.00;
-
   HighRange: number = 0.00;
-
-
-
-
-CreatedDate: Date = new Date(); 
-
-Sample: string = '';
-IsActive: boolean= false;
-
+  CreatedDate: string = new Date().toISOString().split('T')[0];
+  Sample: string = '';
+  IsActive: boolean = true;
 }

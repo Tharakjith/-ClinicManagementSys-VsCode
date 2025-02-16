@@ -7,10 +7,10 @@ export class StartDiagnosy {
     "Diagnosis": string='';
     "Symptoms": string='';
     "NextVisiting":Date = new Date();
-    "DoctorNote":number = 0;
+    "DoctorNote":string='';
     "DiagnosysDate": string='';
     "DateTime": Date = new Date();
-   
+    
     "AppointmentId": number = 0;
     "IsActive": boolean;
     

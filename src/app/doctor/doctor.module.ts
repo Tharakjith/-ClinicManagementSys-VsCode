@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { DoctorRoutingModule } from './doctor-routing.module';
 import { DoctorComponent } from './doctor.component';
 import { StartDiagnosysAddComponent } from './start-diagnosys-add/start-diagnosys-add.component';
@@ -16,6 +15,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ViewAppointmentListComponent } from './view-appointment-list/view-appointment-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LabtestviewreportListComponent } from './labtestviewreport-list/labtestviewreport-list.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -25,12 +26,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     StartDiagnosysAddComponent,
     StartDiagnosysEditComponent,
     StartDiagnosysListComponent,
-     AddMedicineAddComponent,
+    AddMedicineAddComponent,
     AddMedicineListComponent,
-   AddMedicineEditComponent,
+    AddMedicineEditComponent,
     LabtestaddAddComponent,
     LabtestaddEditComponent,
-    LabtestaddListComponent
+    LabtestaddListComponent,
+    LabtestviewreportListComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgxPaginationModule,
     Ng2SearchPipeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class DoctorModule { }

@@ -1,0 +1,87 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header">
+      <h3>Generate Lab Test Report</h3>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Prescription Code</label>
+            <input type="text" class="form-control" [value]="tpId" disabled>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Patient Name</label>
+            <input type="text" class="form-control" [value]="reportDetails.PatientName" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Blood Group</label>
+            <input type="text" class="form-control" [value]="reportDetails.BloodGroup" disabled>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Test Name</label>
+            <input type="text" class="form-control" [value]="reportDetails.TestName" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Sample</label>
+            <input type="text" class="form-control" [value]="reportDetails.SampleItem" disabled>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">High Range</label>
+            <input type="text" class="form-control" [value]="reportDetails.HighRange" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Low Range</label>
+            <input type="text" class="form-control" [value]="reportDetails.LowRange" disabled>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Actual Result</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="report.ActualResult"
+              name="actualResult"
+              pattern="^[0-9]+$"
+              (input)="validateForm()"
+              required
+              [ngClass]="{ 'is-invalid': actualResultInvalid }"
+            />
+            <div *ngIf="actualResultInvalid" class="invalid-feedback">
+              Actual Result must be a number between 10 and 200.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label class="form-label">Remarks</label>
+            <textarea
+              class="form-control"
+              [(ngModel)]="report.Remarks"
+              name="remarks"
+              (input)="validateForm()"
+              rows="3"
+              required
+              [ngClass]="{ 'is-invalid': remarksInvalid }"
+            ></textarea>
+            <div *ngIf="remarksInvalid" class="invalid-feedback">
+              Remarks must be 3-15 characters, only letters or numbers, and one space allowed between words.
+            </div>
+          </div>
+        </div>
+        <div class="form-group text-center">
+        <button type="submit" class="btn btn-outline-info" [disabled]="isSubmitDisabled">
+          Submit Report
+        </button> &nbsp;&nbsp; <a class="btn btn-outline-secondary" [routerLink]="['/labtests/labtests']">
+          <i class="fa fa-arrow-left"></i>&nbsp;Back
+      </a>
+    </div>
+      </form>
+    </div>
+  </div>
+</div>

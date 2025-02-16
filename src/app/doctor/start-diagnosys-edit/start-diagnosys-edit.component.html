@@ -111,24 +111,7 @@
     </div>
 </div>
 </div>
-    <!-- Doctor Id with Dr name-------------------------------------------
-    <div class="form-group">
-        <label>Reference :</label>
-        <select name="Reference" id="Reference" #Reference="ngModel"
-                class="form-control validation-error"
-                [(ngModel)]="doctorService.formDiagnosysData.Reference" 
-                class ="form-control" required>
-
-            <option value="0" selected disabled> ---Select Doctor---</option>
-            <option *ngFor="let dept of doctorService.doctors"
-                value="{{dept.DoctorId}}">{{dept.DoctorId}}
-            </option>
-        </select>
-        <div class="validation-error" *ngIf="Reference.touched && Reference.invalid">
-        <div *ngIf="Reference.errors?.['required']">
-            Doctor Name is required! </div>
-        </div>
-    </div> -->
+2
             
 
     <!--AppointmentId--------------------------------------------------->

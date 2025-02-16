@@ -1,1 +1,74 @@
-<p>labtestreport-update works!</p>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Update Lab Test Report</h3>
+            <button class="btn btn-secondary" (click)="goBack()">Back to List</button>
+        </div>
+        <div class="card-body">
+            <div *ngIf="loading" class="text-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <form [formGroup]="reportForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Test Name</label>
+                            <input type="text" class="form-control" formControlName="testName" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">High Range</label>
+                            <input type="number" class="form-control" formControlName="highRange" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Low Range</label>
+                            <input type="number" class="form-control" formControlName="lowRange" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Actual Result*</label>
+                            <input type="number" class="form-control" formControlName="actualResult">
+                            <div class="text-danger" 
+                                 *ngIf="reportForm.get('actualResult')?.errors?.['required'] && 
+                                       reportForm.get('actualResult')?.touched">
+                                Actual result is required
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label class="form-label">Remarks*</label>
+                            <textarea class="form-control" formControlName="remarks" rows="3"></textarea>
+                            <div class="text-danger" 
+                                 *ngIf="reportForm.get('remarks')?.errors?.['required'] && 
+                                       reportForm.get('remarks')?.touched">
+                                Remarks are required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-primary" [disabled]="reportForm.invalid || submitting">
+                        <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                        Update Report
+                    </button>
+                    <button type="button" class="btn btn-success" (click)="generateBill()" [disabled]="reportForm.invalid">
+                        Generate Bill
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

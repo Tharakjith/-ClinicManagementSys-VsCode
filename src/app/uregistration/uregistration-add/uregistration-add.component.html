@@ -1,101 +1,103 @@
 <div class="container">
-    <h3>New User information</h3>
-    <hr>
-    <form name="frmStaff" #stForm="ngForm" autocomplete="off" (ngSubmit)="onSubmit(stForm)">
-        <!-- Staff Id -->
-        <div class="form-group">
-            <input type="hidden" readonly name="RegistrationId" class="form-control"
-                [(ngModel)]="registrationService.formStaffData.RegistrationId">
-        </div>
+    <br>
+    <br>
+    <br><br>
+    <div class="card" style="max-width: 800px; margin: 0 auto; padding: 50px;">
 
-        <!-- Staff Name -->
-        <div class="form-group">
-            <label>User Name: </label>
-            <input type="text" name="Username" #Username="ngModel" 
-                [(ngModel)]="registrationService.formStaffData.Username" 
-                class="form-control" placeholder="Enter Username" minlength="3" maxlength="25" required 
-                [ngClass]="{'is-invalid': Username.touched && Username.invalid}">
-        </div>
-        <div class="Validation-error" *ngIf="Username.touched && Username.invalid">
-            <div *ngIf="Username.errors?.['required']">Username is required!</div>
-        </div>
+        <h3>New User Information</h3>
+        <hr>
+        <form name="frmStaff" #stForm="ngForm" autocomplete="off" (ngSubmit)="onSubmit(stForm)">
+            <div class="row">
+                <!-- Role -->
+                <div class="col-md-6 form-group">
+                    <label>Role:</label>
+                    <select name="RoleId" id="RoleId" #DepartmentId="ngModel" [(ngModel)]="registrationService.formStaffData.RoleId" class="form-control" required>
+                        <option value="0" selected disabled>----Select Role----</option>
+                        <option *ngFor="let dept of registrationService.role" value="{{dept.RoleId}}">
+                            {{dept.RoleName}}
+                        </option>
+                    </select>
+                    <div *ngIf="DepartmentId.touched && DepartmentId.invalid" class="Validation-error">
+                        <div *ngIf="DepartmentId.errors?.['required']">Role is required!</div>
+                    </div>
+                </div>
 
-        <!-- Address -->
-        <div class="form-group">
-            <label>Password: </label>
-            <input type="Password" name="Password" #Password="ngModel" 
-                [(ngModel)]="registrationService.formStaffData.Password" 
-                class="form-control" placeholder="Enter Password" minlength="3" maxlength="50" required 
-                [ngClass]="{'is-invalid': Password.touched && Password.invalid}">
-        </div>
-        <div class="Validation-error" *ngIf="Password.touched && Password.invalid">
-            <div *ngIf="Password.errors?.['required']">Password is required!</div>
-        </div>
-
-       
-        <!-- Date of Joining -->
-        <div class="form-group">
-            <label>RegisteredDate: </label>
-            <input type="date" name="RegisteredDate" #RegisteredDate="ngModel" 
-                [(ngModel)]="registrationService.formStaffData.RegisteredDate" 
-                class="form-control" required 
-                [ngClass]="{'is-invalid': RegisteredDate.touched && RegisteredDate.invalid}">
-        </div>
-        <div class="Validation-error" *ngIf="RegisteredDate.touched && RegisteredDate.invalid">
-            <div *ngIf="RegisteredDate.errors?.['required']">RegisteredDate is required!</div>
-        </div>
-
-           <!--Department Id-->
- <div class="form-group">
-    <label>Role:</label>
-    <select name="RoleId" id="RoleId"
-        #DepartmentId="ngModel"
-        [(ngModel)]="registrationService.formStaffData.RoleId"
-        class="form-control"
-        required>
-        <option value="0" selected disabled>----Select Role----</option>
-        <option *ngFor="let dept of registrationService.role"
-            value="{{dept.RoleId}}">
-            {{dept.RoleName}}
-        </option>
-    </select>
-</div>
-
-<div class="form-group">
-    <label>Role:</label>
-    <select name="StaffId" id="StaffId"
-        #DepartmentId="ngModel"
-        [(ngModel)]="registrationService.formStaffData.StaffId"
-        class="form-control"
-        required>
-        <option value="0" selected disabled>----Select Staff----</option>
-        <option *ngFor="let dept of registrationService.staff"
-            value="{{dept.StaffId}}">
-            {{dept.StaffName}}
-        </option>
-    </select>
-</div>
-
-
-        <!-- Is Active -->
-        <div class="form-group">
-            <div class="form-check">
-                <input type="checkbox" name="RisActive" #RisActive="ngModel" 
-                    [(ngModel)]="registrationService.formStaffData.RisActive" 
-                    class="form-check-input">
-                <label class="form-check-label">Is Active</label>
+                <!-- Staff Name -->
+                <div class="col-md-6 form-group">
+                    <label>Staff Name:</label>
+                    <select name="StaffId" id="StaffId" #StaffId="ngModel" [(ngModel)]="registrationService.formStaffData.StaffId" class="form-control" required>
+                        <option value="0" selected disabled>----Select Staff----</option>
+                        <option *ngFor="let dept of registrationService.staff" value="{{dept.StaffId}}">
+                            {{dept.StaffName}}
+                        </option>
+                    </select>
+                    <div *ngIf="StaffId.touched && StaffId.invalid" class="Validation-error">
+                        <div *ngIf="StaffId.errors?.['required']">Staff is required!</div>
+                    </div>
+                </div>
             </div>
-        </div>
+            <br>
 
-       <!-- Submit Button -->
-       <div class="form-group">
-        <button type="submit" class="btn btn-lg btn-primary form-control" 
-            [disabled]="!(stForm.valid && stForm.dirty)">
-            INSERT
-        </button>
+            <div class="row">
+                <!-- Username -->
+                <div class="col-md-6 form-group">
+                    <label>User Name: </label>
+                    <input type="text" name="Username" #Username="ngModel" [(ngModel)]="registrationService.formStaffData.Username" class="form-control" placeholder="Enter Username" minlength="3" maxlength="10" required pattern="^[A-Za-z]+$" [ngClass]="{'is-invalid': Username.touched && Username.invalid}">
+                    <div class="Validation-error" *ngIf="Username.touched && Username.invalid">
+                        <div *ngIf="Username.errors?.['required']">Username is required!</div>
+                        <div *ngIf="Username.errors?.['pattern']">Username must contain only letters (no spaces or digits).</div>
+                        <div *ngIf="Username.errors?.['minlength']">Username must be at least 3 characters long.</div>
+                        <div *ngIf="Username.errors?.['maxlength']">Username cannot exceed 10 characters.</div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="col-md-6 form-group">
+                    <label>Password: </label>
+                    <input type="password" name="Password" #Password="ngModel" [(ngModel)]="registrationService.formStaffData.Password" class="form-control" placeholder="Enter Password" minlength="3" maxlength="10" required pattern="^[^\s]+$" [ngClass]="{'is-invalid': Password.touched && Password.invalid}">
+                    <div class="Validation-error" *ngIf="Password.touched && Password.invalid">
+                        <div *ngIf="Password.errors?.['required']">Password is required!</div>
+                        <div *ngIf="Password.errors?.['pattern']">Password cannot contain spaces.</div>
+                        <div *ngIf="Password.errors?.['minlength']">Password must be at least 3 characters long.</div>
+                        <div *ngIf="Password.errors?.['maxlength']">Password cannot exceed 10 characters.</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <!-- Registered Date -->
+                <div class="col-md-6 form-group">
+                    <label>Registered Date: </label>
+                    <input type="date" name="RegisteredDate" #RegisteredDate="ngModel" [(ngModel)]="registrationService.formStaffData.RegisteredDate" class="form-control" required [ngClass]="{'is-invalid': RegisteredDate.touched && RegisteredDate.invalid}">
+                    <div class="Validation-error" *ngIf="RegisteredDate.touched && RegisteredDate.invalid">
+                        <div *ngIf="RegisteredDate.errors?.['required']">Registered Date is required!</div>
+                    </div>
+                </div>
+
+                <!-- Is Active -->
+                <div class="col-md-6 form-group">
+                    <div class="form-check" style="margin-top: 32px;">
+                        <input type="checkbox" name="RisActive" #RisActive="ngModel" [(ngModel)]="registrationService.formStaffData.RisActive" class="form-check-input" [checked]="true">
+                        <label class="form-check-label">Is Active</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <!-- Submit Button -->
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-outline-info" [disabled]="!(stForm.valid && stForm.dirty)">
+                    INSERT
+                </button>&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-outline-secondary" [routerLink]="['/uregistration/list']">
+                    <i class="fa fa-arrow-left"></i>&nbsp;Back
+                </a>
+            </div>
+
+            <div *ngIf="errorMessage" class="error-message validation-error">
+                {{errorMessage}}
+            </div>
+        </form>
     </div>
-    <div *ngIf="errorMessage" class="error-message validation-error">
-        {{errorMessage}}
-    </div>
-</form>
 </div>

@@ -1,5 +1,9 @@
 <div class="container">
-    <h3>New Staff Info</h3>
+<br><br><br><br>
+    <div class="card" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+
+    <h3 style="color: #17baaf;"
+    >New Staff Info</h3>
     <hr>
     <form name="frmStaff" #stForm="ngForm" autocomplete="off" (ngSubmit)="onSubmit(stForm)">
         <!-- Staff Id -->
@@ -98,14 +102,19 @@
         </div>
 
         <!-- Submit Button -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-primary form-control" 
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-outline-info" 
                 [disabled]="!(stForm.valid && stForm.dirty)">
-                INSERT
-            </button>
+                Insert
+            </button>&nbsp;&nbsp;
+            <a class="btn btn-outline-secondary" [routerLink]="['/lab/list']">
+                <i class="fa fa-arrow-left"></i>&nbsp;Back
+            </a>
+    
         </div>
         <div *ngIf="errorMessage" class="error-message validation-error">
             {{errorMessage}}
         </div>
     </form>
+    </div>
 </div>

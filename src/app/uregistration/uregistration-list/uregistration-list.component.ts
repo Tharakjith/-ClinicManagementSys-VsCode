@@ -19,23 +19,23 @@ export class UregistrationListComponent implements OnInit {
     public registerService: RegistrationService,
     private router: Router,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.registerService.getAllusers();
     this.registerService.getAllRoles();
     this.registerService.getAllusers();
-
-
-
-
-  }
+    
+ 
+ 
+ 
+  } 
 
   getRoleName(roleId: number): string {
     const Role = this.registerService.role.find(c => c.RoleId === roleId);
-    return Role ? Role.RoleName : '';
+    return Role ? Role.RoleName:'';
   }
-
+  
 
   filteredUsers(): Registration[] {
     if (!this.searchTerm) {
@@ -47,40 +47,40 @@ export class UregistrationListComponent implements OnInit {
     );
   }
 
+  
 
+  Updateusers(register:Registration):void{
+       console.log(register);
+       this.populatedoctorData(register);
+       this.router.navigate(['/uregistration/edit/'+register.RegistrationId]);
+       //Call Populate Employee
+     }
+   
+     // Populate staff data for update
+     populatedoctorData(register: Registration): void {
+       console.log('Inside populatedoctorData method');
+       console.log(register);
+   this.registerService.formStaffData = { ...register };
+     }
+   
 
-  Updateusers(register: Registration): void {
-    console.log(register);
-    this.populatedoctorData(register);
-    this.router.navigate(['/uregistration/edit/' + register.RegistrationId]);
-    //Call Populate Employee
-  }
-
-  // Populate staff data for update
-  populatedoctorData(register: Registration): void {
-    console.log('Inside populatedoctorData method');
-    console.log(register);
-    this.registerService.formStaffData = { ...register };
-  }
-
-
-  deleteUser(register: Registration) {
-    //confirmation
-    if (confirm('Are your sure to DELETE this Record')) {
-      //As If deletion, set IsActive = false
-      register.RisActive = false;
-      this.registerService.Updateusers(register).subscribe(
-        (response) => {
-          console.log(response);
-          this.toastr.info('Employee has been deleted successfully', 'EMS v2024');
-          this.registerService.getAllusers();
-        },
-        (error) => {
-          console.log(error);
-          this.toastr.error('Something wrong! try again...', 'EMS v2024');
-        }
-      );
-
+     deleteUser(register: Registration){
+      //confirmation
+      if(confirm('Are your sure to Disable this Record')){
+        //As If deletion, set IsActive = false
+        register.RisActive=false;
+        this.registerService.Updateusers(register).subscribe(
+        (response)=>{
+            console.log(response);
+            this.toastr.info('Authentication disabled successfully');
+            this.registerService.getAllusers();
+      },
+    (error)=>{
+      console.log(error);
+      this.toastr.error('Something wrong! try again...','EMS v2024');
     }
-  }
-}
+      );
+    
+    }
+    }
+    }
